@@ -1,5 +1,6 @@
 #!/bin/bash  
-  
+#        Author: Zach.Wang
+#        Create: 2017-04-06 10:15:59
 INTERVAL="1"  # update interval in seconds  
   
 if [ -z "$1" ]; then  
