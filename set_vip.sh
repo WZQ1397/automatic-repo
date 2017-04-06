@@ -1,4 +1,7 @@
 #!/bin/bash
+#        Author: Zach.Wang
+#        Create: 2017-04-05 16:37:24
+#        HOW TO USE
 #./set_vip.sh start 192.168.1.100 
 case $1 in
 start)
@@ -20,17 +23,17 @@ status)
 
 # Status of LVS-DR real server.
 islothere=`/sbin/ifconfig lo:0 | grep $VIP`
-isrothere=`netstat -rn | grep ¡°lo:0¡å | grep $VIP`
+isrothere=`netstat -rn | grep Â¡Â°lo:0Â¡Ã¥ | grep $VIP`
 if [ ! "$islothere" -o ! "isrothere" ];then
 # Either the route or the lo:0 device
 # not found.
-echo ¡°LVS-DR real server Stopped.¡±
+echo Â¡Â°LVS-DR real server Stopped.Â¡Â±
 else
-echo ¡°LVS-DR Running.¡±
+echo Â¡Â°LVS-DR Running.Â¡Â±
 fi
 ;;
 *|help)
-echo ¡°$0: Usage: $0 {start|status|stop}¡±
+echo Â¡Â°$0: Usage: $0 {start|status|stop}Â¡Â±
 exit 1
 ;;
 esac
