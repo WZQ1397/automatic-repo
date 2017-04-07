@@ -3,6 +3,7 @@
 #        Create: 2017-04-05 16:37:24
 #        HOW TO USE
 #./set_vip.sh start 192.168.1.100 
+
 case $1 in
 start)
 echo 1 > /proc/sys/net/ipv4/conf/all/arp_ignore
