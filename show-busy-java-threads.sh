@@ -4,8 +4,7 @@
 #
 # @Usage
 #   $ ./show-busy-java-threads.sh
-#
-# @author Jerry Lee
+
 
 readonly PROG=`basename $0`
 readonly -a COMMAND_LINE=("$0" "$@")
