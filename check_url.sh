@@ -1,8 +1,10 @@
 #!/bin/bash
 #        Author: Zach.Wang
 #        Create: 2017-04-13 20:40:37
+# sh check_url.sh filename
 [ -f /etc/init.d/functions ] && source /etc/init.d/functions
 #check_url
+url_file=$1
 wait(){
 echo -n "wait 3s"
 for((i=0;i<3;i++))
@@ -27,6 +29,6 @@ main(){
   while read line
   do
     check_url $line
-  done < list.txt
+  done < $url_file
 }
 main
