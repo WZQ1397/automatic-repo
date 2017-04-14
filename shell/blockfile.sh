@@ -1,7 +1,6 @@
 #!/bin/bash  
 #        Author: Zach.Wang
 #        Create: 2017-04-06 10:15:59
-
 #HOW TO 
 #./createfile.sh aaa 10 50 bin /aaa
 NAME=$1
