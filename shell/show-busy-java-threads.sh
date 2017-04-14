@@ -2,7 +2,6 @@
 # @Function
 # Find out the highest cpu consumed threads of java, and print the stack of these threads.
 #
-# @Usage
 #   $ ./show-busy-java-threads.sh
 
 
