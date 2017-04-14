@@ -1,6 +1,10 @@
 #!/bin/bash
-
-for category in 720P 1080P 3D
+arr=(
+1080p
+720p
+3d
+)
+for category in $arr[*]
 do
     for ((i=1;i<5;i++))
     do
