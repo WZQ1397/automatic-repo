@@ -1,0 +1,128 @@
+version: "2"
+services:
+  web1:
+    image: nginx:1.11.12-alpine
+    ports:
+      - "8080:8000"
+    networks:
+      - "netName1"
+    volumes:
+      - /web_zach:/mnt/web_zach/
+      - /zach/docker/nginx:/etc/nginx/conf.d/
+  web2:
+    image: nginx:1.11.12-alpine
+    ports:
+      - "8081:8000"
+    networks:
+      - "netName1"
+    volumes:
+      - /web_zach:/mnt/web_zach/
+      - /zach/docker/nginx:/etc/nginx/conf.d/
+  App3:
+    image: httpd:2.4.25-alpine
+    ports:
+      - "8001:8000"
+    networks:
+      - "netName2"
+    volumes:
+      - /web_zach:/mnt/web_zach/
+      - /zach/docker/nginx:/etc/nginx/conf.d/
+
+  webbackend:
+    image: nginx
+    ports:
+      - "8888:8000"
+    networks:
+      - "netName2"
+    volumes:
+      - /web_zach:/mnt/web_zach/
+      - /zach/docker/nginx:/etc/nginx/conf.d/
+  redis_mas:
+    image: redis:3.2.8-alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - "netName2"  
+  redis1:
+    image: redis:3.2.8-alpine
+    ports:
+      - "16379:6379"
+    networks:
+      - "netName2"
+  redis2:
+    image: redis:3.2.8-alpine
+    ports:
+      - "16380:6379"
+    networks:
+      - "netName2"  
+  redis3:
+    image: redis:3.2.8-alpine
+    ports:
+      - "16381:6379"
+    networks:
+      - "netName2"
+
+  server1: 
+    image: alpine_ssh:1.17 
+    ports: 
+      - "22001:22" 
+    networks: 
+      - "cluster01" 
+    command: [/usr/sbin/sshd, -D] 
+  server2: 
+    image: alpine_ssh:1.17 
+    ports: 
+      - "22002:22" 
+    networks: 
+      - "cluster01" 
+    command: [/usr/sbin/sshd, -D] 
+  server3: 
+    image: alpine_ssh:1.17 
+    ports: 
+      - "22003:22" 
+    networks: 
+      - "cluster01" 
+    command: [/usr/sbin/sshd, -D] 
+  server4: 
+    image: alpine_ssh:1.17 
+    ports: 
+      - "22004:22" 
+    networks: 
+      - "cluster01" 
+    command: [/usr/sbin/sshd, -D] 
+  server5: 
+    image: alpine_ssh:1.17 
+    ports: 
+      - "22005:22" 
+    networks: 
+      - "cluster01" 
+    command: [/usr/sbin/sshd, -D] 
+  server6: 
+    image: alpine_ssh:1.17 
+    ports: 
+      - "22006:22" 
+    networks: 
+      - "cluster01" 
+    command: [/usr/sbin/sshd, -D] 
+  server7: 
+    image: alpine_ssh:1.17 
+    ports: 
+      - "22007:22" 
+    networks: 
+      - "cluster01" 
+    command: [/usr/sbin/sshd, -D] 
+  server8: 
+    image: alpine_ssh:1.17 
+    ports: 
+      - "22008:22" 
+    networks: 
+      - "cluster01" 
+    command: [/usr/sbin/sshd, -D] 
+
+networks:
+   netName1:
+     driver: bridge
+   netName2:
+     driver: bridge
+   cluster01: 
+     driver: bridge
