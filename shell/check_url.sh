@@ -1,6 +1,7 @@
 #!/bin/bash
 #        Author: Zach.Wang
 #        Create: 2017-04-13 20:40:37
+# how to
 # sh check_url.sh filename
 [ -f /etc/init.d/functions ] && source /etc/init.d/functions
 #check_url
