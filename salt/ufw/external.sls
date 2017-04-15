@@ -1,6 +1,3 @@
-# Firewall rules for external hosts
-# Check https://help.ubuntu.com/community/UFW for refernce
-
 firewall:
   service.running:
     - name: ufw
