@@ -17,8 +17,10 @@
 :ufw-user-limit-accept - [0:0]
 ### RULES ###
 
-### tuple ### allow any any 0.0.0.0/0 any 10.10.10.1 in
--A ufw-user-input -s 10.10.10.1 -j ACCEPT
+### tuple ### allow any any 0.0.0.0/0 any *.*.*.*/24 in
+-A ufw-user-input -s 172.16.6.0/24 -j ACCEPT
+-A ufw-user-input -s 172.16.10.0/24 -j ACCEPT
+-A ufw-user-input -s 10.112.5.0/24 -j ACCEPT
 
 ### END RULES ###
 
