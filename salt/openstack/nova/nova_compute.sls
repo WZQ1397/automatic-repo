@@ -28,6 +28,7 @@ nova-compute:
       VM_TYPE: {{ pillar['nova']['VM_TYPE'] }}
       CONTROL_IP: {{ pillar['keystone']['CONTROL_IP'] }}
       VNC_PROXY_URL: {{ pillar['nova']['VNC_PROXY_URL'] }}
+      MY_IP:{{ salt['network.ip_addrs ']('ens160') }}
     - require:
       - pkg: nova-compute
     - watch_in:

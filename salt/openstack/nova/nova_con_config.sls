@@ -28,7 +28,11 @@ include:
       VM_TYPE: {{ pillar['nova']['VM_TYPE'] }}
       CONTROL_IP: {{ pillar['keystone']['CONTROL_IP'] }}
       VNC_PROXY_URL: {{ pillar['nova']['VNC_PROXY_URL'] }}
-
+      NOVA_API_DBNAME: {{ pillar['nova']['NOVA_API_DBNAME'] }}
+      NOVA_DBNAME: {{ pillar['nova']['NOVA_DBNAME'] }}
+      MYSQL_SERVER: {{ pillar['nova']['MYSQL_SERVER'] }}
+      MY_IP:{{ salt['network.ip_addrs ']('ens160') }}
+      
 /var/log/nova:
   file.directory:
     - user: root

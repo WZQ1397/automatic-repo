@@ -16,6 +16,6 @@ keystone-manage bootstrap --bootstrap-password ADMIN_PASS \
   --bootstrap-region-id RegionOne
 
 openstack project create --domain default --description "Service Project" service
-openstack user create --domain default --password-prompt admin
+openstack user create --domain default --password {{KEYSTONE_PASS}} admin
 openstack role create admin
 openstack role add --project admin --user admin admin
