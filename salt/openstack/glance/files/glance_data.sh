@@ -11,9 +11,9 @@ openstack endpoint create --region RegionOne identity public http://{{CONTROL_IP
 openstack endpoint create --region RegionOne identity internal http://{{CONTROL_IP}}:5000/v3
 openstack endpoint create --region RegionOne identity admin http://{{CONTROL_IP}}:35357/v3
 
-openstack user create --domain default --password-prompt glance
-openstack role add --project service --user glance admin
-openstack service create --name glance   --description "OpenStack Image" image
+openstack user create --domain default --password {{ GLANCE_PASS }} {{ GLANCE_USER }}
+openstack role add --project service --user {{ GLANCE_USER }} admin
+openstack service create --name {{ GLANCE_USER }}   --description "OpenStack Image" image
 
 openstack endpoint create --region RegionOne image public http://{{CONTROL_IP}}:9292
 openstack endpoint create --region RegionOne image internal http://{{CONTROL_IP}}:9292

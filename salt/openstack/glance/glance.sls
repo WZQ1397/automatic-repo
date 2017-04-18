@@ -126,6 +126,8 @@ glance-data-init:
       ADMIN_PASSWD: {{ pillar['glance']['ADMIN_PASSWD'] }} 
       ADMIN_TOKEN: {{ pillar['glance']['ADMIN_TOKEN'] }}
       CONTROL_IP: {{ pillar['glance']['CONTROL_IP'] }}
+      GLANCE_USER: {{ pillar['glance']['GLANCE_USER'] }}
+      GLANCE_PASS: {{ pillar['glance']['GLANCE_PASS'] }}
     - watch_in:
       service: glance-api
   cmd.run:
