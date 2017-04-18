@@ -1,7 +1,7 @@
 include:
   - openstack.nova.nova_config
 
-keystone:
+nova-pkg:
   pkg.installed:
     - pkgs:
         - nova-api
@@ -116,8 +116,3 @@ NOVA_RELOAD:
         service nova-scheduler restart
         service nova-conductor restart
         service nova-novncproxy restart
-      
-
-
-
-

@@ -1,36 +1,43 @@
-include:
-  - openstack.nova.nova_config
-  - openstack.nova.nova_compute_install
-
-nova-compute-service:
-  file.managed:
-    - name: /etc/init.d/openstack-nova-compute
-    - source: salt://openstack/nova/files/openstack-nova-compute
+nova-compute:
+  pkg.installed[]
+        
+/etc/nova:
+  file.recurse:
+    - source: salt://openstack/nova/files/nova-computer
+    - mode: 644
     - user: root
     - group: root
-    - mode: 755
+    - template: jinja
+    - defaults:
+      NOVA_USER: {{ pillar['nova']['NOVA_USER'] }}
+      NOVA_PASS: {{ pillar['nova']['NOVA_PASS'] }}
+      NEUTRON_USER: {{ pillar['nova']['NEUTRON_USER'] }}
+      NEUTRON_PASS: {{ pillar['nova']['NEUTRON_PASS'] }}
+      PLACEMENT_USER: {{ pillar['nova']['PLACEMENT_USER'] }}
+      PLACEMENT_PASS: {{ pillar['nova']['PLACEMENT_PASS'] }}
+      RABBITMQ_HOST: {{ pillar['nova']['RABBITMQ_HOST'] }}
+      RABBITMQ_PORT: {{ pillar['nova']['RABBITMQ_PORT'] }}
+      RABBITMQ_USER: {{ pillar['nova']['RABBITMQ_USER'] }}
+      RABBITMQ_PASS: {{ pillar['nova']['RABBITMQ_PASS'] }}
+      NOVNC_PROXY_URL: {{ pillar['nova']['NOVNC_PROXY_URL'] }}
+      GLANCE_HOST: {{ pillar['nova']['GLANCE_HOST'] }}
+      AUTH_KEYSTONE_HOST: {{ pillar['nova']['AUTH_KEYSTONE_HOST'] }}
+      AUTH_KEYSTONE_PORT: {{ pillar['nova']['AUTH_KEYSTONE_PORT'] }}
+      AUTH_KEYSTONE_PROTOCOL: {{ pillar['nova']['AUTH_KEYSTONE_PROTOCOL'] }}
+      AUTH_ADMIN_PASS: {{ pillar['nova']['AUTH_ADMIN_PASS'] }}
+      VM_TYPE: {{ pillar['nova']['VM_TYPE'] }}
+      CONTROL_IP: {{ pillar['keystone']['CONTROL_IP'] }}
+      VNC_PROXY_URL: {{ pillar['nova']['VNC_PROXY_URL'] }}
+    - require:
+      - pkg: nova-compute
+    - watch_in:
+      - service: nova-compute
+
+nova_com-reload:
   cmd.run:
-    - name: chkconfig --add openstack-nova-compute
-    - unless: chkconfig --list | grep openstack-nova-compute
-    - require:
-      - file: nova-compute-service
-  service.running:
-    - name: openstack-nova-compute
-    - enable: True
-    - watch:
-      - file: /etc/nova/api-paste.ini
-      - file: /etc/nova/logging.conf
-      - file: /etc/nova/policy.json
-      - file: /etc/nova/rootwrap.conf
-      - file: /etc/nova/release
-      - file: /etc/nova/nova.conf
-      - file: /etc/nova/rootwrap.d/api-metadata.filters
-      - file: /etc/nova/rootwrap.d/baremetal-compute-ipmi.filters
-      - file: /etc/nova/rootwrap.d/baremetal-deploy-helper.filters
-      - file: /etc/nova/rootwrap.d/compute.filters
-      - file: /etc/nova/rootwrap.d/network.filters
-    - require:
-      - cmd.run: nova-compute-install
-      - cmd.run: nova-compute-service
-      - file: /var/log/nova
-      - file: /var/lib/nova/instances
+    - name: service nova-compute restart
+    
+libvirtd_remove_default_network:
+  cmd.run:
+    - name: virsh net-destroy default && virsh net-undefine default
+    - onlyif: virsh net-info default 1>/dev/null 2>&1
