@@ -1,6 +1,3 @@
-include:
-  - openstack.nova.nova_config
-
 nova-pkg:
   pkg.installed:
     - pkgs:

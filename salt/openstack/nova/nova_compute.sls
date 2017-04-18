@@ -32,7 +32,17 @@ nova-compute:
       - pkg: nova-compute
     - watch_in:
       - service: nova-compute
+      
+/var/log/nova:
+  file.directory:
+    - user: root
+    - group: root
 
+/var/lib/nova:
+  file.directory:
+    - user: root
+    - group: root
+    
 nova_com-reload:
   cmd.run:
     - name: service nova-compute restart
