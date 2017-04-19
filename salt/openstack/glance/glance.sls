@@ -1,5 +1,8 @@
 include:
-  - openstack.init.control
+  - openstack.pre.control
+
+glance:
+  pkg.installed[]
 
 file_bak:
   file.managed:
@@ -133,17 +136,16 @@ glance-data-init:
   cmd.run:
     - name: bash /usr/local/bin/glance_data.sh && touch /var/run/glance-datainit.lock
     - require:
-      - service: openstack-glance-api
-      - service: openstack-glance-registry
+      - service: glance-api
+      - service: glance-registry
     - unless: test -f /var/run/glance-datainit.lock
-
 
 glance-api:
   service:
     enable: True
     reload: True
 
-glance-api:
+glance-registry:
   service:
     enable: True
     reload: True

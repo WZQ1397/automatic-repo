@@ -1,5 +1,5 @@
 include:
-  - openstack.init.control
+  - openstack.pre.control
 
 keystone:
   pkg.installed[]
