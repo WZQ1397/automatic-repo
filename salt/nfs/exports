@@ -1,0 +1,5 @@
+/tmp 　　　　　 *(rw,no_root_squash)
+# 限定我的局域网络内 192.168.0.0/24  这个网域可以读写，其它人则只能读取
+/home/public 　 192.168.0.*(rw) 　　 *(ro)
+/home/test 　　 192.168.0.100(rw)
+/home/linux 　 *.1080pdy.com(rw,all_squash,anonuid=40,anongid=40)
