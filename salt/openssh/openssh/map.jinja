@@ -1,0 +1,97 @@
+{## Start with  defaults from defaults.yaml ##}
+{% import_yaml "openssh/defaults.yaml" as default_settings %}
+
+{## 
+Setup variable using grains['os_family'] based logic, only add key:values here
+that differ from whats in defaults.yaml
+##}
+{% set os_family_map = salt['grains.filter_by']({
+    'Arch': {
+      'server': 'openssh',
+      'client': 'openssh',
+      'service': 'sshd',
+      'dig_pkg': 'bind-tools',
+    },
+    'Debian': {
+      'server': 'openssh-server',
+      'client': 'openssh-client',
+      'service': 'ssh',
+    },
+    'FreeBSD': {
+      'service': 'sshd',
+      'dig_pkg': 'bind-tools',
+      'sshd_config_group': 'wheel',
+      'ssh_config_group': 'wheel',
+    },
+    'OpenBSD': {
+      'service': 'sshd',
+      'sshd_config_group': 'wheel',
+      'ssh_config_group': 'wheel',
+    },
+    'Gentoo': {
+      'server': 'net-misc/openssh',
+      'client': 'net-misc/openssh',
+      'service': 'sshd',
+      'dig_pkg': 'net-dns/bind-tools',
+    },
+    'RedHat': {
+      'server': 'openssh-server',
+      'client': 'openssh-clients',
+      'service': 'sshd',
+      'dig_pkg': 'bind-utils',
+    },
+    'Suse': {
+      'server': 'openssh',
+      'client': 'openssh',
+      'service': 'sshd',
+      'dig_pkg': 'bind-utils',
+    },
+  }
+  , grain="os_family"
+  , merge=salt['pillar.get']('openssh:lookup'))
+%}
+
+{## Merge the flavor_map to the default settings ##}
+{% do default_settings.openssh.update(os_family_map) %}
+
+{## Merge in openssh:lookup pillar ##}
+{% set openssh = salt['pillar.get'](
+    'openssh',
+    default=default_settings.openssh,
+    merge=True
+  )
+%}
+
+{% set os_family_map = salt['grains.filter_by']({
+    'FreeBSD': {
+        'Subsystem': 'sftp /usr/libexec/sftp-server',
+    },
+    'OpenBSD': {
+        'Subsystem': 'sftp /usr/libexec/sftp-server',
+    },
+    'Suse': {
+        'Subsystem': 'sftp /usr/lib/ssh/sftp-server',
+    },
+    'Arch': {
+        'Subsystem': 'sftp /usr/lib/ssh/sftp-server',
+    },
+    'RedHat': {
+        'Subsystem': 'sftp /usr/libexec/openssh/sftp-server',
+    },
+    'default': {}
+  }
+  , grain="os_family"
+  , merge=salt['pillar.get']('sshd_config:lookup'))
+%}
+
+
+{## Merge the flavor_map to the default settings ##}
+{% do default_settings.sshd_config.update(os_family_map) %}
+
+{## Merge in sshd_config:lookup pillar ##}
+{% set sshd_config = salt['pillar.get'](
+    'sshd_config',
+    default=default_settings.sshd_config,
+    merge=True
+  )
+%}
