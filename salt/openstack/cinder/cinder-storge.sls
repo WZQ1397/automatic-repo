@@ -26,10 +26,10 @@ cinder-install:
       NOVNC_PROXY_URL: {{ pillar['nova']['NOVNC_PROXY_URL'] }}
       AUTH_KEYSTONE_HOST: {{ pillar['nova']['AUTH_KEYSTONE_HOST'] }}
       AUTH_KEYSTONE_PORT: {{ pillar['nova']['AUTH_KEYSTONE_PORT'] }}
-      AUTH_KEYSTONE_PROTOCOL: {{ pillar['nova']['AUTH_KEYSTONE_PROTOCOL'] }}
       AUTH_ADMIN_PASS: {{ pillar['nova']['AUTH_ADMIN_PASS'] }}
       MYSQL_SERVER: {{ pillar['nova']['MYSQL_SERVER'] }}
 
+      
 /dev/{{DISK}}:
   lvm.pv_present
 
