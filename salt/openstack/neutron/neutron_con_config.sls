@@ -9,28 +9,18 @@ include:
     - group: root
     - template: jinja
     - defaults:
-      NOVA_USER: {{ pillar['nova']['NOVA_USER'] }}
-      NOVA_PASS: {{ pillar['nova']['NOVA_PASS'] }}
-      NEUTRON_USER: {{ pillar['nova']['NEUTRON_USER'] }}
-      NEUTRON_PASS: {{ pillar['nova']['NEUTRON_PASS'] }}
-      PLACEMENT_USER: {{ pillar['nova']['PLACEMENT_USER'] }}
-      PLACEMENT_PASS: {{ pillar['nova']['PLACEMENT_PASS'] }}
-      RABBITMQ_HOST: {{ pillar['nova']['RABBITMQ_HOST'] }}
-      RABBITMQ_PORT: {{ pillar['nova']['RABBITMQ_PORT'] }}
-      RABBITMQ_USER: {{ pillar['nova']['RABBITMQ_USER'] }}
-      RABBITMQ_PASS: {{ pillar['nova']['RABBITMQ_PASS'] }}
-      NOVNC_PROXY_URL: {{ pillar['nova']['NOVNC_PROXY_URL'] }}
-      GLANCE_HOST: {{ pillar['nova']['GLANCE_HOST'] }}
-      AUTH_KEYSTONE_HOST: {{ pillar['nova']['AUTH_KEYSTONE_HOST'] }}
-      AUTH_KEYSTONE_PORT: {{ pillar['nova']['AUTH_KEYSTONE_PORT'] }}
-      AUTH_KEYSTONE_PROTOCOL: {{ pillar['nova']['AUTH_KEYSTONE_PROTOCOL'] }}
-      AUTH_ADMIN_PASS: {{ pillar['nova']['AUTH_ADMIN_PASS'] }}
-      VM_TYPE: {{ pillar['nova']['VM_TYPE'] }}
+      NEUTRON_USER: {{ pillar['neutron']['NEUTRON_USER'] }}
+      NEUTRON_PASS: {{ pillar['neutron']['NEUTRON_PASS'] }}
+      RABBITMQ_HOST: {{ pillar['neutron']['RABBITMQ_HOST'] }}
+      RABBITMQ_PORT: {{ pillar['neutron']['RABBITMQ_PORT'] }}
+      RABBITMQ_USER: {{ pillar['neutron']['RABBITMQ_USER'] }}
+      RABBITMQ_PASS: {{ pillar['neutron']['RABBITMQ_PASS'] }}
+      AUTH_KEYSTONE_HOST: {{ pillar['neutron']['AUTH_KEYSTONE_HOST'] }}
+      AUTH_KEYSTONE_PORT: {{ pillar['neutron']['AUTH_KEYSTONE_PORT'] }}
+      AUTH_ADMIN_PASS: {{ pillar['neutron']['AUTH_ADMIN_PASS'] }}
       CONTROL_IP: {{ pillar['keystone']['CONTROL_IP'] }}
-      VNC_PROXY_URL: {{ pillar['nova']['VNC_PROXY_URL'] }}
-      NOVA_API_DBNAME: {{ pillar['nova']['NOVA_API_DBNAME'] }}
-      NOVA_DBNAME: {{ pillar['nova']['NOVA_DBNAME'] }}
-      MYSQL_SERVER: {{ pillar['nova']['MYSQL_SERVER'] }}
+      VNC_PROXY_URL: {{ pillar['neutron']['VNC_PROXY_URL'] }}
+      MYSQL_SERVER: {{ pillar['neutron']['MYSQL_SERVER'] }}
       MY_IP:{{ salt['network.ip_addrs ']('ens160') }}
       
 /var/log/neutron:
@@ -73,7 +63,7 @@ neutron-init:
 NEUTRON_RELOAD:
     cmd.run:
       - name: |
-        service nova-api restart
+        service neutron-api restart
         service neutron-server restart
         service neutron-linuxbridge-agent restart
         service neutron-dhcp-agent restart
