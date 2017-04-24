@@ -1,0 +1,31 @@
+#!/bin/bash
+#        Author: Zach.Wang
+#        Create: 2017-04-13 20:40:37
+# how to
+# cat safety-rm >> /etc/bashrc && source /etc/bashrc
+trash_path=’~/.trash’
+
+if [ ! -d $trash_path ]; then
+mkdir -p $trash_path
+fi
+
+alias rm=trash
+alias rl=’ls ~/.trash’
+alias unrm=restorefile
+alias rmtrash=cleartrash
+
+restorefile()
+{
+  mv -i ~/.trash/$@ ./
+}
+
+trash()
+{
+  mv $@ ~/.trash/
+}
+
+cleartrash()
+{
+read -p “确定要清空回收站吗?[y/n]” confirm
+[ $confirm == ‘y’ ] || [ $confirm == ‘Y’ ] && /bin/rm -rf ~/.trash/*
+}
