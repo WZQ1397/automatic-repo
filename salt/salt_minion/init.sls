@@ -11,7 +11,9 @@ salt_minion:
 
 /etc/salt/minion:
   file.managed:
-    - source: salt://salt_minion/conf
+    - source: salt://salt_minion/minion
     - user: root
     - group: root
     - mode: 644
+    - defaults:
+      MASTER_IP: salt.yz3.tonyc.cn
