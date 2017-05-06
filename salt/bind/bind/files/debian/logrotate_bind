@@ -1,0 +1,13 @@
+{{ map.log_dir }}/query.log {
+    rotate 7
+    daily
+    missingok
+    notifempty
+    sharedscripts
+    copytruncate
+    compress
+    create 0664 bind root
+    {% if not salt['pkg.version']('logrotate').startswith('3.7')-%}
+    su
+    {% endif %}
+}
