@@ -1,4 +1,3 @@
-# Make sure salt is installed and running
 salt_minion:
   pkg.installed:
     - name: salt-minion
