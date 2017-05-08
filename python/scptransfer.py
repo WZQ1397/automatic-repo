@@ -1,3 +1,6 @@
+#!/bin/bash  
+#        Author: Zach.Wang
+#        Create: 2017-05-03 11:15:59
 import paramiko
 import os
 import sys
