@@ -1,3 +1,5 @@
+#        Author: Zach.Wang
+#        Create: 2017-05-05 17:21:33
 import smtplib
 from email.mime.text import MIMEText
 from email.header import Header
