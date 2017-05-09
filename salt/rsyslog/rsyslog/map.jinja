@@ -1,0 +1,29 @@
+# -*- coding: utf-8 -*-
+# vim: ft=jinja
+
+{## Start with  defaults from defaults.yaml ##}
+{% import_yaml "rsyslog/defaults.yaml" as default_settings %}
+
+{##
+Setup variable using grains['os_family'] based logic, only add key:values here
+that differ from whats in defaults.yaml
+##}
+{% set os_family_map = salt['grains.filter_by']({
+    'Debian': {},
+    'RedHat': {
+      'workdirectory': '/var/lib/rsyslog',
+    },
+    'Arch': {},
+    'Suse': {},
+  }, grain='os_family', merge=salt['pillar.get']('rsyslog:lookup')) 
+%}
+
+{## Merge the flavor_map to the default settings ##}
+{% do default_settings.rsyslog.update(os_family_map) %}
+
+{## Merge in salt:lookup pillar ##}
+{% set rsyslog = salt['pillar.get'](
+    'rsyslog',
+    default=default_settings.rsyslog,
+    merge=True)
+%}
