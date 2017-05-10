@@ -1,0 +1,113 @@
+#  /etc/rsyslog.conf    Configuration file for rsyslog.
+#
+#                       For more information see
+#                       /usr/share/doc/rsyslog-doc/html/rsyslog_conf.html
+
+
+#################
+#### MODULES ####
+#################
+
+$ModLoad imuxsock # provides support for local system logging
+{% if config.imkllog|default(true) -%}
+$ModLoad imklog   # provides kernel logging support (previously done by rklogd)
+{%- endif %}
+{% if config.imjournal|default(false) -%}
+$ModLoad imjournal # provides access to the systemd journal
+{%- endif %}
+{% if config.immark|default(false) -%}
+$ModLoad immark  # provides --MARK-- message capability
+$MarkMessagePeriod   {{ config.markmessageperiod|default('3600') }}
+{%- else %}
+#$ModLoad immark  # provides --MARK-- message capability
+{%- endif %}
+
+{% if config.listenudp|default(false) -%}
+# provides UDP syslog reception
+$ModLoad imudp
+$UDPServerRun 514
+{%- endif %}
+
+{% if config.listentcp|default(false) -%}
+# provides TCP syslog reception
+$ModLoad imtcp
+$InputTCPServerRun {{ config.listentcpprt|default('514') }}
+{%- endif %}
+
+###########################
+#### GLOBAL DIRECTIVES ####
+###########################
+
+{% if config.imjournal|default(false) -%}
+# Where to place auxiliary files
+$WorkDirectory {{ config.get('workdirectory', '/var/spool/rsyslog') }}
+{%- endif %}
+
+#
+# Use traditional timestamp format.
+# To enable high precision timestamps, comment out the following line.
+#
+$ActionFileDefaultTemplate {{ config.get('template', 'RSYSLOG_TraditionalFileFormat') }}
+
+{% if config.repeated_msg_reduction|default(false) -%}
+# Filter duplicated messages
+$RepeatedMsgReduction {{config.get('repeated_msg_reduction', 'off') }}
+{%- endif %}
+
+#
+# Set the default permissions for all log files.
+#
+$FileOwner {{ config.get('fileowner', 'root') }}
+$FileGroup {{ config.get('filegroup', 'adm') }}
+$FileCreateMode {{ config.get('filemode', '0640') }}
+$DirCreateMode {{ config.get('dirmode', '0755') }}
+$Umask 0022
+{% if config.priv_drop_to_user|default(false) -%}
+$PrivDropToUser {{ config.get('priv_drop_to_user', config.get('fileowner', 'root'))}}
+{%- endif %}
+{% if config.priv_drop_to_group|default(false) -%}
+$PrivDropToGroup {{ config.get('priv_drop_to_group', config.get('filegroup', 'adm'))}}
+{%- endif %}
+
+#
+# Include all config files in /etc/rsyslog.d/
+#
+$IncludeConfig /etc/rsyslog.d/*.conf
+
+{% if config.target|default(false) %}
+{% if config.protocol|default('udp') == 'tcp' %}
+*.* @@{{ config.target }}
+{% else %}
+*.* @{{ config.target }}
+{% endif %}
+{% else %}
+{% for target in config.get('targets', []) %}
+$ActionQueueType LinkedList
+$ActionQueueFileName {{ target }}
+$ActionResumeRetryCount -1
+$ActionQueueSaveOnShutdown on
+{% if config.protocol|default('udp') == 'tcp' %}
+*.* @@{{ target }}
+{% else %}
+*.* @{{ target }}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% if config.logbasepath|default(false) %}
+$template DailyPerHostLogs,"{{ config.logbasepath }}/%HOSTNAME%-%FROMHOST-IP%/%$YEAR%/%$MONTH%/%$DAY%.log"
+*.* -?DailyPerHostLogs
+{% endif %}
+
+{% if config.imjournal|default(false) -%}
+# Turn off message reception via local log socket;
+# local messages are retrieved through imjournal now.
+$OmitLocalLogging on
+
+# File to store the position in the journal
+$IMJournalStateFile imjournal.state
+# If there is no saved state yet, don't read in the whole bulk of messages.
+# # This means some of the older messages won't be collected by rsyslog,
+# # but it also prevents a potential huge spike in resource utilization.
+# $IMJournalIgnorePreviousMessages on
+{%- endif %}
