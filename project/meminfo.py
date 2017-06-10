@@ -16,3 +16,6 @@ if __name__ == '__main__':
     meminfo = meminfo()
     print("Total memory:{0}".format(meminfo['MemTotal']))
     print("Free memory:{0}".format(meminfo['MemFree']))
+    print("SwapTotal:{0}".format(meminfo['SwapTotal']))
+    print("SwapFree:{0}".format(meminfo['SwapFree']))
+    print("AcutalFree:{0}".format(int(meminfo['Buffers'])+int(meminfo['Cached'])+int(meminfo['MemFree'])))
