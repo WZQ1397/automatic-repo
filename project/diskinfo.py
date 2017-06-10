@@ -24,7 +24,7 @@ def dev_phy_size():
         blknum = disk.strip().split(' ')[-2]
         dev = disk.strip().split(' ')[-1]
         size = int(blknum)*1024
-        consist = dev+'['+humanize_bytes(size).strip()+']'
+        consist = dev+':'+humanize_bytes(size).strip()
         res += consist + '+'
     return res[:-1]
 print dev_phy_size()
