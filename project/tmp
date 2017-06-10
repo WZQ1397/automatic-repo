@@ -1,0 +1,8 @@
+head -1 /etc/issue
+hostname
+(ps -ef | wc -l) -1
+more /proc/loadavg  | cut -d " " -f 1-3
+uptime | cut -d "," -f 1
+ip -4 a | grep inet | grep -v "127.0.0.1" | cut -d " " -f 6,11
+df -h | grep ^/dev/* | awk '{print $4,$5}'
+if tcp_connect > 500 or upd_connect > 300:
