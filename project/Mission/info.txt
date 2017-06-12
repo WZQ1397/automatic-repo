@@ -1,0 +1,49 @@
+
+主机名:           ZACH
+OS 名称:          Microsoft Windows 7 旗舰版 
+OS 版本:          6.1.7601 Service Pack 1 Build 7601
+OS 制造商:        Microsoft Corporation
+OS 配置:          独立工作站
+OS 构件类型:      Multiprocessor Free
+注册的所有人:     edong
+注册的组织:       Microsoft
+产品 ID:          00426-OEM-8992662-00006
+初始安装日期:     2017/1/9, 2:50:16
+系统启动时间:     2017/6/9, 8:47:39
+系统制造商:       Gigabyte Technology Co., Ltd.
+系统型号:         G41MT-S2
+系统类型:         x64-based PC
+处理器:           安装了 1 个处理器。
+                  [01]: Intel64 Family 6 Model 23 Stepping 10 GenuineIntel ~3066 Mhz
+BIOS 版本:        Award Software International, Inc. F7, 2011/8/3
+Windows 目录:     C:\Windows
+系统目录:         C:\Windows\system32
+启动设备:         \Device\HarddiskVolume1
+系统区域设置:     zh-cn;中文(中国)
+输入法区域设置:   zh-cn;中文(中国)
+时区:             (UTC+08:00)北京，重庆，香港特别行政区，乌鲁木齐
+物理内存总量:     4,060 MB
+可用的物理内存:   589 MB
+虚拟内存: 最大值: 8,119 MB
+虚拟内存: 可用:   4,381 MB
+虚拟内存: 使用中: 3,738 MB
+页面文件位置:     C:\pagefile.sys
+域:               WORKGROUP
+登录服务器:       \\ZACH
+修补程序:         安装了 8 个修补程序。
+                  [01]: KB2999226
+                  [02]: KB3011780
+                  [03]: KB3078071
+                  [04]: KB3184122
+                  [05]: KB4012212
+                  [06]: KB958488
+                  [07]: KB976902
+                  [08]: KB976932
+网卡:             安装了 1 个 NIC。
+                  [01]: Atheros AR8151 PCI-E Gigabit Ethernet Controller (NDIS 6.20)
+                      连接名:      本地连接
+                      启用 DHCP:   是
+                      DHCP 服务器: 10.112.5.254
+                      IP 地址
+                        [01]: 10.112.5.173
+                        [02]: fe80::5860:ae96:514d:2897
