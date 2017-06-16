@@ -1,7 +1,7 @@
 # python day 25
 # author zach.wang
 # -*- coding:utf-8 -*-
-import re,time
+import time
 
 def _read_cpu_usage():
         """Read the current system cpu usage from /proc/stat"""

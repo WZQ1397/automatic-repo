@@ -1,7 +1,8 @@
 # python day 23
 # author zach.wang
 # -*- coding:utf-8 -*-
-import platform,re,subprocess,socket,time
+import platform,re,socket,time
+from Serverinfo import humanreadsize
 
 syscheck = str(platform.system()).lower()
 def winsysadvinfo(wininfo):
@@ -62,29 +63,13 @@ def winsysadvinfo(wininfo):
 
     return dic
 
-def humanize_bytes(bytesize, precision=0):
-    abbrevs = (
-        (10**15, 'PB'),
-        (10**12, 'TB'),
-        (10**9, 'GB'),
-        (10**6, 'MB'),
-        (10**3, 'kB'),
-        (1, 'bytes')
-    )
-    if bytesize == 1:
-        return '1 byte'
-    for factor, suffix in abbrevs:
-        if bytesize >= factor:
-            break
-    return '%.*f%s' % (precision, float(bytesize) / factor, suffix)
-
 def beautiful_print(info):
     if syscheck == "windows":
         wininfo = winsysadvinfo(info)
         diskinfo = {}
         #print(re.sub(",","\n",str()))
         for disk in wininfo['Diskdetail']:
-            size = humanize_bytes(int(disk[0]))
+            size = humanreadsize.humanize_bytes(int(disk[0]))
             '''
             if size < 1:
                 size = str(int(disk[0])//(1024**2))+"MB"
@@ -114,9 +99,7 @@ def beautiful_print(info):
 
 
 def linux():
-    cpuinfo.get_cpu_usage()
-    meminfo.meminfo()
-    diskinfo.dev_phy_size()
+    pass
 
 def serverinfo():
     info = ""
