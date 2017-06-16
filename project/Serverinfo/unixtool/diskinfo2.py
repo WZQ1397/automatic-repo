@@ -4,7 +4,7 @@ import re
 from Serverinfo import humanreadsize
 
 def dev_phy_size():
-    with open('E:\\automatic-repo\\project\\b.txt','r') as dp:
+    with open('/proc/partitions','r') as dp:
         res = ''
         for disk in dp.readlines():
             if re.search(r'[s,h,v]d[a-z]\n',disk):
@@ -13,14 +13,9 @@ def dev_phy_size():
                 size = int(blknum)*1000
                 consist = dev+':'+humanreadsize.humanize_bytes(size).strip()
                 res += consist + '\n'
-        return res
-
-def filter(value):
-    
+        return res[:-1]
 
 if __name__ == '__main__':
     print(dev_phy_size())
 else:
-    filter(dev_phy_size())
-
-
+    pass
