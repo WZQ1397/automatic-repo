@@ -2,7 +2,8 @@
 # author zach.wang
 # -*- coding:utf-8 -*-
 import platform,re,socket,time
-from Serverinfo import humanreadsize
+from Serverinfo import humanreadsize,unixinfo
+
 
 syscheck = str(platform.system()).lower()
 def winsysadvinfo(wininfo):
@@ -99,7 +100,7 @@ def beautiful_print(info):
 
 
 def linux():
-    pass
+    unixinfo.main()
 
 def serverinfo():
     info = ""
@@ -126,7 +127,7 @@ def serverinfo():
     finally:
         return info
 
-if syscheck == "windows":
+if syscheck != "windows":
     print(serverinfo())
     info = serverinfo()
     print(beautiful_print(info))

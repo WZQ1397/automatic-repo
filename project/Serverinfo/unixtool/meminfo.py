@@ -19,7 +19,14 @@ def meminfo():
             meminfo[line.split(':')[0]] = size
     return meminfo
 
-
+def memory():
+    memdict = {}
+    mem = meminfo()
+    memdict['MemTotal'] = mem['MemTotal']
+    memdict['MemFree'] = mem['MemFree']
+    memdict['SwapTotal'] = mem['SwapTotal']
+    memdict['SwapFree'] = mem['SwapFree']
+    return memdict
 
 if __name__ == '__main__':
     meminfo = meminfo()
@@ -28,4 +35,4 @@ if __name__ == '__main__':
     print("SwapTotal:   {0}".format(meminfo['SwapTotal']))
     print("SwapFree:    {0}".format(meminfo['SwapFree']))
 else:
-    meminfo()
+    memory()
