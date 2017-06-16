@@ -54,3 +54,4 @@ def get_cpu_usage():
 if __name__ == '__main__':
     print(get_cpu_usage())
 else:
+    get_cpu_usage()
