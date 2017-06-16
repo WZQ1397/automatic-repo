@@ -1,51 +1,55 @@
 # python day 25
 # author zach.wang
 # -*- coding:utf-8 -*-
-import time
-def _read_cpu_usage(self):
-    """从/proc/stat读取当前系统cpu使用率""" 
-    try:  
-        fd = open("/proc/stat", 'r')  
-        lines = fd.readlines()
-    finally:  
-        if fd:  
-            fd.close()
- 
-    for line in lines:  
-        l = line.split()  
-        if len(l) < 5:  
-            continue 
-        if l[0].startswith('cpu'):  
-            return l  
- 
-    return []  
-   
-def get_cpu_usage(self):  
-    """ 
-    get cpu avg used by percent 
-    """ 
-    cpustr=self._read_cpu_usage()  
- 
-    if not cpustr:  
-        return 0 
- 
-    #cpu usage=[(user_2 +sys_2+nice_2) - (user_1 + sys_1+nice_1)]/(total_2 - total_1)*100 
- 
-    usni1=int(cpustr[1])+int(cpustr[2])+int(cpustr[3])+int(cpustr[5])+int(cpustr[6])+int(cpustr[7])+int(cpustr[4])
-    usn1=int(cpustr[1])+int(cpustr[2])+int(cpustr[3])  
- 
-   #usni1=int(cpustr[1])+int(cpustr[2])+int(cpustr[3])+int(cpustr[4])  
- 
-   # self.sleep=2  
- 
-    time.sleep(self.sleep)  
-    cpustr=self._read_cpu_usage()  
- 
-    if not cpustr:  
-        return 0 
- 
-    usni2=int(cpustr[1])+int(cpustr[2])+float(cpustr[3])+int(cpustr[5])+int(cpustr[6])+int(cpustr[7])+int(cpustr[4])
-    usn2=int(cpustr[1])+int(cpustr[2])+int(cpustr[3])  
-    cpuper=(usn2-usn1)/(usni2-usni1)
- 
-    return 100*cpuper
+import re,time
+
+def _read_cpu_usage():
+        """Read the current system cpu usage from /proc/stat"""
+        statfile = "/proc/stat"
+        cpulist = []
+        try:
+                f = open(statfile, 'r')
+                lines = f.readlines()
+        except:
+                return []
+        for line in lines:
+            tmplist = line.split()
+            if len(tmplist) < 5:
+                continue
+            if tmplist[0].startswith('cpu'):
+                cpulist.append(tmplist)
+        f.close()
+        return cpulist
+
+def get_cpu_usage():
+        cpuusage = {}
+        cpustart = {}
+        cpuend = {}
+        linestart = _read_cpu_usage()
+        if not linestart:
+                return 0
+        for cpustr in linestart:
+                usni=int(cpustr[1])+int(cpustr[2])+int(cpustr[3])+int(cpustr[5])+int(cpustr[6])+int(cpustr[7])+int(cpustr[4])
+                usn=int(cpustr[1])+int(cpustr[2])+int(cpustr[3])
+                cpustart[cpustr[0]] = str(usni)+":"+str(usn)
+        sleep = 2
+        time.sleep(sleep)
+        lineend = _read_cpu_usage()
+        if not lineend:
+                return 0
+        for cpustr in lineend:
+                usni=int(cpustr[1])+int(cpustr[2])+int(cpustr[3])+int(cpustr[5])+int(cpustr[6])+int(cpustr[7])+int(cpustr[4])
+                usn=int(cpustr[1])+int(cpustr[2])+int(cpustr[3])
+                cpuend[cpustr[0]] = str(usni)+":"+str(usn)
+        for line in cpustart:
+                start = cpustart[line].split(':')
+                usni1,usn1 = float(start[0]),float(start[1])
+                end = cpuend[line].split(':')
+                usni2,usn2 = float(end[0]),float(end[1])
+                cpuper=(usn2-usn1)/(usni2-usni1)
+                cpuusage[line] = int(100*cpuper)
+
+        return cpuusage
+
+if __name__ == '__main__':
+    print(get_cpu_usage())

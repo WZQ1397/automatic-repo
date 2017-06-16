@@ -30,12 +30,12 @@ def winsysadvinfo(wininfo):
     Cpu.append(Maohao.split(re.sub("\s+",":",str(list(re.compile(r'\(R\) ').\
             split(str(list(wininfo['Cpu']))))[0])))[-1])
     Cpu.append(list(re.compile(r'Socket').split(str(list(re.compile(r'\(R\) ').\
-                              split(str(list(subprocess.getstatusoutput('wmic cpu list brief')))))[-1])))[0])
+                              split(str(list(wininfo['Cpu']))))[-1])))[0])
 
     #TODO Psycal Memery
-    PsyMem = int(list(Maohao.split(str(re.sub("\s+",":",Maohao.
+    PsyMem = list(Maohao.split(str(re.sub("\s+",":",Maohao.
                  split(re.sub("n",":",str(list(re.compile(r'Physical Memory Array ').\
-    split(str(list(wininfo['PsyMem']))))[0])))[-1]))))[0])/1048576
+    split(str(list(wininfo['PsyMem']))))[0])))[-1]))))
 
     #TODO Virt Memory
     VirtMem = list(Blank.split(str(list(jinghao.split(
@@ -62,27 +62,53 @@ def winsysadvinfo(wininfo):
 
     return dic
 
+def humanize_bytes(bytesize, precision=0):
+    abbrevs = (
+        (10**15, 'PB'),
+        (10**12, 'TB'),
+        (10**9, 'GB'),
+        (10**6, 'MB'),
+        (10**3, 'kB'),
+        (1, 'bytes')
+    )
+    if bytesize == 1:
+        return '1 byte'
+    for factor, suffix in abbrevs:
+        if bytesize >= factor:
+            break
+    return '%.*f%s' % (precision, float(bytesize) / factor, suffix)
+
 def beautiful_print(info):
     if syscheck == "windows":
         wininfo = winsysadvinfo(info)
         diskinfo = {}
-        diskx = ""
         #print(re.sub(",","\n",str()))
         for disk in wininfo['Diskdetail']:
-            diskinfo[re.sub("\\\\","",disk[1])] =str(int(disk[0])//(1024**3))+"GB"
-        diskstr = ""
-        diskstr=re.sub('\\',"",'%s'*len(diskinfo) % tuple(diskinfo))
+            size = humanize_bytes(int(disk[0]))
+            '''
+            if size < 1:
+                size = str(int(disk[0])//(1024**2))+"MB"
+            else:
+                size = str(size)+"GB"
+            '''
+            diskinfo[re.sub("\\\\","",disk[1])] = size
+        diskstr = re.sub("\'|\{|\}","",str(diskinfo))
 
+        virt1 = "文件地址:{}".format(str(wininfo['VirtMem'][-2:][0]))
+        virt2 = "文件大小:{}MB".format(str(wininfo['VirtMem'][-2:][-1]))
 
+        cpuinfo0 = str(eval(str(wininfo['Cpu']))[0])+"  "
+        cpuinfo1 = str(eval(re.sub("\s+"," ",str(wininfo['Cpu'])))[1])
 
         return '''
-        CPU型号:{}
-        物理内存大小:{}
-        虚拟内存大小:{}
-        主IP地址:{}
+        CPU型号:              {}
+        最大支持物理内存大小: {}
+        当前网络内存大小:     {}
+        虚拟内存大小:         {}
+        主IP地址:             {}
         磁盘信息:{}
-        '''.format(eval(str(wininfo['Cpu']))[1],str(wininfo['PsyMem'])+"GB",str(wininfo['VirtMem'][-2:]),
-                   wininfo['IPv4'],diskstr)
+        '''.format(cpuinfo0+cpuinfo1,str(int(wininfo['PsyMem'][0])/1048576)+"GB",str(int(wininfo['PsyMem'][1]))+"GB",
+                   virt1+"\n"+"\t"*7+"  "+virt2,wininfo['IPv4'],"\t"*3+re.sub(",","\n\t\t\t\t\t\t   ",diskstr))
     else:
         pass
 
@@ -118,7 +144,7 @@ def serverinfo():
         return info
 
 if syscheck == "windows":
-    #print(serverinfo())
+    print(serverinfo())
     info = serverinfo()
     print(beautiful_print(info))
 else:

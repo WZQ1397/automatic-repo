@@ -96,12 +96,12 @@ class platforminfo(object):
         return '''
         操作系统信息:
         获取操作系统名称及版本号 : [{}]
-        获取操作系统版本号 : [{}]
-        获取操作系统的位数 : [{}]
-        计算机类型 : [{}]'.format())
-        计算机的网络名称 : [{}]
-        计算机处理器信息 : [{}]
-        获取操作系统类型 : [{}]
+        获取操作系统版本号 :     [{}]
+        获取操作系统的位数 :     [{}]
+        计算机类型 :             [{}]
+        计算机的网络名称 :      [{}]
+        计算机处理器信息 :      [{}]
+        获取操作系统类型 :      [{}]
         '''.format(self.get_platform(),self.get_version(),self.get_architecture(),self.get_machine(),
                    self.get_node(),self.get_processor(),self.get_system())
 
@@ -150,6 +150,6 @@ def sendadvinfo():
     if msg == "bye":
         sk.close()
 
-#sendbasicinfo()
+sendbasicinfo()
 time.sleep(1)
 sendadvinfo()

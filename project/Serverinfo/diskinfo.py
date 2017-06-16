@@ -1,7 +1,7 @@
 # -*-coding:utf-8-*-
 #
 import re
-def humanize_bytes(bytesize, precision=0):
+def humanize_bytes(bytesize, precision=2):
     abbrevs = (
         (10**15, 'PB'),
         (10**12, 'TB'),
@@ -23,8 +23,8 @@ def dev_phy_size():
       if re.search(r'[s,h,v]d[a-z]\n',disk):
         blknum = disk.strip().split(' ')[-2]
         dev = disk.strip().split(' ')[-1]
-        size = int(blknum)*1024
+        size = int(blknum)*1000
         consist = dev+':'+humanize_bytes(size).strip()
-        res += consist + '+'
+        res += consist + '\n'
     return res[:-1]
 print(dev_phy_size())
