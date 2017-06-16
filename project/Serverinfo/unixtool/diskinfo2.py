@@ -13,9 +13,16 @@ def dev_phy_size():
                 size = int(blknum)*1000
                 consist = dev+':'+humanreadsize.humanize_bytes(size).strip()
                 res += consist + '\n'
-        return res[:-1]
+        return res.strip()
 
+def filter(value):
+    diskdict = {}
+    for x in value.split('\n'):
+        diskdict[x.split(':')[0]] = x.split(':')[1]
+    #print(diskdict)
+'''
 if __name__ == '__main__':
     print(dev_phy_size())
 else:
-    pass
+    dev_phy_size()
+'''
