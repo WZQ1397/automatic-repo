@@ -12,7 +12,8 @@ def meminfo():
     as a dictionary
     '''
     meminfo = OrderedDict()
-    with open('/proc/meminfo') as f:
+    #with open('/proc/meminfo') as f:
+    with open('E:\\automatic-repo\\project\\a.txt','r') as f:
         for line in f:
             size = list(re.compile(r' ').split(line.split(':')[1].strip()))[0]
             size = humanreadsize.humanize_bytes(float(size)*1000)
