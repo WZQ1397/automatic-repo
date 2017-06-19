@@ -2,8 +2,7 @@
 # author zach.wang
 # -*- coding:utf-8 -*-
 import platform,re,socket,time
-from Serverinfo import humanreadsize,unixinfo
-
+from Serverinfo import humanreadsize
 
 syscheck = str(platform.system()).lower()
 def winsysadvinfo(wininfo):
@@ -65,7 +64,7 @@ def winsysadvinfo(wininfo):
     return dic
 
 def beautiful_print(info):
-    if syscheck == "windows":
+    if syscheck != "windows":
         wininfo = winsysadvinfo(info)
         diskinfo = {}
         #print(re.sub(",","\n",str()))
@@ -89,18 +88,32 @@ def beautiful_print(info):
         return '''
         CPU型号:              {}
         最大支持物理内存大小: {}
-        当前网络内存大小:     {}
+        当前内存大小:         {}
         虚拟内存大小:         {}
         主IP地址:             {}
         磁盘信息:{}
         '''.format(cpuinfo0+cpuinfo1,str(int(wininfo['PsyMem'][0])/1048576)+"GB",str(int(wininfo['PsyMem'][1]))+"GB",
                    virt1+"\n"+"\t"*7+"  "+virt2,wininfo['IPv4'],"\t"*3+re.sub(",","\n\t\t\t\t\t\t   ",diskstr))
     else:
-        pass
+        unixinfo = info
+        return '''
+        系统版本:             {}
+        当前负载情况:         {}
+        在线时间:             {}
+        磁盘使用大小:         {}
+        主IP地址:             {}
+        '''.format(eval(re.sub("\\\\","",re.sub("\\\\n"," ",unixinfo['sysver'])))[-1],unixinfo['loadavg'][-1],\
+                   unixinfo['uptime'][-1],unixinfo['diskusage'][-1],unixinfo['ipv4'][-1])
 
 
-def linux():
-    unixinfo.main()
+
+def linux(info):
+    for k1,v1 in eval(info).items():
+        print(k1,end="::\t")
+        for k2,v2 in v1.items():
+            print("{}:{}".format(k2,v2))
+            print("\t\t",end="")
+        print()
 
 def serverinfo():
     info = ""
@@ -127,10 +140,13 @@ def serverinfo():
     finally:
         return info
 
-if syscheck != "windows":
-    print(serverinfo())
-    info = serverinfo()
-    print(beautiful_print(info))
-else:
-    linux()
-
+def main():
+    #print(serverinfo())
+    if syscheck != "windows":
+        info = serverinfo()
+        print(beautiful_print(info))
+    else:
+        info = serverinfo()
+        linux(info)
+        print(beautiful_print(info))
+main()
