@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Server port="${tomcat.server.port}" shutdown="SHUTDOWN">
+  <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="off" />
+  <Listener className="org.apache.catalina.core.JasperListener" />
+  <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener" />
+  <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
+  <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener" />
+
+  <GlobalNamingResources>
+    <Resource name="UserDatabase" auth="Container"
+              type="org.apache.catalina.UserDatabase"
+              description="User database that can be updated and saved"
+              factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
+              pathname="conf/tomcat-users.xml" />
+  </GlobalNamingResources>
+
+  <Service name="Catalina">
+
+  <Connector URIEncoding="UTF-8" minSpareThreads="15" maxSpareThreads="30" enableLookups="false" disableUploadTimeout="true" acceptCount="500" maxThreads="50" maxProcessors="1000" minProcessors="10" useURIValidationHack="false" compression="on" compressionMinSize="512" compressableMimeType="text/html,text/xml,text/javascript,text/css,text/plain" protocol="org.apache.coyote.http11.Http11AprProtocol" port="${tomcat.http.port}" connectionTimeout="20000"/>
+
+    <Engine name="Catalina" defaultHost="localhost">
+
+      <Realm className="org.apache.catalina.realm.LockOutRealm">
+          <Realm className="org.apache.catalina.realm.UserDatabaseRealm" resourceName="UserDatabase"/>
+      </Realm>
+
+      <Host name="localhost"  appBase="${tomcat.deploy.home}"  unpackWARs="true" autoDeploy="false">
+        <Context path="" docBase="sso" sessionCookiePath="/" sessionCookieDomain=".qasite.com"  useHttpOnly="true" crossContext="true" debug="0" reloadable="false">
+          <Manager className="de.javakaffee.web.msm.MemcachedBackupSessionManager"
+          memcachedNodes="n1:192.168.10.11:11220" sticky="false" lockingMode="auto"
+          sessionBackupAsync="false" sessionBackupTimeout="1000"
+          transcoderFactoryClass="de.javakaffee.web.msm.JavaSerializationTranscoderFactory" />
+        </Context>
+        <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
+               prefix="localhost_access_log." suffix=".txt"
+               pattern="%h %l %u %t &quot;%r&quot; %s %b" />
+      </Host>
+    </Engine>
+  </Service>
+</Server>
