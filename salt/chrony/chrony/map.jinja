@@ -1,0 +1,83 @@
+{% set chrony = salt['grains.filter_by']({
+    'Debian': {
+      'package':     'chrony',
+      'service':     'chrony',
+      'config':       '/etc/chrony/chrony.conf',
+      'config_src':  'salt://chrony/files/chrony_config',
+      'ntpservers':  [
+                     '0.debian.pool.ntp.org', 
+                     '1.debian.pool.ntp.org',
+                     '2.debian.pool.ntp.org',
+                     '3.debian.pool.ntp.org'
+                     ],
+      'options':     'offline minpoll 8',
+      'allow':       [
+                     '10/8',
+                     '192.168/16',
+                     '172.16/12'
+                     ],
+      'logdir':      '/var/log/chrony',
+      'keyfile':     '/etc/chrony/chrony.keys',
+      'driftfile':   '/var/lib/chrony/chrony.drift',
+      'otherparams': [
+                     'log tracking measurements statistics',
+                     'maxupdateskew 100.0',
+                     'dumponexit',
+                     'dumpdir /var/lib/chrony',
+                     'commandkey 1',
+                     'local stratum 10',
+                     'rtconutc'
+                     ],
+    },
+    'RedHat': {
+      'package':     'chrony',
+      'service':     'chronyd',
+      'config':      '/etc/chrony.conf',
+      'config_src':  'salt://chrony/files/chrony_config',
+      'ntpservers':  [
+                     '0.centos.pool.ntp.org',
+                     '1.centos.pool.ntp.org',
+                     '2.centos.pool.ntp.org',
+                     '3.centos.pool.ntp.org'
+                      ],
+      'options':     'iburst',
+      'logdir':      '/var/log/chrony',
+      'keyfile':     '/etc/chrony.keys',
+      'driftfile':   '/var/lib/chrony/drift',
+      'otherparams': [
+                     'rtcsync',
+                     'makestep 10 3',
+                     'stratumweight 0',
+                     'bindcmdaddress 127.0.0.1',
+                     'bindcmdaddress ::1',
+                     'commandkey 1',
+                     'generatecommandkey',
+                     'noclientlog',
+                     'logchange 0.5',
+                     ],
+    },
+    'Arch': {
+      'package':     'chrony',
+      'service':     'chrony',
+      'config':      '/etc/chrony.conf',
+      'config_src':  'salt://chrony/files/chrony_config',
+      'options':     'iburst',
+      'logdir':      '/var/log/chrony',
+      'keyfile':     '/etc/chrony.keys',
+      'driftfile':   '/var/lib/chrony/drift',
+      'otherparams': [
+                     'rtconutc',
+                     'rtcsync',
+                     ],
+    }
+  },
+  grain='os_family',
+  merge=salt['pillar.get']('chrony:config'))
+%}
+
+{# Debian distros check /etc/default/rcS to determine UTC setting #}
+{% if grains['os_family'] == "Debian" %}
+  {% if salt['cmd.run']('grep UTC=no /etc/default/rcS') %}
+    {% do chrony['otherparams'].remove('rtconutc') %}
+  {% endif %}
+{% endif %}

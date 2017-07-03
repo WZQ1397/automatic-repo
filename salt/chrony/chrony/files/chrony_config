@@ -1,0 +1,21 @@
+{% from "chrony/map.jinja" import chrony as config with context %}
+# This file is managed by salt
+{% for server in config.ntpservers -%}
+server {{ server }} {{ config.options }}
+{% endfor %}
+
+keyfile {{ config.keyfile }}
+
+driftfile {{ config.driftfile }}
+
+{% if config.allow is defined %}
+{% for allowed in config.get('allow', []) -%}
+allow {{ allowed }}
+{% endfor %}
+{%- endif %}
+
+logdir {{ config.logdir }}
+
+{% for param in config.get('otherparams', []) -%}
+{{ param }}
+{% endfor %}
