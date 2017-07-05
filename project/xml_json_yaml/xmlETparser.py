@@ -24,6 +24,10 @@ print ("*"*10)
 
 for movie in root.findall('movie'): #找到root节点下的所有movie节点
     rank = movie.find('type').text   #子节点下节点rank的值
+    '''
+    for name, value in sorted(rank.attrib.items()):
+        print('  %-4s = "%s"' % (name, value))
+    '''
     name = movie.get('title')      #子节点下属性name的值
     print(name,":",rank)
 
