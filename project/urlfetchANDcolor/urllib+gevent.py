@@ -19,12 +19,33 @@ def trapurl(url):
     gevent.sleep(1)
     print("{} fetch success!".format(webname))
 
+
 def urlretrieve(url):
     from urllib import request
     webname = "".join(("".join(url.split("//")[1:])).split("/")[:1])
     request.urlretrieve(url,dir+webname+'.html')
+    #清除使用urlopen或urlretrieve后产生的缓存文件
+    request.urlcleanup()
     gevent.sleep(1)
     print("{} fetch success!".format(webname))
+
+#FIXME 使用协成将无效
+'''
+def abc(a,b,c):
+    '''''
+    a: num
+    b: size
+    c: total
+    '''
+    process = 100.0*a*b/c
+    if process > 100:
+        process = 100
+    print('%.2f%%' %process)
+
+url = 'https://docs.python.org/3.0/library/urllib.robotparser.html'
+request.urlretrieve(url,'aaa.html',abc)
+
+'''
 
 if __name__ == '__main__':
     choice = trapurl

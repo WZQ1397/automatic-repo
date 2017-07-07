@@ -13,6 +13,7 @@ print('DATE    :', headers['date'])
 print('HEADERS :')
 print('---------')
 #print(headers)
+print("STATUS:",response.getcode())
 
 data = response.read().decode('utf-8')
 print('LENGTH  :', len(data))
@@ -33,7 +34,7 @@ print("METHOD:",r.get_method(),"\nGET HEADER:",r.get_header('User-agent'))
 #TODO GET ALL BROWSER INFO
 print(COLOR_GREEN+'-'*30+COLOR_NONE)
 print('Status:', response.status, response.reason)
-for k, v in response.getheaders():
+for k, v in response.getheaders():  #response.info()
     print('%s: %s' % (k, v))
 
 #TODO 配置代理
