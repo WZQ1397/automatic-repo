@@ -2,7 +2,7 @@
 #https://github.com/drbild/json2yaml
 import yaml,pprint
 
-choice = "yaml"
+choice = "json2"
 filepath = "E:\\automatic-repo\salt\chrony\pillar.example"
 
 def yamljson(select):
@@ -14,6 +14,8 @@ def yamljson(select):
         with open(filepath,'r') as f:
             str = f.read()
         return yaml.dump(str)
+    else:
+        raise Exception("ARG ERROR!")
 
 if choice == 'yaml':
     pprint.pprint(yamljson(choice))
