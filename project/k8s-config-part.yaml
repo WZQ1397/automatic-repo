@@ -1,0 +1,293 @@
+apt-get install libdata-hexdumper-perl curl apt-transport-https docker.io -y
+cat <<EOF > /etc/apt/sources.list.d/kubernetes.list
+deb http://apt.kubernetes.io/ kubernetes-xenial main
+EOF
+apt-get update
+apt-get install -y kubelet kubeadm kubectl kubernetes-cni
+
+kubeadm join --token e30063.d3f1aab54336cd16 172.16.6.20:6443
+
+kubectl get nodes -s http://172.16.6.20:8080
+scp 172.16.6.20:/etc/kubernetes/admin.conf   /etc/kubernetes/
+kubectl get pods
+
+strace -vvfF kubectl -s 512 2>debug.log 
+strace -vvfF -s 512 kubectl get pods  2>debug.log
+
+kubectl config view
+kubectl config current-context
+kubectl config get-contexts
+
+systemctl stop kubectl 
+systemctl stop kubelet
+systemctl stop docker
+
+netstat  -anop --tcp | grep docker
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: redis
+spec:
+  containers:
+  - name: redis
+    image: redis
+    volumeMounts:
+    - name: redis-persistent-storage
+      mountPath: /data/redis
+  volumes:
+  - name: redis-persistent-storage
+    hostPath:
+      path: /zachstorge
+
+      
+ ----------------------------------
+
+ 
+ 
+ceph auth get-or-create client.kube mon 'allow rw' osd 'allow class-read class-write object_prefix rbd_children, allow rwx pool=kube' -o ceph.client.kube.keyring
+ 
+ 
+grep key /etc/ceph/ceph.client.kube.keyring |awk '{printf "%s", $NF}'|base64
+
+ 
+cat <<EOF > ceph-secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ceph-secret
+type: "kubernetes.io/rbd"  
+data:
+  key: QVFBOTUxNVp2cmc1Q3hBQVpTbUcxT3B0SXFST3k2TDRsUTNlN1E9PQ==
+EOF
+ 
+ 
+cat <<EOF > ceph-secret-zachstorge.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ceph-secret-zachstorge
+type: "kubernetes.io/rbd"  
+data:
+  key: QVFEUTkxNVppRmlHRHhBQUJSamFkZ1RCTXM3dlBGWkdoVE9hRnc9PQ==
+EOF
+ 
+
+基本后端
+cat <<EOF > REDIS_VOL.yaml
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: redis-vol
+  labels:
+    name: redis-vol
+spec:
+  replicas: 1
+  selector:
+    name: redis-vol
+  template:
+    metadata:
+      labels:
+        name: redis-vol
+    spec:
+      containers:
+      - name: redis-vol
+        image: redis
+        env:
+        - name: GET_HOSTS_FROM
+          value: env
+        ports:
+        - containerPort: 11211
+        volumeMounts:
+        - mountPath: /mnt/rbd
+          name: speed5
+      volumes:
+        - name: speed5
+          rbd:
+            monitors:
+              - 172.16.8.243:6789
+              - 172.16.8.241:6789
+            pool: file_hd
+            image: speed5
+            user: zach
+            secretRef:
+              name: ceph-secret-zachstorge
+            fsType: ext4
+            readOnly: false
+EOF
+
+
+cat <<EOF > pv_ceph.yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: ceph-pv01
+spec:
+  capacity:
+    storage: 100Gi
+  accessModes:
+    - ReadWriteOnce
+  rbd:
+    monitors:
+     - 172.16.8.243:6789
+     - 172.16.8.241:6789
+    pool: blue_hd
+    image: vol1
+    user: zach
+    secretRef:
+      name: ceph-secret-zachstorge
+    fsType: ext4
+    readOnly: false
+  persistentVolumeReclaimPolicy: Recycle
+EOF
+  
+cat <<EOF > pvc_ceph.yaml 
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ceph-claim1
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Gi
+EOF
+
+cat <<EOF > pvc_control.yaml
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: redispv
+  labels:
+    name: redispv
+spec:
+  replicas: 1
+  selector:
+    name: redispv
+  template:
+    metadata:
+      labels:
+        name: redispv
+    spec:
+      containers:
+      - name: redispv
+        image: redis
+        env:
+        - name: GET_HOSTS_FROM
+          value: env
+        ports:
+        - containerPort: 11211
+        volumeMounts:
+        - mountPath: /mnt/rbd
+          name: ceph-vol01
+      volumes:
+      - name: ceph-vol01
+        persistentVolumeClaim:
+          claimName: ceph-claim1
+EOF
+
+
+基本后端
+cat <<EOF > REDIS_VOL.yaml
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: redis-vol
+  labels:
+    name: redis-vol
+spec:
+  replicas: 1
+  selector:
+    name: redis-vol
+  template:
+    metadata:
+      labels:
+        name: redis-vol
+    spec:
+      containers:
+      - name: redis-vol
+        image: redis
+        env:
+        - name: GET_HOSTS_FROM
+          value: env
+        ports:
+        - containerPort: 11211
+        volumeMounts:
+        - mountPath: /mnt/rbd
+          name: rbdpb
+      volumes:
+        - name: rbdpb
+          rbd:
+            monitors:
+              - 172.16.8.243:6789
+              - 172.16.8.243:6789
+            pool: blue_hd
+            image: speed2.img
+            user: kube
+            secretRef:
+              name: ceph-secret
+            fsType: ext4
+            readOnly: false
+EOF
+
+
+
+
+NFS
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs
+spec:
+  capacity:
+    storage: 100Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    # FIXME: use the right IP
+    server: 172.16.8.35
+    path: "/vmfs/a0"
+    
+    
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: nfs
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 100Gi
+
+      
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: nfs-redis
+spec:
+  replicas: 2
+  selector:
+    role: redis01
+  template:
+    metadata:
+      labels:
+        role: redis01
+    spec:
+      containers:
+      - name: redis-nfs01
+        image: redis
+        ports:
+          - name: redis
+            containerPort: 11211
+        volumeMounts:
+            # name must match the volume name below
+            - name: nfs
+              mountPath: "/mnt"
+      volumes:
+      - name: nfs
+        persistentVolumeClaim:
+          claimName: nfs
