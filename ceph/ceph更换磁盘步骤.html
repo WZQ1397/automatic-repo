@@ -1,0 +1,33 @@
+ceph更换磁盘步骤<br/><br/><div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+
+<p><br/>
+</p>
+<p>我们经常面临 ceph的磁盘损坏，需要更换磁盘。以下是更换磁盘的步骤：<br/>
+</p>
+<p>note: when disk is bad and the raid0, afterreboot, dev number(sdh, sdi) will be changed for no raid conf for this newdisk. it will cause journal dev number is changed, and osd can not be started</p>
+<p>1. 查询osd和磁盘的信息<br/>
+</p>
+<p></p>
+<p align="left">ceph osd tree #get the osd id:</p>
+<p>sdi is ssd dev partition for osd journal</p>
+<p>for i in `ls -1`; do ls -la $i/; done  #get ssd dev</p>
+<p> ceph -s #check pg status #确保pg是active状态<br/>
+</p>
+<p> <br/>
+</p>
+<p>2. osd删除，在任意节点上执行</p>
+<p>ceph osd out {osd-num}</p>
+<p>/etc/init.d/ceph stop osd.{osd-num}</p>
+<p>ceph osd crush remove osd.{osd-num}</p>
+<p>ceph auth del osd.{osd-num}</p>
+<p>ceph osd rm {osd-num}</p>
+<p> ceph -s #check pg status #确保pg是active状态</p>
+<p>3. 新增osd. 在任意节点上执行.<br/>
+</p>
+<p>在/opt/ceph-deploy 目录，执行</p>
+<p># ceph-deploy --overwrite-conf  osd prepare node-xx:/dev/sde:/dev/sdi1</p>
+<p># ceph-deploy --overwrite-conf  osd activate node-xx:/dev/sde1:/dev/sdi1</p>
+<p>activate时磁盘已分区，注意加分区号</p>
+<p>  ceph -s #check pg status #确保pg是active状态</p>
+   
+</div>

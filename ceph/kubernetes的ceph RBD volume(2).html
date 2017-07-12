@@ -1,0 +1,102 @@
+kubernetes的ceph RBD volume(2): 使用Ceph RBD作为persistent volume<br/><br/><div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+
+<p>以下是使用ceph RBD作为persistent volume的例子：<br/>
+</p>
+<p></p>
+<p>A <code class="highlighter-rouge">PersistentVolume</code> (PV) is a piece of networked storage in the cluster that has been provisioned by an administrator. It is a resource in the cluster just like a node is a cluster resource. PVs are volume plugins like
+ Volumes, but have a lifecycle independent of any individual pod that uses the PV. This API object captures the details of the implementation of the storage, be that NFS, iSCSI, or a cloud-provider-specific storage system.</p>
+<p>A <code class="highlighter-rouge">PersistentVolumeClaim</code> (PVC) is a request for storage by a user. It is similar to a pod. Pods consume node resources and PVCs consume PV resources. Pods can request specific levels of resources (CPU and Memory). Claims
+ can request specific size and access modes (e.g., can be mounted once read/write or many times read-only).</p>
+<p>1. 先创建image在pool里。</p>
+<p>2. 创建 PV<br/>
+</p>
+<p>[root@testnew kube]# cat pv_ceph.yaml<br/>
+apiVersion: v1<br/>
+kind: PersistentVolume<br/>
+metadata:<br/>
+  name: ceph-pv<br/>
+spec:<br/>
+  capacity:<br/>
+    storage: 50Gi<br/>
+  accessModes:<br/>
+    - ReadWriteOnce<br/>
+  rbd:<br/>
+    monitors:<br/>
+     - 10.0.200.11:6789<br/>
+     - 10.0.200.13:6789<br/>
+     - 10.0.200.14:6789<br/>
+    pool: kube<br/>
+    image: vol2<br/>
+    user: kube<br/>
+    secretRef:<br/>
+      name: ceph-secret<br/>
+    fsType: ext4<br/>
+    readOnly: false<br/>
+  persistentVolumeReclaimPolicy: Recycle</p>
+<p>kubectl create -f pv_ceph.yaml</p>
+<p>[root@testnew kube]# kubectl get pv<br/>
+NAME                                       CAPACITY   ACCESSMODES   RECLAIMPOLICY   STATUS    CLAIM                   REASON    AGE<br/>
+ceph-pv                                    50Gi       RWO           Recycle         Bound     default/ceph-claim                4d<br/>
+pvc-ac668f99-3b8b-11e7-8af9-fa163e01317b   20Gi       RWO           Delete          Bound     default/ceph-claim-sc             4d<br/>
+<br/>
+</p>
+<p>3.  创建pvc<br/>
+</p>
+<p>[root@testnew kube]# cat pvc_ceph.yaml <br/>
+kind: PersistentVolumeClaim<br/>
+apiVersion: v1<br/>
+metadata:<br/>
+  name: ceph-claim<br/>
+spec:<br/>
+  accessModes:<br/>
+    - ReadWriteOnce<br/>
+  resources:<br/>
+    requests:<br/>
+      storage: 20Gi</p>
+<p>note: pvc和pv是一一对应的，所以storage在这设20G没用<br/>
+</p>
+<p>kubectl create -f pvc_ceph.yaml<br/>
+</p>
+<p>[root@testnew kube]# kubectl get pvc<br/>
+NAME            STATUS    VOLUME                                     CAPACITY   ACCESSMODES   AGE<br/>
+ceph-claim      Bound     ceph-pv                                    50Gi       RWO           4d<br/>
+<br/>
+4. 创建pod</p>
+<p>[root@testnew kube]# cat frontend-pvc-controller.yaml <br/>
+apiVersion: v1<br/>
+kind: ReplicationController<br/>
+metadata:<br/>
+  name: frontendpvc<br/>
+  labels:<br/>
+    name: frontendpvc<br/>
+spec:<br/>
+  replicas: 1<br/>
+  selector:<br/>
+    name: frontendpvc<br/>
+  template:<br/>
+    metadata:<br/>
+      labels:<br/>
+        name: frontendpvc<br/>
+    spec:<br/>
+      containers:<br/>
+      - name: frontendpvc<br/>
+        image: kubeguide/guestbook-php-frontend<br/>
+        env:<br/>
+        - name: GET_HOSTS_FROM<br/>
+          value: env<br/>
+        ports:<br/>
+        - containerPort: 80<br/>
+        volumeMounts:<br/>
+        - mountPath: /mnt/rbd<br/>
+          name: ceph-vol<br/>
+      volumes:<br/>
+      - name: ceph-vol<br/>
+        persistentVolumeClaim:<br/>
+          claimName: ceph-claim<br/>
+<br/>
+<br/>
+</p>
+<p><br/>
+</p>
+   
+</div>

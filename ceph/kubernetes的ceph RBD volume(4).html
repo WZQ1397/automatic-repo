@@ -1,0 +1,335 @@
+kubernetes的ceph RBD volume(4)： 性能测试<br/><br/><div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+
+<p>
+</p><table border="1" cellpadding="1" cellspacing="1" width="200">
+<tbody>
+</tbody>
+</table>
+<br/>
+<p></p>
+<p>使用fio对volume的性能进行了测试，对以下几种情况进行了测试和对比：</p>
+<p>1. k8s with rbd volume(k8s running on kvm VM)<br/>
+</p>
+<p>2. kvm VM accessing rbd through linux kernal</p>
+<p>3. kvm VM accessing through librbd</p>
+<p>4. host accessing RBD(linux kernal, rbd map)</p>
+<p>5. k8s PVC</p>
+<p><br/>
+</p>
+<p></p>
+<p>使用fio进行测试<br/>
+</p>
+<p>fio -name=/root/tmpfile -direct=1 -iodepth=32 -rw=randwrite -ioengine=libaio -bs=16k -size=16G -numjobs=1  -group_reporting=1</p>
+<p>fio -name=/root/tmpfile -direct=1 -iodepth=32 -rw=randread-ioengine=libaio -bs=16k -size=16G -numjobs=1  -group_reporting=1<br/>
+</p>
+<p><br/>
+</p>
+以下是测试结果和对比, 只是一个大概的测试， 仅仅使用16k block<br/>
+<p>
+</p><table border="0" cellpadding="0" cellspacing="0" width="739">
+<colgroup><col width="160"/><col width="113"/><col width="124"/><col width="110"/><col width="106"/><col width="126"/></colgroup>
+<tbody>
+<tr height="54">
+<td>item</td>
+<td>kubernetes rbd volume</td>
+<td>kvm VM by linux kernal</td>
+<td>kvm VM by librbd</td>
+<td>host accesing RBD</td>
+<td>kubernates by Persistent Volumes(RBD)</td>
+</tr>
+<tr height="18">
+<td>16k randread IOPS</td>
+<td>8566</td>
+<td>9628</td>
+<td>9685</td>
+<td>相近</td>
+<td>相近</td>
+</tr>
+<tr height="18">
+<td>16k randwrite IOPS</td>
+<td>2741</td>
+<td>2754</td>
+<td>3171</td>
+<td>相近</td>
+<td>相近</td>
+</tr>
+<tr height="18">
+<td>16k randread bw</td>
+<td>137058KB/s</td>
+<td>154052KB/s</td>
+<td>154975KB/s</td>
+<td>相近</td>
+<td>相近</td>
+</tr>
+<tr height="18">
+<td>16k randwrite bw</td>
+<td>43857KB/s</td>
+<td>44078KB/s</td>
+<td>50744KB/s</td>
+<td>相近</td>
+<td>相近</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<p>
+</p><span height="0" id="_xhe_temp" width="0"></span><table border="0" cellpadding="0" cellspacing="0" height="71" width="644">
+<colgroup><col width="160"/><col width="113"/><col width="124"/><col width="110"/><col width="106"/><col width="126"/></colgroup>
+<tbody>
+<tr height="54">
+
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr height="18">
+<td> </td>
+<td> </td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr height="18">
+<td> </td>
+<td> </td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr height="18">
+<td> </td>
+<td> </td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr height="18">
+<td> </td>
+<td> </td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<p>结论：</p>
+<p>1. ceph rdb在guest VM和host上性能差不多</p>
+<p>2. ceph rbd kernal和librbd性能相差不大，librbd性能相对好一些。</p>
+<p>3. docker上的rdb volume和vm,还有host上的性能也差不多，docker上的rbd volume性能相当不错。<br/>
+</p>
+<p><br/>
+</p>
+<p>详细的测试结果：</p>
+<p>================================<br/>
+</p>
+<p>test1: kubernetes rbd volume:</p>
+<p>================================<br/>
+&lt; -direct=1 -iodepth=32 -rw=randwrite -ioengine=libaio -bs=16k -size=16G -numj&gt;<br/>
+/mnt/rbd/tmpfile: (g=0): rw=randwrite, bs=16K-16K/16K-16K/16K-16K, ioengine=libaio, iodepth=32<br/>
+fio-2.1<br/>
+Starting 1 process<br/>
+Jobs: 1 (f=1): [w] [100.0% done] [0KB/17952KB/0KB /s] [0/1122/0 iops] [eta 00m:00s]<br/>
+/mnt/rbd/tmpfile: (groupid=0, jobs=1): err= 0: pid=1751: Tue May  9 05:06:27 2017<br/>
+  write: io=16384MB, bw=43857KB/s, iops=2741, runt=382544msec<br/>
+    slat (usec): min=4, max=1920.6K, avg=35.92, stdev=2042.96<br/>
+    clat (msec): min=2, max=4803, avg=11.63, stdev=54.37<br/>
+     lat (msec): min=2, max=4803, avg=11.67, stdev=54.41<br/>
+    clat percentiles (msec):<br/>
+     |  1.00th=[    5],  5.00th=[    6], 10.00th=[    6], 20.00th=[    7],<br/>
+     | 30.00th=[    8], 40.00th=[    8], 50.00th=[    9], 60.00th=[   10],<br/>
+     | 70.00th=[   11], 80.00th=[   13], 90.00th=[   17], 95.00th=[   21],<br/>
+     | 99.00th=[   39], 99.50th=[   57], 99.90th=[  229], 99.95th=[  783],<br/>
+     | 99.99th=[ 2966]<br/>
+    bw (KB  /s): min=    6, max=55648, per=100.00%, avg=46518.63, stdev=10622.23<br/>
+    lat (msec) : 4=0.49%, 10=63.86%, 20=30.01%, 50=5.04%, 100=0.40%<br/>
+    lat (msec) : 250=0.11%, 500=0.03%, 750=0.01%, 1000=0.01%, 2000=0.01%<br/>
+    lat (msec) : &gt;=2000=0.03%<br/>
+  cpu          : usr=1.94%, sys=7.92%, ctx=709934, majf=0, minf=25<br/>
+  IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.1%, 32=100.0%, &gt;=64=0.0%<br/>
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, &gt;=64=0.0%<br/>
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.1%, 64=0.0%, &gt;=64=0.0%<br/>
+     issued    : total=r=0/w=1048576/d=0, short=r=0/w=0/d=0<br/>
+<br/>
+Run status group 0 (all jobs):<br/>
+  WRITE: io=16384MB, aggrb=43856KB/s, minb=43856KB/s, maxb=43856KB/s, mint=382544msec, maxt=382544msec<br/>
+<br/>
+Disk stats (read/write):<br/>
+  rbd0: ios=0/1053645, merge=0/148156, ticks=0/12241232, in_queue=12241570, util=100.00%<br/>
+<br/>
+  &lt;=randread -ioengine=libaio -bs=16k -size=16G -numjobs=1  -group_reporting=1 <br/>
+/mnt/rbd/tmpfile: (g=0): rw=randread, bs=16K-16K/16K-16K/16K-16K, ioengine=libaio, iodepth=32<br/>
+fio-2.1<br/>
+Starting 1 process<br/>
+Jobs: 1 (f=1): [r] [100.0% done] [160.2MB/0KB/0KB /s] [10.4K/0/0 iops] [eta 00m:00s]<br/>
+/mnt/rbd/tmpfile: (groupid=0, jobs=1): err= 0: pid=1754: Tue May  9 05:09:41 2017<br/>
+  read : io=16384MB, bw=137058KB/s, iops=8566, runt=122410msec<br/>
+    slat (usec): min=2, max=6772, avg= 7.94, stdev=26.85<br/>
+    clat (usec): min=549, max=952927, avg=3725.35, stdev=9155.47<br/>
+     lat (usec): min=559, max=952936, avg=3733.60, stdev=9155.65<br/>
+    clat percentiles (usec):<br/>
+     |  1.00th=[ 1032],  5.00th=[ 1336], 10.00th=[ 1560], 20.00th=[ 1896],<br/>
+     | 30.00th=[ 2160], 40.00th=[ 2416], 50.00th=[ 2704], 60.00th=[ 2992],<br/>
+     | 70.00th=[ 3376], 80.00th=[ 3824], 90.00th=[ 4704], 95.00th=[ 5856],<br/>
+     | 99.00th=[25216], 99.50th=[44800], 99.90th=[126464], 99.95th=[166912],<br/>
+     | 99.99th=[374784]<br/>
+    bw (KB  /s): min=30272, max=187360, per=100.00%, avg=137147.92, stdev=33606.47<br/>
+    lat (usec) : 750=0.01%, 1000=0.69%<br/>
+    lat (msec) : 2=23.18%, 4=58.73%, 10=14.74%, 20=1.33%, 50=0.87%<br/>
+    lat (msec) : 100=0.28%, 250=0.14%, 500=0.02%, 750=0.01%, 1000=0.01%<br/>
+  cpu          : usr=2.70%, sys=8.61%, ctx=383200, majf=0, minf=153<br/>
+  IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.1%, 32=100.0%, &gt;=64=0.0%<br/>
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, &gt;=64=0.0%<br/>
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.1%, 64=0.0%, &gt;=64=0.0%<br/>
+     issued    : total=r=1048576/w=0/d=0, short=r=0/w=0/d=0<br/>
+<br/>
+Run status group 0 (all jobs):<br/>
+   READ: io=16384MB, aggrb=137057KB/s, minb=137057KB/s, maxb=137057KB/s, mint=122410msec, maxt=122410msec<br/>
+<br/>
+Disk stats (read/write):<br/>
+  rbd0: ios=1047827/4, merge=0/1, ticks=3754197/67, in_queue=3754965, util=100.00%<br/>
+<br/>
+ ================================================================<br/>
+ <br/>
+test2:  kvm instance:<br/>
+================================================================ <br/>
+ [root@localhost fio-2.1]# fio -name=/root/jzhao/tmpfile -direct=1 -iodepth=32 -rw=randwrite -ioengine=libaio -bs=16k -size=16G -numjobs=1  -group_reporting=1<br/>
+/root/jzhao/tmpfile: (g=0): rw=randwrite, bs=16K-16K/16K-16K/16K-16K, ioengine=libaio, iodepth=32<br/>
+fio-2.1<br/>
+Starting 1 process<br/>
+/root/jzhao/tmpfile: Laying out IO file(s) (1 file(s) / 16384MB)<br/>
+Jobs: 1 (f=1): [w] [100.0% done] [0KB/17968KB/0KB /s] [0/1123/0 iops] [eta 00m:00s]<br/>
+/root/jzhao/tmpfile: (groupid=0, jobs=1): err= 0: pid=4062: Tue May  9 05:45:22 2017<br/>
+  write: io=16384MB, bw=44078KB/s, iops=2754, runt=380623msec<br/>
+    slat (usec): min=4, max=178921, avg=36.39, stdev=804.74<br/>
+    clat (msec): min=2, max=3347, avg=11.58, stdev=32.03<br/>
+     lat (msec): min=2, max=3347, avg=11.61, stdev=32.06<br/>
+    clat percentiles (msec):<br/>
+     |  1.00th=[    5],  5.00th=[    6], 10.00th=[    6], 20.00th=[    7],<br/>
+     | 30.00th=[    8], 40.00th=[    8], 50.00th=[    9], 60.00th=[   10],<br/>
+     | 70.00th=[   12], 80.00th=[   14], 90.00th=[   18], 95.00th=[   24],<br/>
+     | 99.00th=[   45], 99.50th=[   65], 99.90th=[  161], 99.95th=[  338],<br/>
+     | 99.99th=[ 1434]<br/>
+    bw (KB  /s): min=  519, max=54464, per=100.00%, avg=45126.18, stdev=8457.41<br/>
+    lat (msec) : 4=0.47%, 10=61.20%, 20=30.95%, 50=6.61%, 100=0.51%<br/>
+    lat (msec) : 250=0.18%, 500=0.04%, 750=0.01%, 1000=0.01%, 2000=0.01%<br/>
+    lat (msec) : &gt;=2000=0.01%<br/>
+  cpu          : usr=2.01%, sys=8.31%, ctx=737590, majf=0, minf=24<br/>
+  IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.1%, 32=100.0%, &gt;=64=0.0%<br/>
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, &gt;=64=0.0%<br/>
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.1%, 64=0.0%, &gt;=64=0.0%<br/>
+     issued    : total=r=0/w=1048576/d=0, short=r=0/w=0/d=0<br/>
+<br/>
+Run status group 0 (all jobs):<br/>
+  WRITE: io=16384MB, aggrb=44078KB/s, minb=44078KB/s, maxb=44078KB/s, mint=380623msec, maxt=380623msec<br/>
+<br/>
+Disk stats (read/write):<br/>
+  rbd1: ios=0/1055672, merge=0/155683, ticks=0/12304677, in_queue=12304483, util=100.00%<br/>
+<br/>
+  [root@localhost fio-2.1]# fio -name=/root/jzhao/tmpfile -direct=1 -iodepth=32 -rw=randread -ioengine=libaio -bs=16k -size=16G -numjobs=1  -group_reporting=1<br/>
+/root/jzhao/tmpfile: (g=0): rw=randread, bs=16K-16K/16K-16K/16K-16K, ioengine=libaio, iodepth=32<br/>
+fio-2.1<br/>
+Starting 1 process<br/>
+Jobs: 1 (f=1): [r] [100.0% done] [165.1MB/0KB/0KB /s] [10.6K/0/0 iops] [eta 00m:00s]<br/>
+/root/jzhao/tmpfile: (groupid=0, jobs=1): err= 0: pid=9642: Tue May  9 05:49:13 2017<br/>
+  read : io=16384MB, bw=154052KB/s, iops=9628, runt=108906msec<br/>
+    slat (usec): min=2, max=6237, avg= 7.41, stdev=21.18<br/>
+    clat (usec): min=564, max=738661, avg=3313.94, stdev=5667.71<br/>
+     lat (usec): min=569, max=738664, avg=3321.62, stdev=5667.82<br/>
+    clat percentiles (usec):<br/>
+     |  1.00th=[ 1080],  5.00th=[ 1384], 10.00th=[ 1608], 20.00th=[ 1928],<br/>
+     | 30.00th=[ 2192], 40.00th=[ 2480], 50.00th=[ 2736], 60.00th=[ 3056],<br/>
+     | 70.00th=[ 3408], 80.00th=[ 3888], 90.00th=[ 4640], 95.00th=[ 5536],<br/>
+     | 99.00th=[13632], 99.50th=[22400], 99.90th=[72192], 99.95th=[108032],<br/>
+     | 99.99th=[211968]<br/>
+    bw (KB  /s): min=44960, max=185984, per=100.00%, avg=154205.67, stdev=22074.34<br/>
+    lat (usec) : 750=0.01%, 1000=0.47%<br/>
+    lat (msec) : 2=21.98%, 4=59.65%, 10=16.48%, 20=0.81%, 50=0.42%<br/>
+    lat (msec) : 100=0.11%, 250=0.05%, 500=0.01%, 750=0.01%<br/>
+  cpu          : usr=3.01%, sys=9.16%, ctx=391490, majf=0, minf=152<br/>
+  IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.1%, 32=100.0%, &gt;=64=0.0%<br/>
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, &gt;=64=0.0%<br/>
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.1%, 64=0.0%, &gt;=64=0.0%<br/>
+     issued    : total=r=1048576/w=0/d=0, short=r=0/w=0/d=0<br/>
+<br/>
+Run status group 0 (all jobs):<br/>
+   READ: io=16384MB, aggrb=154052KB/s, minb=154052KB/s, maxb=154052KB/s, mint=108906msec, maxt=108906msec<br/>
+<br/>
+Disk stats (read/write):<br/>
+  rbd1: ios=1047621/4, merge=0/1, ticks=3322911/31, in_queue=3323436, util=100.00%<br/>
+<br/>
+  <br/>
+==========================================================</p>
+<p>test3: kvm vm with librbd:<br/>
+===========================================================<br/>
+[root@localhost ~]# fio -name=/jzhao/tmpfile -direct=1 -iodepth=32 -rw=randwrite -ioengine=libaio -bs=16k -size=10G -numjobs=1  -group_reporting=1<br/>
+/jzhao/tmpfile: (g=0): rw=randwrite, bs=16K-16K/16K-16K/16K-16K, ioengine=libaio, iodepth=32<br/>
+fio-2.1<br/>
+Starting 1 process<br/>
+/jzhao/tmpfile: Laying out IO file(s) (1 file(s) / 10240MB)<br/>
+Jobs: 1 (f=1): [w] [100.0% done] [0KB/80303KB/0KB /s] [0/5018/0 iops] [eta 00m:00s]<br/>
+/jzhao/tmpfile: (groupid=0, jobs=1): err= 0: pid=30341: Wed May 10 05:11:08 2017<br/>
+  write: io=10240MB, bw=50744KB/s, iops=3171, runt=206640msec<br/>
+    slat (usec): min=5, max=2780.6K, avg=30.84, stdev=3443.02<br/>
+    clat (usec): min=118, max=2861.7K, avg=10055.79, stdev=30333.27<br/>
+     lat (usec): min=149, max=2861.7K, avg=10087.06, stdev=30526.98<br/>
+    clat percentiles (usec):<br/>
+     |  1.00th=[  652],  5.00th=[  908], 10.00th=[ 1496], 20.00th=[ 4448],<br/>
+     | 30.00th=[ 6432], 40.00th=[ 7776], 50.00th=[ 8896], 60.00th=[10048],<br/>
+     | 70.00th=[11328], 80.00th=[12992], 90.00th=[15808], 95.00th=[19328],<br/>
+     | 99.00th=[34560], 99.50th=[46848], 99.90th=[232448], 99.95th=[325632],<br/>
+     | 99.99th=[477184]<br/>
+    bw (KB  /s): min= 3501, max=131206, per=100.00%, avg=52221.12, stdev=14813.34<br/>
+    lat (usec) : 250=0.01%, 500=0.02%, 750=2.63%, 1000=3.53%<br/>
+    lat (msec) : 2=5.57%, 4=6.50%, 10=41.52%, 20=35.77%, 50=4.01%<br/>
+    lat (msec) : 100=0.24%, 250=0.12%, 500=0.08%, &gt;=2000=0.01%<br/>
+  cpu          : usr=2.01%, sys=8.14%, ctx=241327, majf=0, minf=24<br/>
+  IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.1%, 32=100.0%, &gt;=64=0.0%<br/>
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, &gt;=64=0.0%<br/>
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.1%, 64=0.0%, &gt;=64=0.0%<br/>
+     issued    : total=r=0/w=655360/d=0, short=r=0/w=0/d=0<br/>
+<br/>
+Run status group 0 (all jobs):<br/>
+  WRITE: io=10240MB, aggrb=50744KB/s, minb=50744KB/s, maxb=50744KB/s, mint=206640msec, maxt=206640msec<br/>
+<br/>
+Disk stats (read/write):<br/>
+  vda: ios=0/655668, merge=0/19280, ticks=0/6453652, in_queue=6468591, util=100.00%<br/>
+<br/>
+  [root@localhost ~]# fio -name=/jzhao/tmpfile -direct=1 -iodepth=32 -rw=randread -ioengine=libaio -bs=16k -size=10G -numjobs=1  -group_reporting=1<br/>
+/jzhao/tmpfile: (g=0): rw=randread, bs=16K-16K/16K-16K/16K-16K, ioengine=libaio, iodepth=32<br/>
+fio-2.1<br/>
+Starting 1 process<br/>
+Jobs: 1 (f=1): [r] [100.0% done] [200.4MB/0KB/0KB /s] [12.9K/0/0 iops] [eta 00m:00s]<br/>
+/jzhao/tmpfile: (groupid=0, jobs=1): err= 0: pid=666: Wed May 10 05:13:06 2017<br/>
+  read : io=10240MB, bw=154975KB/s, iops=9685, runt= 67661msec<br/>
+    slat (usec): min=2, max=3715, avg=12.52, stdev=14.56<br/>
+    clat (usec): min=137, max=601820, avg=3288.13, stdev=12099.75<br/>
+     lat (usec): min=437, max=601824, avg=3301.01, stdev=12099.73<br/>
+    clat percentiles (usec):<br/>
+     |  1.00th=[  636],  5.00th=[  884], 10.00th=[ 1080], 20.00th=[ 1368],<br/>
+     | 30.00th=[ 1608], 40.00th=[ 1832], 50.00th=[ 2040], 60.00th=[ 2256],<br/>
+     | 70.00th=[ 2512], 80.00th=[ 2864], 90.00th=[ 3568], 95.00th=[ 4704],<br/>
+     | 99.00th=[31872], 99.50th=[61696], 99.90th=[191488], 99.95th=[268288],<br/>
+     | 99.99th=[407552]<br/>
+    bw (KB  /s): min=16192, max=219680, per=100.00%, avg=155079.54, stdev=49649.27<br/>
+    lat (usec) : 250=0.01%, 500=0.01%, 750=2.55%, 1000=5.21%<br/>
+    lat (msec) : 2=40.27%, 4=44.68%, 10=4.94%, 20=0.87%, 50=0.83%<br/>
+    lat (msec) : 100=0.34%, 250=0.23%, 500=0.06%, 750=0.01%<br/>
+  cpu          : usr=5.63%, sys=17.22%, ctx=477444, majf=0, minf=152<br/>
+  IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.1%, 32=100.0%, &gt;=64=0.0%<br/>
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, &gt;=64=0.0%<br/>
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.1%, 64=0.0%, &gt;=64=0.0%<br/>
+     issued    : total=r=655360/w=0/d=0, short=r=0/w=0/d=0<br/>
+<br/>
+Run status group 0 (all jobs):<br/>
+   READ: io=10240MB, aggrb=154974KB/s, minb=154974KB/s, maxb=154974KB/s, mint=67661msec, maxt=67661msec<br/>
+<br/>
+Disk stats (read/write):<br/>
+  vda: ios=653810/742, merge=0/136, ticks=2136381/17532, in_queue=2154169, util=99.96%<br/>
+<br/>
+===========================================<br/>
+<br/>
+<br/>
+</p>
+   
+</div>
