@@ -1,0 +1,85 @@
+<div class="showContent">
+    		  <p><span style="font-size:18px;color:rgb(255,0,0);"><strong>操作命令：</strong></span></p><p>ceph osd getcrushmap -o map_old    导出map</p><p>crushtool -d map_old -o map_old.txt  转化成可编辑格式</p><p>crushtool -c map_new.txt -o map_new  还原为map</p><p>ceph osd setcrushmap -i map_new     将map导入ceph</p><p><br/></p><p><span style="color:rgb(255,0,0);font-size:20px;"><strong>更改Crush map流程：</strong></span></p><p><strong>1、修改配置文件,防止ceph自动更新crushmap</strong></p><pre class="brush:bash;toolbar:false">echo 'osd_crush_update_on_start = false' &gt;&gt; /etc/ceph/ceph.conf
+/etc/init.d/ceph restart</pre><p><strong>2、导出map,并转化成可编辑格式</strong></p><pre class="brush:bash;toolbar:false">ceph osd getcrushmap -o map_old
+crushtool -d map_old -o map_old.txt
+cp map_old.txt map_new.txt</pre><p><strong>3、更改map_new.txt</strong></p><p>如：</p><pre class="brush:bash;toolbar:false">##################sas
+host node1-sas {
+        id -2           # do not change unnecessarily
+        # weight 0.120
+        alg straw
+        hash 0  # rjenkins1
+        item osd.0 weight 0.040
+        item osd.1 weight 0.040
+}
+host node2-sas {
+        id -3           # do not change unnecessarily
+        # weight 0.120
+        alg straw
+        hash 0  # rjenkins1
+        item osd.3 weight 0.040
+        item osd.4 weight 0.040
+}
+##################ssd
+host node1-ssd {
+        id -5           # do not change unnecessarily
+        # weight 0.120
+        alg straw
+        hash 0  # rjenkins1
+        item osd.2 weight 0.040
+}
+host node2-ssd {
+        id -6           # do not change unnecessarily
+        # weight 0.120
+        alg straw
+        hash 0  # rjenkins1
+        item osd.5 weight 0.040
+}
+#################pool
+root sas-pool {
+        id -1           # do not change unnecessarily
+        # weight 0.360
+        alg straw
+        hash 0  # rjenkins1
+        item node1-sas weight 0.080
+        item node2-sas weight 0.080
+}
+root ssd-pool {
+        id -8           # do not change unnecessarily
+        # weight 0.360
+        alg straw
+        hash 0  # rjenkins1
+        item node1-ssd weight 0.040
+        item node2-ssd weight 0.040
+}
+##################rule
+rule sas {
+        ruleset 0
+        type replicated
+        min_size 1
+        max_size 10
+        step take sas-pool
+        step choose firstn 0 type osd
+        step emit
+}
+rule ssd {
+        ruleset 1
+        type replicated
+        min_size 1
+        max_size 10
+        step take ssd-pool
+        step choose firstn 0 type osd
+        step emit
+}</pre><p><strong>4、将修改后的crushmap编译并且注入集群中</strong></p><pre class="brush:bash;toolbar:false">crushtool -c map_new.txt -o map_new
+ceph osd setcrushmap -i map_new
+ceph osd tree</pre><p><strong>5、创建资源池，使用新创建的规则</strong></p><pre class="brush:bash;toolbar:false">ceph osd pool create sas 128 128
+ceph osd pool create ssd 128 128
+ceph osd pool set sas crush_ruleset 0
+ceph osd pool set ssd crush_ruleset 1</pre><p><strong>6、重新对pool授权(如果对接过openstack)</strong></p><pre class="brush:bash;toolbar:false">ceph auth del client.cinder
+ceph auth get-or-create client.cinder mon 'allow r' osd 'allow class-read object_prefix rbd_children,allow rwx pool=volumes, \
+allow rwx pool=vms, allow rx pool=images, allow rwx pool=ssd'</pre><p><br/></p><p><span style="font-size:20px;color:rgb(255,0,0);"><strong>更改Monitor IP流程：</strong></span></p><p><strong>1、获取monmap，并查看</strong></p><pre class="brush:bash;toolbar:false">ceph mon getmap -o map   
+monmaptool --print map</pre><p><br/></p><p><strong>2、删除旧的map配置，新增配置到map</strong></p><pre class="brush:bash;toolbar:false">monmaptool --rm node1 --rm node2 --rm node3 map
+monmaptool --add node1 10.0.2.21:6789 --add node2 10.0.2.22:6789 --add node3 10.0.2.23:6789 map 
+monmaptool --print map</pre><p><br/></p><p><strong>3、复制新map到所有mon节点</strong></p><pre class="brush:bash;toolbar:false">scp mon node2:~
+scp mon node3:~</pre><p><br/></p><p><strong>4、更改/etc/ceph/ceph.conf中的mon_host(所有mon节点执行)</strong></p><pre class="brush:bash;toolbar:false">vim /etc/ceph/ceph.conf 
+mon_host= new1_ip:6789,new2_ip:6789,new3_ip:6789:</pre><p><br/></p><p><strong>5、停止mon进程(所有mon节点执行)</strong></p><pre class="brush:bash;toolbar:false">/etc/init.d/ceph stop mon</pre><p><br/></p><p><strong>6、载入新的monmap(所有mon节点执行)</strong></p><pre class="brush:bash;toolbar:false">ceph-mon -i node1 --inject-monmap map</pre><p><strong>7、启动mon(所有mon节点执行)</strong></p><pre class="brush:bash;toolbar:false">/etc/init.d/ceph start mon</pre><p><br/></p><p>本文出自 “<a href="http://linuxnote.blog.51cto.com">Just For Fun!</a>” 博客，请务必保留此出处<a href="http://linuxnote.blog.51cto.com/9876511/1790758">http://linuxnote.blog.51cto.com/9876511/1790758</a></p>
+		  </div>
