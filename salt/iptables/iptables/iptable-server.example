@@ -1,0 +1,31 @@
+*filter
+:INPUT ACCEPT [3019:284195]
+:FORWARD ACCEPT [431691:345377901]
+:OUTPUT ACCEPT [3364:767049]
+-A INPUT -i ppp0 -m state --state NEW -j REJECT --reject-with icmp-port-unreachable 
+-A FORWARD -m layer7 --l7proto qq -j REJECT --reject-with icmp-port-unreachable 
+-A FORWARD -m layer7 --l7proto xunlei -j REJECT --reject-with icmp-port-unreachable 
+-A FORWARD -m layer7 --l7proto bittorrent -j REJECT --reject-with icmp-port-unreachable 
+-A FORWARD -s 172.16.0.0/16 -m string --string "verycd.com" --algo kmp --to 65535 -j REJECT --reject-with icmp-port-unreachable 
+-A FORWARD -s 172.16.0.0/16 -m string --string "tudou.com" --algo kmp --to 65535 -j REJECT --reject-with icmp-port-unreachable 
+-A FORWARD -s 172.16.0.0/16 -m string --string "youku.com" --algo kmp --to 65535 -j REJECT --reject-with icmp-port-unreachable 
+-A FORWARD -i eth0 -o ppp0 -m string --string ".rmvb" --algo bm --to 65535 -j REJECT --reject-with icmp-port-unreachable 
+-A FORWARD -i eth0 -o ppp0 -m string --string ".wmv" --algo bm --to 65535 -j REJECT --reject-with icmp-port-unreachable 
+-A FORWARD -i eth0 -o ppp0 -m string --string ".avi" --algo bm --to 65535 -j REJECT --reject-with icmp-port-unreachable 
+-A FORWARD -i eth0 -o ppp0 -m string --string ".mp3" --algo bm --to 65535 -j REJECT --reject-with icmp-port-unreachable 
+-A FORWARD -i eth0 -o ppp0 -m string --string ".mp4" --algo bm --to 65535 -j REJECT --reject-with icmp-port-unreachable 
+-A FORWARD -i eth0 -o ppp0 -m string --string ".flv" --algo bm --to 65535 -j REJECT --reject-with icmp-port-unreachable 
+-A FORWARD -s 172.16.0.0/16 -j ACCEPT 
+-A FORWARD -s 172.16.0.0/16 -m time --timestart 08:00:00 --timestop 18:45:00 --weekdays Mon,Tue,Thu,Fri  --datestop 2038-01-19T11:14:07 -j REJECT --reject-with icmp-port-unreachable 
+-A FORWARD -s 172.16.0.0/16 -m time --timestart 23:10:00 --timestop 23:59:59 --datestop 2038-01-19T11:14:07 -j REJECT --reject-with icmp-port-unreachable 
+COMMIT
+*nat
+:PREROUTING ACCEPT [7840:574394]
+:POSTROUTING ACCEPT [979:91573]
+:OUTPUT ACCEPT [4:528]
+-A POSTROUTING -s 192.168.0.1/32 -j MASQUERADE 
+-A POSTROUTING -s 172.16.100.178/32 -j MASQUERADE 
+-A POSTROUTING -s 172.16.100.177/32 -j MASQUERADE 
+-A POSTROUTING -s 172.16.0.0/16 -p tcp -m multiport --dports 80,53,443 -j MASQUERADE 
+-A POSTROUTING -s 172.16.0.0/16 -p udp -m udp --dport 53 -j MASQUERADE 
+COMMIT
