@@ -1,0 +1,53 @@
+# -*- coding: utf-8 -*-
+# vim: ft=jinja
+
+{% import_yaml 'logrotate/defaults.yaml' as default_settings %}
+
+{% set os_family_map = salt['grains.filter_by']({
+        'Arch': {
+            'service': 'logrotate.timer',
+            'default_config': {
+                'tabooext': '+ .pacorig .pacnew .pacsave',
+            },
+        },
+        'Debian': {
+            'default_config': {
+                'compress': True,
+            },
+        },
+        'RedHat': {
+            'service': 'crond',
+            'default_config': {
+                'dateext': True,
+            },
+        },
+        'Suse': {
+            'login_records_jobs': False,
+            'default_config': {
+                'dateext': True,
+                'compresscmd': '/usr/bin/xz',
+                'uncompresscmd': '/usr/bin/xzdec',
+            },
+        },
+    },
+    grain="os_family",
+    merge=salt['pillar.get']('logrotate:lookup')) or {}
+%}
+
+{% set os_map = salt['grains.filter_by']({
+        'Ubuntu': {
+            'default_config': {
+                'su': 'root syslog'
+            },
+        },
+    },
+    grain="os",
+    merge=os_family_map) or {}
+%}
+
+{% set logrotate = salt['grains.filter_by'](
+        default_settings,
+        merge=os_map,
+        base='logrotate',
+    )
+%}
