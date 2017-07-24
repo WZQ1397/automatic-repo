@@ -1,0 +1,9 @@
+# vim: sw=2 sts=2 ts=2 sw et
+{% for onepath in path %}
+{{ onepath }}
+{%- endfor %}
+{
+  {% for item in data %}
+  {{ item }}
+  {%- endfor %}
+}
