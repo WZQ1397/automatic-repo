@@ -1,0 +1,16 @@
+# deb http://mirrors.aliyun.com/debian squeeze main
+# deb http://mirrors.aliyuncs.com/debian squeeze main
+
+deb http://mirrors.aliyun.com/debian squeeze main
+deb http://mirrors.aliyuncs.com/debian squeeze main
+deb-src http://mirrors.aliyun.com/debian squeeze main
+deb-src http://mirrors.aliyuncs.com/debian squeeze main
+
+deb http://security.debian.org/ squeeze/updates main
+deb-src http://security.debian.org/ squeeze/updates main
+
+# squeeze-updates, previously known as 'volatile'
+deb http://mirrors.aliyun.com/debian squeeze-updates main
+deb http://mirrors.aliyuncs.com/debian squeeze-updates main
+deb-src http://mirrors.aliyun.com/debian squeeze-updates main
+deb-src http://mirrors.aliyuncs.com/debian squeeze-updates main

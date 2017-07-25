@@ -1,0 +1,16 @@
+# deb http://mirrors.aliyun.com/debian wheezy main
+# deb http://mirrors.aliyuncs.com/debian wheezy main
+
+deb http://mirrors.aliyun.com/debian wheezy main
+deb http://mirrors.aliyuncs.com/debian wheezy main
+deb-src http://mirrors.aliyun.com/debian wheezy main
+deb-src http://mirrors.aliyuncs.com/debian wheezy main
+
+deb http://security.debian.org/ wheezy/updates main
+deb-src http://security.debian.org/ wheezy/updates main
+
+# wheezy-updates, previously known as 'volatile'
+deb http://mirrors.aliyun.com/debian wheezy-updates main
+deb http://mirrors.aliyuncs.com/debian wheezy-updates main
+deb-src http://mirrors.aliyun.com/debian wheezy-updates main
+deb-src http://mirrors.aliyuncs.com/debian wheezy-updates main
