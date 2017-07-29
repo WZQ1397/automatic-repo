@@ -1,4 +1,5 @@
 # _*_ coding: utf-8 _*_
+# HOW TO --> “python pyTOexe.py py2exe”
 import py2exe
 from distutils.core import setup
 includes = ['encoding', 'encodings.*']
