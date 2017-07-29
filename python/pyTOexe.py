@@ -1,5 +1,7 @@
 # _*_ coding: utf-8 _*_
 # HOW TO --> “python pyTOexe.py py2exe”
+# OR OTHER TOOL -- pyinstaller
+# python pyinstaller.py -w --onefile --icon="my.ico" test.py
 import py2exe
 from distutils.core import setup
 includes = ['encoding', 'encodings.*']
