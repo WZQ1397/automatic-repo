@@ -25,4 +25,44 @@
 <p>16．试解释apache服务器以下配置的含义： <br/>（1）port 1080 （2）UserDir userdoc<br/>（3）DocumentRoot “/home/htdocs”<br/>（4）&lt;Directory /home/htdocs/inside&gt;;<br/>Options Indexes FollowSymLinks<br/>AllowOverride None<br/>Order deny,allow<br/>deny from all<br/>allow from 192.168.1.5<br/>&lt;/Directory&gt;;<br/>（5）Server Type Standlone<br/><span style="background-color: #ff99cc">参考答案：</span><br/>Apache服务器配置行含义如下： <br/>（1）将apache服务器的端口号设定为1080；<br/>（2）设定用户网页目录为userdoc；<br/>（3）设定apache服务器的网页根目录:/home/htdocs；<br/>（4）在此apache服务器上设定一个目录/home/htdocs/inside，且此目录只允许IP地址为192.168.1.5的主机访问；<br/>（5）定义apache服务器以独立进程的方式运行。<br/>17．简述使用ftp进行文件传输时的两种登录方式？它们的区别是什么？常用的ftp文件传输命令是什么？ <br/><span style="background-color: #00ffff">参考答案：</span><br/>（1）ftp有两种登录方式：匿名登录和授权登录。使用匿名登录时，用户名为：anonymous，密码为：任何合法email地址；使用授权登录时，用户名为用户在远程系统中的用户帐号，密码为用户在远程系统中的用户密码。<br/>区别：使用匿名登录只能访问ftp目录下的资源，默认配置下只能下载；而授权登录访问的权限大于匿名登录，且上载、下载均可。<br/>（2）ftp文件传输有两种文件传输模式：ASCII模式和binary模式。ASCII模式用来传输文本文件，其他文件的传输使用binary模式。<br/>（3）常用的ftp文件传输命令为：bin、asc、put、get、mput、mget、prompt、bye<br/></p>
 <p> </p>
 <p> </p>
-<p>完！</p></div>
+<p>1.假设Apache产生的日志文件名为access_log,在apache正在运行时,执行命令mv access_log access_log.bak,执行完后,请问新的apache的日志会打印到哪里,为什么?
+<br/>access_log.bak，inode
+<br/>2.在Shell环境下,如何查看远程Linux系统运行了多少时间? 
+<br/>如果finger可用的话 finger host, ssh可用的话 ssh root@host "uptime" ...
+<br/><br/>3.处理以下文件内容,将域名取出并进行计数排序,如处理
+<br/>[url]http://www.baidu.com/index.html[/url] 
+<br/>[url]http://www.baidu.com/1.html[/url] 
+<br/>[url]http://post.baidu.com/index.html[/url] 
+<br/>[url]http://mp3.baidu.com/index.html[/url] 
+<br/>[url]http://www.baidu.com/3.html[/url] 
+<br/>[url]http://post.baidu.com/2.html[/url] 
+<br/>得到如下结果
+<br/>3 [url]www.baidu.com[/url] 
+<br/>2 post.baidu.com 
+<br/>1 mp3.baidu.com 
+<br/>可以使用bash/perl/php/c任意一种 ：
+|cut -f 3 -d "/"|sort |uniq -c|sort -r
+<br/>4.如果得到随机的字串,长度和字串中出现的字符表可定义,并将字串倒序显示,如 
+<br/>把0123456789作为基准的字串字符表,产生一个6位的字串642031,打印出的字串为 130246,可使用bash/perl/php/c任意一种. 
+<br/>head /dev/urandom|cat -v |sed -e 's/[^0123456789]//g'|tr -d "\n"|head -c 6|rev
+<br/>5.如何查看当前Linux系统的状态,如CPU使用,内存使用,负载情况等. 
+<br/>top -n 1
+<br/>题目：有10台被监控主机、一台监控机，在监控机上编写脚本，一旦某台被监控机器/分区适用率大于80%， 就发邮件报警放到crontab里面， 每10分钟检查一次
+<br/>*/10 * * * * /path/to/script
+<br/>
+<br/>如何查看一个进程所使用的文件句柄？
+<br/>ls /proc/[PID]/fd ?
+
+<br/>1、/proc/sys 子目录的作用
+configure kernel parameters at runtime
+<br/>2、将一个文本的奇数行和偶数行合并，第2行和第3行合并
+<br/>|sed 1d|paste - -
+<br/>3、read 命令5秒后自动退出
+<br/>read -t 5
+<br/>4、自动ftp上传
+<br/>lftp -c "open xxx; user xxx xxx;put xxx"
+<br/>5、#打印第一个域
+<br/>|cut -f 1 -d "#"
+</p>
+
+</div>
