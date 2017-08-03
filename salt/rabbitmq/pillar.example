@@ -1,0 +1,8 @@
+rabbitmq:
+  enabled: True
+  admin_user: 
+    - username: admin
+    - password: 123456
+    
+  
+  
