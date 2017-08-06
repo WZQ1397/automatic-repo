@@ -24,3 +24,6 @@ net.netfilter.nf_conntrack_tcp_timeout_established = 180
 net.netfilter.nf_conntrack_tcp_timeout_time_wait = 120
 net.netfilter.nf_conntrack_tcp_timeout_close_wait = 60
 net.netfilter.nf_conntrack_tcp_timeout_fin_wait = 120
+
+#锁定关键文件系统
+chattr +i /etc/passwd /etc/gshadow /etc/inittab
