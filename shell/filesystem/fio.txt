@@ -45,3 +45,9 @@ libaio  异步i/o测试
 结果总结：
 例如：
 read : io（测试了1G的数据）=1024.0MB, bw（带宽）=139643KB/s, iops（每秒钟的IO数）=136 , runt（总运行时间）=  7509msec
+
+
+CEPH
+fio -filename=/dev/rbd0 -bs=64k -ioengine=libaio -iodepth=32 -numjobs=4 -direct=1 -thread -rw=randwrite -size=200G -runtime=50 -group_reporting -name=test
+	
+fio -filename=/dev/rbd0 -bs=64k -ioengine=libaio -iodepth=32 -numjobs=4 -direct=1 -thread -rw=randread -size=200G -runtime=50 -group_reporting -name=test
