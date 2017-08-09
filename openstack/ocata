@@ -1,0 +1,539 @@
+
+rabbitmqctl add_user openstack edong
+rabbitmqctl set_permissions openstack ".*" ".*" ".*"
+
+MYSQL
+
+1) Replace all instances of 'utf8mb4' with 'utf8' in /etc/mysql/mariadb.conf.d/*
+
+2) Add the below to /etc/mysql/conf.d/mysqld_openstack.cnf:
+[client]
+default-character-set = utf8
+
+[mysqld]
+bind-address = 172.16.3.32
+default-storage-engine = innodb
+innodb_file_per_table
+collation-server = utf8_general_ci
+init-connect = 'SET NAMES utf8'
+character-set-server = utf8
+
+[mysql]
+default-character-set = utf8
+
+3) Drop the keystone database
+4) Restart mysql service
+5) Run 'keystone-manage db_sync'
+
+CREATE DATABASE keystone;
+CREATE DATABASE glance;
+CREATE DATABASE nova;
+CREATE DATABASE nova_api;
+CREATE DATABASE nova_cell0;
+CREATE DATABASE neutron;
+CREATE DATABASE cinder;
+
+GRANT ALL PRIVILEGES ON keystone.* TO 'keystone'@'localhost' IDENTIFIED BY 'edong';
+GRANT ALL PRIVILEGES ON keystone.* TO 'keystone'@'%' IDENTIFIED BY 'edong';
+GRANT ALL PRIVILEGES ON glance.* TO 'glance'@'localhost' IDENTIFIED BY 'edong';
+GRANT ALL PRIVILEGES ON glance.* TO 'glance'@'%' IDENTIFIED BY 'edong';
+GRANT ALL PRIVILEGES ON nova.* TO 'nova'@'localhost' IDENTIFIED BY 'edong';
+GRANT ALL PRIVILEGES ON nova.* TO 'nova'@'%' IDENTIFIED BY 'edong';
+GRANT ALL PRIVILEGES ON nova_api.* TO 'nova_api'@'localhost' IDENTIFIED BY 'edong';
+GRANT ALL PRIVILEGES ON nova_api.* TO 'nova_api'@'%' IDENTIFIED BY 'edong';
+GRANT ALL PRIVILEGES ON neutron.* TO 'neutron'@'localhost' IDENTIFIED BY 'edong';
+GRANT ALL PRIVILEGES ON neutron.* TO 'neutron'@'%' IDENTIFIED BY 'edong';
+GRANT ALL PRIVILEGES ON cinder.* TO 'cinder'@'localhost' IDENTIFIED BY 'edong';
+GRANT ALL PRIVILEGES ON cinder.* TO 'cinder'@'%' IDENTIFIED BY 'edong';
+
+GRANT ALL PRIVILEGES ON nova_api.* TO 'nova'@'localhost' IDENTIFIED BY 'edong';
+GRANT ALL PRIVILEGES ON nova_api.* TO 'nova'@'%' IDENTIFIED BY 'edong';
+GRANT ALL PRIVILEGES ON nova_cell0.* TO 'nova'@'localhost' IDENTIFIED BY 'edong';
+GRANT ALL PRIVILEGES ON nova_cell0.* TO 'nova'@'%' IDENTIFIED BY 'edong';
+
+-----
+
+keystone-manage fernet_setup --keystone-user keystone --keystone-group keystone
+keystone-manage credential_setup --keystone-user keystone --keystone-group keystone
+keystone-manage bootstrap --bootstrap-password edong \
+  --bootstrap-admin-url http://yz3ctrl1.dev3.tonyc.cn:35357/v3/ \
+  --bootstrap-internal-url http://yz3ctrl1.dev3.tonyc.cn:5000/v3/ \
+  --bootstrap-public-url http://yz3ctrl1.dev3.tonyc.cn:5000/v3/ \
+  --bootstrap-region-id RegionOne
+  
+openstack project list --os-username admin --os-project-name admin \
+    --os-identity-api-version 3 --os-auth-url http://yz3ctrl1.dev3.tonyc.cn:5000 \
+    --os-password edong
+
+openstack project create --domain default --description "Service Project" service
+openstack project create --domain default --description "Demo Project" zach
+openstack user create --domain default --password-prompt zach
+
+openstack --os-auth-url http://yz3ctrl1.dev3.tonyc.cn:35357/v3 \
+  --os-project-domain-name default --os-user-domain-name default \
+  --os-project-name admin --os-username admin token issue
+
+openstack role create zach
+openstack role add --project zach --user zach zach
+
+***************
+openstack endpoint create --region RegionOne identity public http://yz3ctrl1.dev3.tonyc.cn:5000/v3
+openstack endpoint create --region RegionOne identity internal http://yz3ctrl1.dev3.tonyc.cn:5000/v3
+openstack endpoint create --region RegionOne identity admin http://yz3ctrl1.dev3.tonyc.cn:35357/v3
+
+-----
+openstack user create --domain default --password-prompt glance
+openstack role add --project service --user glance admin
+openstack service create --name glance   --description "OpenStack Image" image
+
+openstack endpoint create --region RegionOne image public http://yz3ctrl1.dev3.tonyc.cn:9292
+openstack endpoint create --region RegionOne image internal http://yz3ctrl1.dev3.tonyc.cn:9292
+openstack endpoint create --region RegionOne image admin http://yz3ctrl1.dev3.tonyc.cn:9292
+
+openstack image create "cirros" \
+  --file /zach/cirros-0.3.5-x86_64-disk.img \
+  --disk-format qcow2 --container-format bare \
+  --public
+
+--------
+
+openstack user create --domain default --password-prompt nova
+openstack role add --project service --user nova admin
+openstack service create --name nova --description "OpenStack Compute" compute
+openstack endpoint create --region RegionOne compute public http://yz3ctrl1.dev3.tonyc.cn:8774/v2.1/%\(tenant_id\)s
+openstack endpoint create --region RegionOne compute internal http://yz3ctrl1.dev3.tonyc.cn:8774/v2.1/%\(tenant_id\)s 
+openstack endpoint create --region RegionOne compute admin http://yz3ctrl1.dev3.tonyc.cn:8774/v2.1/%\(tenant_id\)s
+*****
+os_region_name = RegionOne
+project_domain_name = Default
+project_name = service
+auth_type = password
+user_domain_name = Default
+auth_url = http://yz3ctrl1.dev3.tonyc.cn:35357/v3
+username = placement
+password = edong
+
+openstack service create --name placement --description "Placement API" placement
+openstack endpoint create --region RegionOne placement public http://yz3ctrl1.dev3.tonyc.cn:8778
+openstack endpoint create --region RegionOne placement internal http://yz3ctrl1.dev3.tonyc.cn:8778
+openstack endpoint create --region RegionOne placement admin http://yz3ctrl1.dev3.tonyc.cn:8778
+
+
+apt install nova-api nova-conductor nova-consoleauth nova-novncproxy nova-scheduler -y
+
+connection = mysql+pymysql://nova:edong@yz3ctrl1.dev3.tonyc.cn/nova
+connection = mysql+pymysql://nova_api:edong@yz3ctrl1.dev3.tonyc.cn/nova_api
+transport_url = rabbit://openstack:edong@yz3ctrl1.dev3.tonyc.cn
+
+connection = mysql+pymysql://cinder:edong@yz3ctrl1.dev3.tonyc.cn/cinder
+
+service nova-api restart
+service nova-consoleauth restart
+service nova-scheduler restart
+service nova-conductor restart
+service nova-novncproxy restart
+
+-------------------
+
+openstack user create --domain default --password-prompt neutron
+
+openstack role add --project service --user neutron admin
+openstack service create --name neutron --description "OpenStack Networking" network
+openstack endpoint create --region RegionOne network public http://yz3ctrl1.dev3.tonyc.cn:9696
+openstack endpoint create --region RegionOne network internal http://yz3ctrl1.dev3.tonyc.cn:9696
+openstack endpoint create --region RegionOne network admin http://yz3ctrl1.dev3.tonyc.cn:9696
+
+
+-------------------
+
+openstack user create --domain default --password-prompt cinder
+
+openstack role add --project service --user cinder admin
+openstack service create --name cinder --description "OpenStack Block Storage" volume
+openstack service create --name cinderv2 --description "OpenStack Block Storage" volumev2
+
+openstack endpoint create --region RegionOne volume public http://yz3ctrl1.dev3.tonyc.cn:8776/v1/%\(tenant_id\)s
+openstack endpoint create --region RegionOne volume internal http://yz3ctrl1.dev3.tonyc.cn:8776/v1/%\(tenant_id\)s
+openstack endpoint create --region RegionOne volume admin http://yz3ctrl1.dev3.tonyc.cn:8776/v1/%\(tenant_id\)s
+openstack endpoint create --region RegionOne volumev2 public http://yz3ctrl1.dev3.tonyc.cn:8776/v2/%\(tenant_id\)s
+openstack endpoint create --region RegionOne volumev2 internal http://yz3ctrl1.dev3.tonyc.cn:8776/v2/%\(tenant_id\)s
+openstack endpoint create --region RegionOne volumev2 admin http://yz3ctrl1.dev3.tonyc.cn:8776/v2/%\(tenant_id\)s
+
+apt install cinder-api cinder-scheduler -y
+
+
+service nova-api restart
+service neutron-server restart
+service neutron-linuxbridge-agent restart
+service neutron-dhcp-agent restart
+service neutron-metadata-agent restart
+service neutron-l3-agent restart
+
+
+enabled = True
+vncserver_listen = 0.0.0.0
+vncserver_proxyclient_address = $my_ip
+novncproxy_base_url = http://yz3ctrl1.dev3.tonyc.cn:6080/vnc_auto.html
+
+api_servers = http://yz3ctrl1.dev3.tonyc.cn:9292
+
+
+openstack subnet create --network selfservice \
+  --dns-nameserver 172.16.6.214 --gateway 192.168.100.1  \
+  --subnet-range 192.168.100.0/24 selfservice
+  
+openstack subnet create --network provider \
+  --allocation-pool start=172.16.6.240,end=172.16.6.250 \
+  --dns-nameserver 172.16.6.214 --gateway 172.16.6.214 \
+  --subnet-range 172.16.6.240/28 provider
+  
+neutron net-update provider --router:external
+neutron router-create router
+neutron router-interface-add router selfservice
+neutron router-gateway-set router provider
+ip netns
+neutron router-port-list router
+
+openstack keypair list
+openstack flavor list
+openstack image list
+openstack network list
+openstack security group list
+
+openstack server create --flavor tiny --image cirros \
+  --nic net-id=provider --security-group default \
+  --key-name zach vm_cirros
+  
+openstack server list
+openstack console url show vm_cirros
+
+
+root@yz3ctrl1:/var/lib/glance# openstack network create selfservice
++---------------------------+--------------------------------------+
+| Field                     | Value                                |
++---------------------------+--------------------------------------+
+| admin_state_up            | UP                                   |
+| availability_zone_hints   |                                      |
+| availability_zones        |                                      |
+| created_at                | 2017-03-31T07:48:13Z                 |
+| description               |                                      |
+| dns_domain                | None                                 |
+| id                        | dba96cd2-6278-4075-99a9-347c73967f5d |
+| ipv4_address_scope        | None                                 |
+| ipv6_address_scope        | None                                 |
+| is_default                | None                                 |
+| mtu                       | 1450                                 |
+| name                      | selfservice                          |
+| port_security_enabled     | True                                 |
+| project_id                | 4a8d28a3ad1742869cc7b64eb0da685d     |
+| provider:network_type     | vxlan                                |
+| provider:physical_network | None                                 |
+| provider:segmentation_id  | 104                                  |
+| qos_policy_id             | None                                 |
+| revision_number           | 3                                    |
+| router:external           | Internal                             |
+| segments                  | None                                 |
+| shared                    | False                                |
+| status                    | ACTIVE                               |
+| subnets                   |                                      |
+| updated_at                | 2017-03-31T07:48:17Z                 |
++---------------------------+--------------------------------------+
+root@yz3ctrl1:/var/lib/glance# openstack subnet create --network selfservice \
+>   --dns-nameserver 172.16.6.214 --gateway 172.16.6.214 \
+>   --subnet-range 192.168.100.0/24 selfservice
++-------------------+--------------------------------------+
+| Field             | Value                                |
++-------------------+--------------------------------------+
+| allocation_pools  | 192.168.100.1-192.168.100.254        |
+| cidr              | 192.168.100.0/24                     |
+| created_at        | 2017-03-31T07:54:42Z                 |
+| description       |                                      |
+| dns_nameservers   | 172.16.6.214                         |
+| enable_dhcp       | True                                 |
+| gateway_ip        | 172.16.6.214                         |
+| host_routes       |                                      |
+| id                | 3c4eded4-2817-4852-8e9b-c7e633583b2e |
+| ip_version        | 4                                    |
+| ipv6_address_mode | None                                 |
+| ipv6_ra_mode      | None                                 |
+| name              | selfservice                          |
+| network_id        | dba96cd2-6278-4075-99a9-347c73967f5d |
+| project_id        | 4a8d28a3ad1742869cc7b64eb0da685d     |
+| revision_number   | 2                                    |
+| segment_id        | None                                 |
+| service_types     |                                      |
+| subnetpool_id     | None                                 |
+| updated_at        | 2017-03-31T07:54:43Z                 |
++-------------------+--------------------------------------+
+root@yz3ctrl1:/var/lib/glance# neutron net-update provider --router:external
+neutron CLI is deprecated and will be removed in the future. Use openstack CLI instead.
+Unable to find network with name or id 'provider'
+root@yz3ctrl1:/var/lib/glance# openstack network create  --share \
+>   --provider-physical-network provider \
+>   --provider-network-type flat provider
++---------------------------+--------------------------------------+
+| Field                     | Value                                |
++---------------------------+--------------------------------------+
+| admin_state_up            | UP                                   |
+| availability_zone_hints   |                                      |
+| availability_zones        |                                      |
+| created_at                | 2017-03-31T07:58:42Z                 |
+| description               |                                      |
+| dns_domain                | None                                 |
+| id                        | 5bb5a5ed-30ce-4df6-9fa3-0f7de17c9bfc |
+| ipv4_address_scope        | None                                 |
+| ipv6_address_scope        | None                                 |
+| is_default                | None                                 |
+| mtu                       | 1500                                 |
+| name                      | provider                             |
+| port_security_enabled     | True                                 |
+| project_id                | 4a8d28a3ad1742869cc7b64eb0da685d     |
+| provider:network_type     | flat                                 |
+| provider:physical_network | provider                             |
+| provider:segmentation_id  | None                                 |
+| qos_policy_id             | None                                 |
+| revision_number           | 3                                    |
+| router:external           | Internal                             |
+| segments                  | None                                 |
+| shared                    | True                                 |
+| status                    | ACTIVE                               |
+| subnets                   |                                      |
+| updated_at                | 2017-03-31T07:58:43Z                 |
++---------------------------+--------------------------------------+
+root@yz3ctrl1:/var/lib/glance# openstack subnet create --network provider \
+--allocation-pool start=172.16.6.240,end=172.16.6.250 \
+--dns-nameserver 114.114.114.114 --gateway 172.16.6.214 \
+--subnet-range 172.16.6.240/26 provider
+HttpException: Bad Request, The allocation pool 172.16.6.240-172.16.6.250 spans beyond the subnet cidr 172.16.6.240/28.
+root@yz3ctrl1:/var/lib/glance# openstack subnet create --network provider   --allocation-pool start=172.16.6.240,end=172.16.6.250   --dns-nameserver 172.16.6.214 --gateway 172.16.6.214   --subnet-range 172.16.6.240/26 provider
++-------------------+--------------------------------------+
+| Field             | Value                                |
++-------------------+--------------------------------------+
+| allocation_pools  | 172.16.6.240-172.16.6.250            |
+| cidr              | 172.16.6.192/26                      |
+| created_at        | 2017-03-31T08:05:30Z                 |
+| description       |                                      |
+| dns_nameservers   | 172.16.6.214                         |
+| enable_dhcp       | True                                 |
+| gateway_ip        | 172.16.6.214                         |
+| host_routes       |                                      |
+| id                | 28f5ef76-6e5e-4fec-8b63-b751d8b70462 |
+| ip_version        | 4                                    |
+| ipv6_address_mode | None                                 |
+| ipv6_ra_mode      | None                                 |
+| name              | provider                             |
+| network_id        | 5bb5a5ed-30ce-4df6-9fa3-0f7de17c9bfc |
+| project_id        | 4a8d28a3ad1742869cc7b64eb0da685d     |
+| revision_number   | 2                                    |
+| segment_id        | None                                 |
+| service_types     |                                      |
+| subnetpool_id     | None                                 |
+| updated_at        | 2017-03-31T08:05:30Z                 |
++-------------------+--------------------------------------+
+root@yz3ctrl1:/var/lib/glance# neutron net-update provider --router:external
+neutron CLI is deprecated and will be removed in the future. Use openstack CLI instead.
+Updated network: provider
+root@yz3ctrl1:/var/lib/glance# neutron router-create router
+neutron CLI is deprecated and will be removed in the future. Use openstack CLI instead.
+Created a new router:
++-------------------------+--------------------------------------+
+| Field                   | Value                                |
++-------------------------+--------------------------------------+
+| admin_state_up          | True                                 |
+| availability_zone_hints |                                      |
+| availability_zones      |                                      |
+| created_at              | 2017-03-31T08:06:29Z                 |
+| description             |                                      |
+| distributed             | False                                |
+| external_gateway_info   |                                      |
+| flavor_id               |                                      |
+| ha                      | False                                |
+| id                      | 1a122faf-ebdf-4721-91f9-06ff47aafd66 |
+| name                    | router                               |
+| project_id              | 4a8d28a3ad1742869cc7b64eb0da685d     |
+| revision_number         | 3                                    |
+| routes                  |                                      |
+| status                  | ACTIVE                               |
+| tags                    |                                      |
+| tenant_id               | 4a8d28a3ad1742869cc7b64eb0da685d     |
+| updated_at              | 2017-03-31T08:06:30Z                 |
++-------------------------+--------------------------------------+
+root@yz3ctrl1:/var/lib/glance# neutron router-interface-add router selfservice
+neutron CLI is deprecated and will be removed in the future. Use openstack CLI instead.
+IP address 172.16.6.214 is not a valid IP for the specified subnet.
+Neutron server returns request_ids: ['req-67ca27d9-8a48-4237-be61-87b399b1f2ca']
+root@yz3ctrl1:/var/lib/glance# neutron router-gateway-set router provider
+neutron CLI is deprecated and will be removed in the future. Use openstack CLI instead.
+Set gateway for router router
+root@yz3ctrl1:/var/lib/glance# ip netns
+qdhcp-5bb5a5ed-30ce-4df6-9fa3-0f7de17c9bfc (id: 2)
+qdhcp-dba96cd2-6278-4075-99a9-347c73967f5d (id: 1)
+qdhcp-43c4fa1d-8263-4c52-90ea-830f8f07ab90 (id: 0)
+root@yz3ctrl1:/var/lib/glance# neutron router-port-list router
+neutron CLI is deprecated and will be removed in the future. Use openstack CLI instead.
++--------------------------------------+------+-----------+-------------------+-------------------------------------------------------------------------------------+
+| id                                   | name | tenant_id | mac_address       | fixed_ips                                                                           |
++--------------------------------------+------+-----------+-------------------+-------------------------------------------------------------------------------------+
+| 7351533f-4dac-4ce7-bbd5-83a67ced211b |      |           | fa:16:3e:31:9e:11 | {"subnet_id": "28f5ef76-6e5e-4fec-8b63-b751d8b70462", "ip_address": "172.16.6.248"} |
++--------------------------------------+------+-----------+-------------------+-------------------------------------------------------------------------------------+
+root@yz3ctrl1:/var/lib/glance# openstack subnet delete --network selfservice
+usage: openstack subnet delete [-h] <subnet> [<subnet> ...]
+openstack subnet delete: error: unrecognized arguments: --network
+root@yz3ctrl1:/var/lib/glance# openstack subnet create --network selfservice \
+>   --dns-nameserver 172.16.6.214 --gateway 192.168.100.1  \
+>   --subnet-range 192.168.100.0/24 selfservice
+ResourceNotFound: No Network found for selfservice
+root@yz3ctrl1:/var/lib/glance# ping -c 4 172.16.6.248
+PING 172.16.6.248 (172.16.6.248) 56(84) bytes of data.
+64 bytes from 172.16.6.248: icmp_seq=1 ttl=64 time=0.497 ms
+64 bytes from 172.16.6.248: icmp_seq=2 ttl=64 time=0.117 ms
+64 bytes from 172.16.6.248: icmp_seq=3 ttl=64 time=0.114 ms
+64 bytes from 172.16.6.248: icmp_seq=4 ttl=64 time=0.135 ms
+
+--- 172.16.6.248 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 2997ms
+rtt min/avg/max/mdev = 0.114/0.215/0.497/0.163 ms
+root@yz3ctrl1:/var/lib/glance# openstack keypair list
++------+-------------------------------------------------+
+| Name | Fingerprint                                     |
++------+-------------------------------------------------+
+| zach | 27:4c:1d:53:7f:00:8c:52:28:63:2a:0d:58:b8:4c:9e |
++------+-------------------------------------------------+
+root@yz3ctrl1:/var/lib/glance# openstack flavor list
++--------------------------------------+-------+------+------+-----------+-------+-----------+
+| ID                                   | Name  |  RAM | Disk | Ephemeral | VCPUs | Is Public |
++--------------------------------------+-------+------+------+-----------+-------+-----------+
+| 210b55f0-2b60-4d4d-9be3-fcbb24df5aef | large | 4096 |   30 |         0 |     4 | True      |
+| e2d860bb-d2b6-4d87-946e-99f0e60a20dc | tiny  |  512 |   20 |         0 |     1 | True      |
++--------------------------------------+-------+------+------+-----------+-------+-----------+
+root@yz3ctrl1:/var/lib/glance# openstack image list
++--------------------------------------+--------+--------+
+| ID                                   | Name   | Status |
++--------------------------------------+--------+--------+
+| 86bd79c6-db43-4b88-9766-97a2c7d1cdbc | cirros | active |
++--------------------------------------+--------+--------+
+root@yz3ctrl1:/var/lib/glance# openstack network list
++--------------------------------------+----------+--------------------------------------+
+| ID                                   | Name     | Subnets                              |
++--------------------------------------+----------+--------------------------------------+
+| 43c4fa1d-8263-4c52-90ea-830f8f07ab90 | ocata    | e9dba8db-7725-4a7c-952b-57eaf49ff94a |
+| 5bb5a5ed-30ce-4df6-9fa3-0f7de17c9bfc | provider | 28f5ef76-6e5e-4fec-8b63-b751d8b70462 |
+| 6042f2fa-8aac-487d-971c-fe5f26e8b60f | LOCAL    |                                      |
++--------------------------------------+----------+--------------------------------------+
+root@yz3ctrl1:/var/lib/glance# openstack security group list
++--------------------------------------+---------+------------------------+---------+
+| ID                                   | Name    | Description            | Project |
++--------------------------------------+---------+------------------------+---------+
+| 110c6752-4af0-4fc3-bf60-b083027558a5 | default | Default security group |         |
+| 4a61072b-fc62-4f14-9994-a420f0674896 | zach    |                        |         |
+| 74d62d56-cc00-4f39-89c7-f97fd2e6c225 | default | Default security group |         |
+| fe37591e-ea0d-421a-9641-0f528de5c875 | default | Default security group |         |
++--------------------------------------+---------+------------------------+---------+
+root@yz3ctrl1:/var/lib/glance# openstack server create --flavor tiny --image cirros_v3 \
+>   --nic net-id=provider --security-group default \
+>   --key-name zach vm_cirros-ZACH
++-------------------------------------+-----------------------------------------------+
+| Field                               | Value                                         |
++-------------------------------------+-----------------------------------------------+
+| OS-DCF:diskConfig                   | MANUAL                                        |
+| OS-EXT-AZ:availability_zone         |                                               |
+| OS-EXT-SRV-ATTR:host                | None                                          |
+| OS-EXT-SRV-ATTR:hypervisor_hostname | None                                          |
+| OS-EXT-SRV-ATTR:instance_name       |                                               |
+| OS-EXT-STS:power_state              | NOSTATE                                       |
+| OS-EXT-STS:task_state               | scheduling                                    |
+| OS-EXT-STS:vm_state                 | building                                      |
+| OS-SRV-USG:launched_at              | None                                          |
+| OS-SRV-USG:terminated_at            | None                                          |
+| accessIPv4                          |                                               |
+| accessIPv6                          |                                               |
+| addresses                           |                                               |
+| adminPass                           | kR97kzBcwa8Q                                  |
+| config_drive                        |                                               |
+| created                             | 2017-03-31T08:33:05Z                          |
+| flavor                              | tiny (e2d860bb-d2b6-4d87-946e-99f0e60a20dc)   |
+| hostId                              |                                               |
+| id                                  | b8a4eca5-14c9-433f-adc7-cf71156d94fd          |
+| image                               | cirros (86bd79c6-db43-4b88-9766-97a2c7d1cdbc) |
+| key_name                            | zach                                          |
+| name                                | vm_cirros-ZACH                                |
+| progress                            | 0                                             |
+| project_id                          | 4a8d28a3ad1742869cc7b64eb0da685d              |
+| properties                          |                                               |
+| security_groups                     | name='default'                                |
+| status                              | BUILD                                         |
+| updated                             | 2017-03-31T08:33:10Z                          |
+| user_id                             | 42da6bed78c749baa7f9c65eae162cfd              |
+| volumes_attached                    |                                               |
++-------------------------------------+-----------------------------------------------+
+root@yz3ctrl1:/var/lib/glance# openstack server list
++--------------------------------------+----------------+--------+----------+------------+
+| ID                                   | Name           | Status | Networks | Image Name |
++--------------------------------------+----------------+--------+----------+------------+
+| b8a4eca5-14c9-433f-adc7-cf71156d94fd | vm_cirros-ZACH | ERROR  |          | cirros     |
++--------------------------------------+----------------+--------+----------+------------+
+root@yz3ctrl1:/var/lib/glance# openstack console url show vm_cirros-ZACH 
+Instance b8a4eca5-14c9-433f-adc7-cf71156d94fd is not ready (HTTP 409) (Request-ID: req-e70f1318-9f62-4822-857f-1e1dcc027257)
+root@yz3ctrl1:/var/lib/glance# openstack security group rule create --proto icmp default
+More than one SecurityGroup exists with the name 'default'.
+root@yz3ctrl1:/var/lib/glance# openstack image create "cirros_v2"   --file /zach/cirros-0.3.5-x86_64-disk.img   --disk-format qcow2 --container-format bare 
++------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Field            | Value                                                                                                                                                                                 |
++------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| checksum         | f8ab98ff5e73ebab884d80c9dc9c7290                                                                                                                                                      |
+| container_format | bare                                                                                                                                                                                  |
+| created_at       | 2017-03-31T09:51:49Z                                                                                                                                                                  |
+| disk_format      | qcow2                                                                                                                                                                                 |
+| file             | /v2/images/a2575d13-d1d6-4d9d-81d8-0866c0c43e0c/file                                                                                                                                  |
+| id               | a2575d13-d1d6-4d9d-81d8-0866c0c43e0c                                                                                                                                                  |
+| min_disk         | 0                                                                                                                                                                                     |
+| min_ram          | 0                                                                                                                                                                                     |
+| name             | cirros_v2                                                                                                                                                                             |
+| owner            | None                                                                                                                                                                                  |
+| properties       | direct_url='file:///var/lib/glance/images/a2575d13-d1d6-4d9d-81d8-0866c0c43e0c', locations='[{u'url': u'file:///var/lib/glance/images/a2575d13-d1d6-4d9d-81d8-0866c0c43e0c',          |
+|                  | u'metadata': {}}]'                                                                                                                                                                    |
+| protected        | False                                                                                                                                                                                 |
+| schema           | /v2/schemas/image                                                                                                                                                                     |
+| size             | 13267968                                                                                                                                                                              |
+| status           | active                                                                                                                                                                                |
+| tags             |                                                                                                                                                                                       |
+| updated_at       | 2017-03-31T09:51:55Z                                                                                                                                                                  |
+| virtual_size     | None                                                                                                                                                                                  |
+| visibility       | shared                                                                                                                                                                                |
++------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+root@yz3ctrl1:/var/lib/glance# 
+
+
+http://blog.csdn.net/yenai2008/article/details/60581011
+http://blog.csdn.net/yenai2008/article/details/60955247
+
+
+
+openstack volume create --size 1 volume1
+openstack volume list
+openstack server add volume vm_cirros volume1
+openstack volume list
+sudo fdisk -l
+
+
+
+os_region_name = RegionOne
+project_domain_name = Default
+project_name = service
+auth_type = password
+user_domain_name = Default
+auth_url = http://yz3ctrl1.dev3.tonyc.cn:35357/v3
+username = placement
+password = edong
+
+
+[neutron]
+auth_url = http://yz3ctrl1.dev3.tonyc.cn:35357
+url = http://yz3ctrl1.dev3.tonyc.cn:9696
+auth_type = password
+project_domain_name = default
+user_domain_name = default
+project_name = service
+username = neutron
+password = edong
+region_name = RegionOne
