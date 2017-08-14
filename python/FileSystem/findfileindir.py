@@ -2,7 +2,7 @@
 #author zach.wang
 import os, time, sys
 from datetime import datetime
-dir = "C:\\Program Files"
+dir = "E:\\python"
 savedir = "E:\python\zach.log"
 
 def rescuresearch(lst,suffix,tmplist):
@@ -29,7 +29,11 @@ def searchall(suffix=""):
         print(mtime.center(30,"#").center(50," "))
         rescuresearch(root,suffix,tmplist)
     savetofile(file,tmplist,suffix)
-
+'''
+DIR="E:\\python"
+for root, dirs, files in os.walk(DIR):
+    print(files)
+'''
 def savetofile(file,tmplist,suffix):
     if file.lower() == "y":
         with open(savedir,"w") as fp:
