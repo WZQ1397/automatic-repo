@@ -1,0 +1,964 @@
+!
+Version 5.5
+
+ip vrouter "trust-vr"
+exit
+vswitch "vswitch1"
+exit
+zone "trust"
+exit
+zone "untrust"
+exit
+zone "dmz"
+exit
+zone "l2-trust" l2
+exit
+zone "l2-untrust" l2
+exit
+zone "l2-dmz" l2
+exit
+zone "VPNHub"
+exit
+zone "HA"
+exit
+interface vswitchif1
+exit
+interface ethernet0/0
+exit
+interface ethernet0/1
+exit
+interface ethernet0/2
+exit
+interface ethernet0/3
+exit
+interface ethernet0/4
+exit
+interface ethernet0/5
+exit
+interface ethernet0/6
+exit
+interface ethernet0/7
+exit
+interface ethernet0/8
+exit
+address "private_network"
+exit
+address "monitor_address"
+exit
+aaa-server "local" type local
+exit
+service "ms-rdp"
+  tcp dst-port 3389 src-port 3389 
+exit
+service "tcp5555"
+  tcp dst-port 5555 
+exit
+service "172.12.1.12"
+  tcp dst-port 10012 
+exit
+service "172.12.1.13"
+  tcp dst-port 10013 
+exit
+service "172.12.1.14"
+  tcp dst-port 10014 
+exit
+service "172.12.1.15"
+  tcp dst-port 10015 
+exit
+service "172.12.1.16"
+  tcp dst-port 10016 
+exit
+service "172.12.1.17"
+  tcp dst-port 10017 
+exit
+service "172.12.1.18"
+  tcp dst-port 10018 
+exit
+service "172.12.1.19"
+  tcp dst-port 10019 
+exit
+service "172.30"
+  tcp dst-port 30014 
+exit
+service "10021"
+  tcp dst-port 10021 
+exit
+service "10020"
+  tcp dst-port 10020 
+exit
+service "13306"
+  tcp dst-port 13306 
+exit
+service "23306"
+  tcp dst-port 23306 
+exit
+service "21211"
+  tcp dst-port 21211 
+exit
+service "16379"
+  tcp dst-port 16379 
+exit
+service "26379"
+  tcp dst-port 26379 
+exit
+service "25672"
+  tcp dst-port 25672 
+exit
+service "15672"
+  tcp dst-port 15672 
+exit
+service "172.31.1.22"
+  tcp dst-port 10022 
+exit
+service "36379"
+  tcp dst-port 36379 
+exit
+service "18-5672"
+  tcp dst-port 5690 
+exit
+service "19-5672"
+  tcp dst-port 5691 
+exit
+service "51001"
+  tcp dst-port 51001 
+exit
+service "51002"
+  tcp dst-port 51002 
+exit
+service "51003"
+  tcp dst-port 51003 
+exit
+service "52003"
+  tcp dst-port 52003 
+exit
+service "52002"
+  tcp dst-port 52002 
+exit
+service "52001"
+  tcp dst-port 52001 
+exit
+service "53003"
+  tcp dst-port 53003 
+exit
+service "53002"
+  tcp dst-port 53002 
+exit
+service "53001"
+  tcp dst-port 53001 
+exit
+service "13726"
+  tcp dst-port 13726 
+exit
+service "23726"
+  tcp dst-port 23726 
+exit
+service "16666"
+  tcp dst-port 16666 
+exit
+service "26666"
+  tcp dst-port 26666 
+exit
+service "36666"
+  tcp dst-port 36666 
+exit
+service "17726"
+  tcp dst-port 17726 
+exit
+service "27726"
+  tcp dst-port 27726 
+exit
+service "9991"
+  tcp dst-port 9991 
+exit
+service "9992"
+  tcp dst-port 9992 
+exit
+service "9993"
+  tcp dst-port 9993 
+exit
+service "9994"
+  tcp dst-port 9994 
+exit
+service "9995"
+  tcp dst-port 9995 
+exit
+service "9996"
+  tcp dst-port 9996 
+exit
+service "9997"
+  tcp dst-port 9997 
+exit
+service "9998"
+  tcp dst-port 9998 
+exit
+service "9999"
+  tcp dst-port 9999 
+exit
+service "9990"
+  tcp dst-port 9990 
+exit
+service "10000"
+  tcp dst-port 10000 
+exit
+service "10001"
+  tcp dst-port 10001 
+exit
+service "10002"
+  tcp dst-port 10002 
+exit
+service "10003"
+  tcp dst-port 10003 
+exit
+service "10023"
+  tcp dst-port 10023 
+exit
+service "lock9090"
+  tcp dst-port 9090 
+exit
+service "13389"
+  tcp dst-port 13389 
+exit
+servgroup "172.12"
+exit
+servgroup "service"
+exit
+servgroup "172.12"
+  service "172.12.1.12"
+  service "172.12.1.13"
+  service "172.12.1.14"
+  service "172.12.1.15"
+  service "172.12.1.16"
+  service "172.12.1.17"
+  service "172.12.1.18"
+  service "172.12.1.19"
+  service "10020"
+  service "10021"
+exit
+servgroup "service"
+  service "15672"
+  service "13306"
+  service "16379"
+  service "18-5672"
+  service "19-5672"
+  service "21211"
+  service "23306"
+  service "25672"
+  service "26379"
+  service "36379"
+exit
+ips sigset "dns" template dns
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "ftp" template ftp
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "http" template http
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+  web-server "default"
+  exit
+exit
+ips sigset "pop3" template pop3
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "smtp" template smtp
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "telnet" template telnet
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "other-tcp" template other-tcp
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "other-udp" template other-udp
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "imap" template imap
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "finger" template finger
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "sunrpc" template sunrpc
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "nntp" template nntp
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "tftp" template tftp
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "snmp" template snmp
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "mysql" template mysql
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "mssql" template mssql
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "oracle" template oracle
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "msrpc" template msrpc
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "netbios" template netbios
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "dhcp" template dhcp
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "ldap" template ldap
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "voip" template voip
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "default_dns" template dns
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "default_ftp" template ftp
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "default_http" template http
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+  web-server "default"
+  exit
+exit
+ips sigset "default_pop3" template pop3
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "default_smtp" template smtp
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "default_telnet" template telnet
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "default_other-tcp" template other-tcp
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "default_other-udp" template other-udp
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "default_imap" template imap
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "default_finger" template finger
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "default_sunrpc" template sunrpc
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "default_nntp" template nntp
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "default_tftp" template tftp
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "default_snmp" template snmp
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "default_mysql" template mysql
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "default_mssql" template mssql
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "default_oracle" template oracle
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "default_msrpc" template msrpc
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "default_netbios" template netbios
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "default_dhcp" template dhcp
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "default_ldap" template ldap
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips sigset "default_voip" template voip
+  max-scan-bytes 30720
+  attack-level critical action reset 
+  attack-level info action reset 
+  attack-level warning action reset 
+exit
+ips profile "no-ips"
+exit
+ips profile "predef_default"
+  sigset "default_dns"
+  sigset "default_ftp"
+  sigset "default_http"
+  sigset "default_pop3"
+  sigset "default_smtp"
+  sigset "default_telnet"
+  sigset "default_other-tcp"
+  sigset "default_other-udp"
+  sigset "default_imap"
+  sigset "default_finger"
+  sigset "default_sunrpc"
+  sigset "default_nntp"
+  sigset "default_tftp"
+  sigset "default_snmp"
+  sigset "default_mysql"
+  sigset "default_mssql"
+  sigset "default_oracle"
+  sigset "default_msrpc"
+  sigset "default_netbios"
+  sigset "default_dhcp"
+  sigset "default_ldap"
+  sigset "default_voip"
+exit
+admin user "hillstone"
+  password z5WHOYIDcWv2P85vgssiUZpA8q
+  role admin
+  access console
+  access telnet
+  access ssh
+  access http
+  access https
+exit
+admin user "taohh"
+  password Mp8I/oznXrl69Xh8De7olKegS3
+  role admin
+  access ssh
+  access https
+exit
+pki trust-domain "trust_domain_default"
+  keypair "Default-Key"
+  enrollment self
+  subject commonName "SG-6000"
+  subject organization "Hillstone Networks"
+exit
+pki trust-domain "trust_domain_ssl_proxy"
+  keypair "Default-Key"
+  enrollment self
+  subject commonName "SG-6000"
+  subject organization "Hillstone Networks"
+exit
+pki trust-domain "network_manager_ca"
+  enrollment terminal
+exit
+address "private_network"
+  ip 10.0.0.0/8
+  ip 172.16.0.0/12
+  ip 192.168.0.0/16
+exit
+address "monitor_address"
+  ip 10.0.0.0/8
+  ip 172.16.0.0/12
+  ip 192.168.0.0/16
+exit
+slb-server-pool "web" 
+ load-balance-algorithm weighted-round-robin
+ monitor threshold 50
+ server ip-range 172.31.1.13 172.31.1.13 port 443 weight-per-server 200
+ server ip-range 172.31.1.12 172.31.1.12 port 443 weight-per-server 200
+ monitor track-tcp port 443 interval 1 threshold 3 weight 100
+exit
+slb-server-pool "old-web" 
+ load-balance-algorithm weighted-round-robin
+ monitor threshold 100
+ server ip-range 172.31.1.13 172.31.1.13 port 80 weight-per-server 200
+ server ip-range 172.31.1.12 172.31.1.12 port 80 weight-per-server 200
+ monitor track-tcp port 80 interval 1 threshold 3 weight 200
+exit
+slb-server-pool "rclock9090" 
+ load-balance-algorithm weighted-round-robin
+ monitor threshold 50
+ server ip-range 172.31.1.20 172.31.1.20 port 9090 weight-per-server 200
+ server ip-range 172.31.1.21 172.31.1.21 port 9090 weight-per-server 200
+ monitor track-tcp port 9090 interval 1 threshold 3 weight 100
+exit
+zone "untrust"
+  type wan
+  ad tear-drop
+  ad ip-spoofing
+  ad land-attack
+  ad ip-option
+  ad ip-fragment
+  ad ip-directed-broadcast
+  ad winnuke
+  ad port-scan
+  ad syn-flood
+  ad icmp-flood
+  ad ip-sweep
+  ad ping-of-death
+  ad udp-flood
+exit
+zone "l2-untrust" l2
+  type wan
+exit
+hostname "SG-6000"
+ssh timeout 60
+admin host any any
+web timeout 1440
+isakmp proposal "psk-md5-des-g2"
+  hash md5
+  encryption des
+exit
+
+isakmp proposal "psk-md5-3des-g2"
+  hash md5
+exit
+
+isakmp proposal "psk-md5-aes128-g2"
+  hash md5
+  encryption aes
+exit
+
+isakmp proposal "psk-md5-aes256-g2"
+  hash md5
+  encryption aes-256
+exit
+
+isakmp proposal "psk-sha-des-g2"
+  encryption des
+exit
+
+isakmp proposal "psk-sha-3des-g2"
+exit
+
+isakmp proposal "psk-sha-aes128-g2"
+  encryption aes
+exit
+
+isakmp proposal "psk-sha-aes256-g2"
+  encryption aes-256
+exit
+
+isakmp proposal "rsa-md5-des-g2"
+  authentication rsa-sig
+  hash md5
+  encryption des
+exit
+
+isakmp proposal "rsa-md5-3des-g2"
+  authentication rsa-sig
+  hash md5
+exit
+
+isakmp proposal "rsa-md5-aes128-g2"
+  authentication rsa-sig
+  hash md5
+  encryption aes
+exit
+
+isakmp proposal "rsa-md5-aes256-g2"
+  authentication rsa-sig
+  hash md5
+  encryption aes-256
+exit
+
+isakmp proposal "rsa-sha-des-g2"
+  authentication rsa-sig
+  encryption des
+exit
+
+isakmp proposal "rsa-sha-3des-g2"
+  authentication rsa-sig
+exit
+
+isakmp proposal "rsa-sha-aes128-g2"
+  authentication rsa-sig
+  encryption aes
+exit
+
+isakmp proposal "rsa-sha-aes256-g2"
+  authentication rsa-sig
+  encryption aes-256
+exit
+
+isakmp proposal "dsa-sha-des-g2"
+  authentication dsa-sig
+  encryption des
+exit
+
+isakmp proposal "dsa-sha-3des-g2"
+  authentication dsa-sig
+exit
+
+isakmp proposal "dsa-sha-aes128-g2"
+  authentication dsa-sig
+  encryption aes
+exit
+
+isakmp proposal "dsa-sha-aes256-g2"
+  authentication dsa-sig
+  encryption aes-256
+exit
+
+ipsec proposal "esp-md5-des-g2"
+  hash md5
+  encryption des
+  group 2
+exit
+
+ipsec proposal "esp-md5-des-g0"
+  hash md5
+  encryption des
+exit
+
+ipsec proposal "esp-md5-3des-g2"
+  hash md5
+  encryption 3des
+  group 2
+exit
+
+ipsec proposal "esp-md5-3des-g0"
+  hash md5
+  encryption 3des
+exit
+
+ipsec proposal "esp-md5-aes128-g2"
+  hash md5
+  encryption aes
+  group 2
+exit
+
+ipsec proposal "esp-md5-aes128-g0"
+  hash md5
+  encryption aes
+exit
+
+ipsec proposal "esp-md5-aes256-g2"
+  hash md5
+  encryption aes-256
+  group 2
+exit
+
+ipsec proposal "esp-md5-aes256-g0"
+  hash md5
+  encryption aes-256
+exit
+
+ipsec proposal "esp-sha-des-g2"
+  hash sha
+  encryption des
+  group 2
+exit
+
+ipsec proposal "esp-sha-des-g0"
+  hash sha
+  encryption des
+exit
+
+ipsec proposal "esp-sha-3des-g2"
+  hash sha
+  encryption 3des
+  group 2
+exit
+
+ipsec proposal "esp-sha-3des-g0"
+  hash sha
+  encryption 3des
+exit
+
+ipsec proposal "esp-sha-aes128-g2"
+  hash sha
+  encryption aes
+  group 2
+exit
+
+ipsec proposal "esp-sha-aes128-g0"
+  hash sha
+  encryption aes
+exit
+
+ipsec proposal "esp-sha-aes256-g2"
+  hash sha
+  encryption aes-256
+  group 2
+exit
+
+ipsec proposal "esp-sha-aes256-g0"
+  hash sha
+  encryption aes-256
+exit
+
+interface vswitchif1
+  zone  "untrust"
+  ip address 122.144.169.198 255.255.255.192
+  manage telnet
+  manage ssh
+  manage ping
+  manage http
+  manage https
+exit
+interface ethernet0/0
+  zone  "trust"
+  ip address 192.168.1.1 255.255.255.0
+  manage ssh
+  manage ping
+  manage snmp
+  manage https
+exit
+interface ethernet0/1
+  zone  "l2-dmz"
+exit
+interface ethernet0/2
+  zone  "dmz"
+  ip address 172.31.1.254 255.255.255.0
+  manage ip 172.31.1.253
+  ip address 172.12.1.254 255.255.255.0 secondary
+  manage telnet
+  manage ping
+  manage http
+  manage https
+  manage ssh
+exit
+interface ethernet0/3
+  zone  "l2-dmz"
+exit
+interface ethernet0/7
+  zone  "l2-trust"
+exit
+interface ethernet0/8
+  zone  "l2-trust"
+exit
+ip vrouter "trust-vr"
+  snatrule id 1 from "172.12.1.254" to "116.228.38.122" service "Any" trans-to eif-ip mode dynamicport disable 
+  snatrule id 3 from "172.31.1.14" to "Any" service "Any" trans-to 122.144.169.196 mode static 
+  snatrule id 4 from "172.31.1.15" to "Any" service "Any" trans-to 122.144.169.196 mode static 
+  snatrule id 5 from "172.31.1.12" to "Any" service "Any" trans-to 122.144.169.196 mode static 
+  snatrule id 2 from "Any" to "Any" service "Any" trans-to eif-ip mode dynamicport 
+  dnatrule id 54 from "Any" to "122.144.169.196" service "13389" trans-to "172.31.1.24" port 3389 
+  dnatrule id 53 from "Any" to "122.144.169.195" service "lock9090" trans-to slb-server-pool "rclock9090" 
+  dnatrule id 2 from "Any" to "122.144.169.197" service "Any" trans-to "172.12.1.2" 
+  dnatrule id 3 from "Any" to "122.144.169.196" service "tcp5555" trans-to "172.12.1.10" port 3389 
+  dnatrule id 49 from "Any" to "122.144.169.199" service "HTTP" trans-to slb-server-pool "old-web" 
+  dnatrule id 47 from "Any" to "122.144.169.199" service "HTTPS" trans-to slb-server-pool "web" disable 
+  dnatrule id 1 from "Any" to "122.144.169.196" service "TELNET" trans-to "172.31.1.250" port 23 
+  dnatrule id 4 from "Any" to "122.144.169.196" service "172.12.1.12" trans-to "172.31.1.12" port 22 
+  dnatrule id 5 from "Any" to "122.144.169.196" service "172.12.1.13" trans-to "172.31.1.13" port 22 
+  dnatrule id 6 from "Any" to "122.144.169.196" service "172.12.1.14" trans-to "172.31.1.14" port 22 
+  dnatrule id 7 from "Any" to "122.144.169.196" service "172.12.1.15" trans-to "172.31.1.15" port 22 
+  dnatrule id 8 from "Any" to "122.144.169.196" service "172.12.1.16" trans-to "172.31.1.16" port 22 
+  dnatrule id 9 from "Any" to "122.144.169.196" service "172.12.1.17" trans-to "172.31.1.17" port 22 
+  dnatrule id 10 from "Any" to "122.144.169.196" service "172.12.1.18" trans-to "172.31.1.18" port 22 
+  dnatrule id 11 from "Any" to "122.144.169.196" service "172.12.1.19" trans-to "172.31.1.19" port 22 
+  dnatrule id 12 from "Any" to "122.144.169.196" service "10021" trans-to "172.31.1.21" port 22 
+  dnatrule id 13 from "Any" to "122.144.169.196" service "10020" trans-to "172.31.1.20" port 22 
+  dnatrule id 14 from "Any" to "122.144.169.196" service "13726" trans-to "172.31.1.14" port 3726 
+  dnatrule id 15 from "Any" to "122.144.169.196" service "23726" trans-to "172.31.1.15" port 3726 
+  dnatrule id 16 from "Any" to "122.144.169.196" service "16666" trans-to "172.31.1.16" port 6666 
+  dnatrule id 17 from "Any" to "122.144.169.196" service "26666" trans-to "172.31.1.17" port 6666 
+  dnatrule id 18 from "Any" to "122.144.169.196" service "15672" trans-to "172.31.1.18" port 15672 
+  dnatrule id 19 from "Any" to "122.144.169.196" service "25672" trans-to "172.31.1.19" port 15672 
+  dnatrule id 20 from "Any" to "122.144.169.196" service "172.31.1.22" trans-to "172.31.1.22" port 22 
+  dnatrule id 21 from "Any" to "122.144.169.196" service "36379" trans-to "172.31.1.22" port 6379 disable 
+  dnatrule id 22 from "Any" to "122.144.169.196" service "36666" trans-to "172.31.1.22" port 6666 
+  dnatrule id 23 from "Any" to "122.144.169.196" service "18-5672" trans-to "172.31.1.18" port 5672 
+  dnatrule id 24 from "Any" to "122.144.169.196" service "19-5672" trans-to "172.31.1.19" port 5672 
+  dnatrule id 25 from "Any" to "122.144.169.196" service "51001" trans-to "172.31.1.16" port 50001 
+  dnatrule id 26 from "Any" to "122.144.169.196" service "51002" trans-to "172.31.1.16" port 50002 
+  dnatrule id 27 from "Any" to "122.144.169.196" service "51003" trans-to "172.31.1.16" port 50003 
+  dnatrule id 28 from "Any" to "122.144.169.196" service "52001" trans-to "172.31.1.17" port 50001 
+  dnatrule id 29 from "Any" to "122.144.169.196" service "52002" trans-to "172.31.1.17" port 50002 
+  dnatrule id 30 from "Any" to "122.144.169.196" service "52003" trans-to "172.31.1.17" port 50003 
+  dnatrule id 32 from "Any" to "122.144.169.196" service "53002" trans-to "172.31.1.22" port 50002 
+  dnatrule id 33 from "Any" to "122.144.169.196" service "53003" trans-to "172.31.1.22" port 50003 
+  dnatrule id 31 from "Any" to "122.144.169.196" service "53001" trans-to "172.31.1.22" port 50001 
+  dnatrule id 41 from "Any" to "122.144.169.196" service "10000" trans-to "172.31.1.21" port 10000 
+  dnatrule id 45 from "Any" to "122.144.169.196" service "10002" trans-to "172.31.1.21" port 10002 
+  dnatrule id 35 from "Any" to "122.144.169.196" service "9991" trans-to "172.31.1.12" port 9991 
+  dnatrule id 36 from "Any" to "122.144.169.196" service "9992" trans-to "172.31.1.12" port 9992 
+  dnatrule id 37 from "Any" to "122.144.169.196" service "9990" trans-to "172.31.1.12" port 9990 
+  dnatrule id 38 from "Any" to "122.144.169.196" service "9994" trans-to "172.31.1.13" port 9994 
+  dnatrule id 39 from "Any" to "122.144.169.196" service "9995" trans-to "172.31.1.13" port 9995 
+  dnatrule id 40 from "Any" to "122.144.169.196" service "9996" trans-to "172.31.1.13" port 9996 
+  dnatrule id 42 from "Any" to "122.144.169.196" service "9997" trans-to "172.31.1.20" port 9997 
+  dnatrule id 43 from "Any" to "122.144.169.196" service "9998" trans-to "172.31.1.20" port 9998 
+  dnatrule id 34 from "Any" to "122.144.169.196" service "9999" trans-to "172.31.1.20" port 9999 
+  dnatrule id 44 from "Any" to "122.144.169.196" service "10003" trans-to "172.31.1.21" port 10003 
+  dnatrule id 48 from "Any" to "122.144.169.196" service "10023" trans-to "172.31.1.23" port 22 
+  dnatrule id 46 from "Any" to "122.144.169.199" trans-to "172.31.1.12" disable 
+  dnatrule id 50 from "Any" to "122.144.169.196" service "17726" trans-to "172.31.1.18" port 15672 
+  dnatrule id 51 from "Any" to "122.144.169.196" service "27726" trans-to "172.31.1.13" port 15672 
+  dnatrule id 52 from "Any" to "122.144.169.196" trans-to "172.12.1.3" 
+  ip route 0.0.0.0/0 122.144.169.193
+  ipv6 route ::/0 ethernet0/1
+exit
+vswitch "vswitch1"
+  virtual-wire set ethernet0/1 ethernet0/3
+exit
+qos-engine first
+  root-pipe "default" id 1
+  exit
+exit
+qos-engine second
+  root-pipe "default" id 2
+  exit
+exit
+rule id 1
+  action permit
+  src-zone "Any"
+  dst-zone "Any"
+  src-addr "Any"
+  dst-addr "Any"
+  service "Any"
+exit
+l2-nonip-action drop
+no tcp-mss all
+tcp-mss tunnel 1380
+ecmp-route-select by-src-and-dst
+  url-db-query server1 "url1.hillstonenet.com" port 8866 vrouter trust-vr
+  url-db-query server1 enable
+  url-db-query server2 "url2.hillstonenet.com" port 8866 vrouter trust-vr
+  url-db-query server2 enable
+strict-tunnel-check
+statistics-set "predef_if_bw"
+  target-data bandwidth id 0 record-history
+  group-by interface directional
+exit
+statistics-set "predef_user_bw"
+  target-data bandwidth id 1 record-history
+  group-by user directional
+exit
+statistics-set "predef_app_bw"
+  target-data bandwidth id 2 record-history
+  group-by application
+exit
+statistics-set "predef_user_app_bw"
+  target-data bandwidth id 3
+  group-by user directional interface zone application
+exit
+statistics-set "predef_zone_if_app_bw"
+  target-data bandwidth id 4
+  group-by interface zone directional application
+exit
+lan-addr private_network
+monitor-address address monitor_address
+
+End
