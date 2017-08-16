@@ -1,0 +1,11 @@
+yum install -y lrzsz ntpdate
+ntpdate 2.cn.pool.ntp.org
+echo "* /30 * * * root ntpdate 2.cn.pool.ntp.org" >> /etc/crontab
+systemctl start redis
+systemctl stop redis
+cd /etc/redis
+./redis-trib.rb create --replicas 3 172.31.1.16:6666 172.31.1.16:50001 172.31.1.16:50002 172.31.1.16:50003 172.31.1.17:6666 172.31.1.17:50001 172.31.1.17:50002 172.31.1.17:50003 172.31.1.22:6666 172.31.1.22:50001 172.31.1.22:50002 172.31.1.22:50003
+
+redis-cli 50001 shutdown
+redis-cli 50002 shutdown
+redis-cli 50003 shutdown
