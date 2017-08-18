@@ -1,0 +1,28 @@
+//add to /etc/vimrc
+
+autocmd BufNewFile *.cpp,*.[ch],*.sh,*.java,*.php,*.htm[l]{0,1} exec ":call SetTitle()" 
+func SetTitle() 
+        call setline(1,"\#########################################################################") 
+        call append(line("."), "\# File Name: ".expand("%")) 
+        call append(line(".")+1, "\# Author: WZQ1397") 
+        call append(line(".")+2, "\# mail: WZQ1397@live.cn") 
+        call append(line(".")+3, "\# Created Time: ".strftime("%c")) 
+        call append(line(".")+4,     "\#########################################################################") 
+    if &filetype == 'sh'    
+		call append(line(".")+5, "\#!/bin/bash") 
+        call append(line(".")+6, "") 
+    else 
+        call append(line(".")+5, "")
+    endif
+    if &filetype == 'cpp'
+        call append(line(".")+6, "#include <iostream>")
+        call append(line(".")+7, "")
+    endif
+    if &filetype == 'c'
+        call append(line(".")+6, "#include <stdio.h>")
+		call append(line(".")+7, "#include <string.h>")
+        call append(line(".")+8, "")
+    endif
+    autocmd BufNewFile * normal G
+endfunc 
+set completeopt=preview,menu
