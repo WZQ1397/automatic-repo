@@ -1,0 +1,42 @@
+/^X-EYOUMAIL-SMTPAUTH: .*@tsnetkeytech.com/     REDIRECT abuse@hwdzsw.net
+#/^X-EYOUMAIL-SMTPAUTH: .*@fuze.org.cn/     REJECT  spam sender
+/^X-EYOUMAIL-SMTPAUTH: .*@yhmarket.com/     DISCARD  spam sender
+#/^X-EYOUMAIL-SMTPAUTH: .*@vjdz.com.cn/     REJECT  spam sender
+/^X-EYOUMAIL-SMTPAUTH: service@fuze.org.cn/     REDIRECT abuse@hwdzsw.net
+/^X-EYOUMAIL-SMTPAUTH: marketing@fuze.org.cn/   REDIRECT abuse@hwdzsw.net
+#/^X-EYOUMAIL-SMTPAUTH: phoebe.wu@puyuc.com/     REJECT your email accout maybe hacked
+/^X-EYOUMAIL-SMTPAUTH: .*@idcquanmails.com/     DISCARD idcquanmails 
+#/^X-EYOUMAIL-SMTPAUTH: kevin.ping@jecorporate.com/     REJECT your email accout maybe hacked
+/^X-EYOUMAIL-SMTPAUTH: ipmp@huading.net.cn/     REJECT your email accout maybe hacked
+/^X-EYOUMAIL-SMTPAUTH: ge@ge-sz.com/     REJECT your email accout maybe hacked
+#/^X-EYOUMAIL-SMTPAUTH: .*@macshipping.com.cn/     REJECT spam sender
+/^X-EYOUMAIL-SMTPAUTH: rfe@rfe.com.cn/ REJECT  spam sender
+/^X-EYOUMAIL-SMTPAUTH: kenneth.cheng@jz-school.com/ REJECT  spam sender
+#/^X-EYOUMAIL-SMTPAUTH: .*@obdvip.com/ REJECT  spam sender
+/^X-EYOUMAIL-SMTPAUTH: sales@jsnsd.com/ REJECT  spam sender
+/^X-EYOUMAIL-SMTPAUTH: culture@floral-qianjing.com/ REJECT  spam sender
+#/^X-EYOUMAIL-SMTPAUTH: ttchen@evistek.com/ REJECT  spam sender
+/^X-EYOUMAIL-SMTPAUTH: wuting@citsm.com/               REJECT  spam sender
+/^X-EYOUMAIL-SMTPAUTH: hr@zph1998.com/                 REJECT  spam sender
+/^X-EYOUMAIL-SMTPAUTH: securities@huitongenergy.com/   REJECT  spam sender
+/^X-EYOUMAIL-SMTPAUTH: smile@joypull.com/              REJECT  spam sender
+#/^X-EYOUMAIL-SMTPAUTH: woody.wang@rainbow09.com/       REJECT  spam sender
+/^X-EYOUMAIL-SMTPAUTH: sales1@obdvip.com/              REJECT  spam sender
+/^X-EYOUMAIL-SMTPAUTH: tangweifeng@odinchina.net/      REJECT  spam sender
+/^X-EYOUMAIL-SMTPAUTH: allison@cellwell.com.cn/        REJECT  spam sender
+/^X-EYOUMAIL-SMTPAUTH: env@envbetter.com/              REJECT  spam sender
+/^X-EYOUMAIL-SMTPAUTH: dongxiaowei@legalplus.com.cn/   REJECT  spam sender
+/^X-EYOUMAIL-SMTPAUTH: shanghai@rfe.com.cn/            REJECT  spam sender
+#/^X-EYOUMAIL-SMTPAUTH: phoebewu@puyuc.com/             REJECT  spam sender 
+/^X-EYOUMAIL-SMTPAUTH: wangliping@citsm.com/           REJECT  spam sender
+/^X-EYOUMAIL-SMTPAUTH: royal@royana.com.cn/            REJECT  spam sender
+/^X-EYOUMAIL-SMTPAUTH: service@1mutian.com/            REJECT  spam sender
+#/^X-EYOUMAIL-SMTPAUTH: hrd-[0-9]*@fujitoyofilter.com/  REJECT  spam sender
+/^X-EYOUMAIL-SMTPAUTH: kenneth.cheng@jz-school.com/    REJECT  spam sender
+#/^X-EYOUMAIL-SMTPAUTH: win@fujitoyofilter.com/         REJECT  spam sender
+#/^X-EYOUMAIL-SMTPAUTH: sc6@isosh.com/                  REJECT  spam sender
+#/^X-EYOUMAIL-SMTPAUTH: sales@fujitoyofilter.com/       REJECT  spam sender
+/^X-EYOUMAIL-SMTPAUTH: jessica.zhang@xinchou.cn/       REJECT  spam sender
+/^X-EYOUMAIL-SMTPAUTH: ylwang@packandfit.com/       REJECT  spam sender
+/^X-EYOUMAIL-SMTPAUTH: postmaster.*@qcr.cc/       REJECT  spam sender
+#/^Message-ID: .*\<DM_/  REDIRECT abuse@hwdzsw.net
