@@ -1,0 +1,12 @@
+#!/bin/bash
+
+ADMIN_EMAIL="wzq1397@live.cn"
+REPORT_DIR="/var/log/report"
+REPORT_TIME=`date +%Y_%m_%d_%H_%M_%S`
+REPORT_FILE="$REPORT_DIR/$REPORT_TIME"
+
+/usr/sbin/pflogsumm -d today /var/log/mail.log /var/log/mail.log.1 --detail 100 --ignore_case >$REPORT_FILE 2>&1
+
+find $REPORT_DIR -type f -ctime +14 | xargs -l100 rm -f
+
+echo -e "To: $ADMIN_EMAIL\r\nSubject: maillog reporting $REPORT_TIME\r\n\r\n" | cat - $REPORT_FILE | /usr/sbin/sendmail $ADMIN_EMAIL
