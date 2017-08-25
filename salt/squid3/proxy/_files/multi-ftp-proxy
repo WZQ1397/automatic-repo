@@ -1,0 +1,97 @@
+#! /bin/bash
+#
+# multi-ftp-proxy - Script to launch ftp-proxy server.
+#
+### BEGIN INIT INFO
+# Provides:          multi-ftp-proxy
+# Required-Start:    $syslog $network
+# Required-Stop:     $syslog $network
+# Should-Start:      $local_fs $named
+# Should-Stop:       $local_fs $named
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Launch ftp-proxy
+# Description:       Launch ftp-proxy, a FTP protocol proxy server.
+### END INIT INFO
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DAEMON=/usr/sbin/ftp-proxy
+CONFIG_DIRECTORY='/etc/proxy-suite'
+CONFIG_PREFIX='ftp_proxy_'
+CONF_LIST=()
+
+. /lib/lsb/init-functions
+
+test -x $DAEMON || exit 0
+
+# Get configuration
+if [ -r /etc/default/ftp-proxy ]; then
+    . /etc/default/ftp-proxy
+fi
+
+if [ "$RUN_DAEMON" != "yes" ]; then
+    log_warning_msg "ftp-proxy disabled."
+    exit 1
+fi
+
+for CONF in `find $CONFIG_DIRECTORY -name "$CONFIG_PREFIX*.conf"  2>/dev/null`
+do
+    CONF_LIST+=( `basename $CONF | sed -e 's/\.conf$//' -e "s/$CONFIG_PREFIX//"` )
+done
+
+if [ ${#CONF_LIST[@]} -eq 0 ]; then
+    log_warning_msg "ftp-proxy config not found."
+    exit 1
+fi
+
+case "$1" in
+  start)
+    for CONF in ${CONF_LIST[@]}
+    do
+        log_daemon_msg "Starting ftp-proxy ( config $CONF )"
+        pidofproc -p "/var/run/${CONFIG_PREFIX}${CONF}.pid" "ftp-proxy" "ftp-proxy ( config $CONF )" "ftp-proxy" 1>/dev/null 2>/dev/null
+        if [ $? -eq 0 ]; then
+            log_warning_msg " skip"
+        else
+            start-stop-daemon --start --quiet --pidfile="/var/run/${CONFIG_PREFIX}${CONF}.pid" --exec $DAEMON -- -d -f "${CONFIG_DIRECTORY}/${CONFIG_PREFIX}${CONF}.conf"
+            log_end_msg $?
+        fi
+    done
+    ;;
+  stop)
+    for CONF in ${CONF_LIST[@]}
+    do
+        log_daemon_msg "Stopping ftp-proxy ( config $CONF )"
+        start-stop-daemon --stop --quiet --pidfile="/var/run/${CONFIG_PREFIX}${CONF}.pid" --exec $DAEMON
+        log_end_msg $?
+    done
+    ;;
+  status)
+    status=0
+    for CONF in ${CONF_LIST[@]}
+    do
+        status_of_proc -p "/var/run/${CONFIG_PREFIX}${CONF}.pid" "ftp-proxy" "ftp-proxy ( config $CONF )"
+        retval=$?
+        test $retval -ge 0  && status=$retval
+    done
+    exit $status;
+    ;;
+  reload|force-reload)
+    for CONF in ${CONF_LIST[@]}
+    do
+        log_daemon_msg "Reloading ftp-proxy ( config $CONF )"
+        start-stop-daemon --stop --quiet --signal 1 --pidfile="/var/run/${CONFIG_PREFIX}${CONF}.pid" --exec $DAEMON
+        log_end_msg $?
+    done
+    ;;
+  restart)
+    $0 stop
+    $0 start
+    ;;
+  *)
+    log_success_msg "Usage: $0 {start|stop|restart|reload|force-reload}"
+    exit 1
+    ;;
+esac
+
+exit 0
