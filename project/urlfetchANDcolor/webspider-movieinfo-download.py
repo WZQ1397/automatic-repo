@@ -5,7 +5,11 @@ from datetime import date
 
 PATH = ''
 REC_DATE=str(date.today())
-header = {'User-Agent':'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; .NET4.0E)'}
+
+#FIXME 8.24 503 pycharm is ok
+
+header = {'User-Agent':"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 "
+                          "(KHTML, like Gecko) Chrome/51.0.2704.63 Safari/537.36"}
 main = 'http://gaoqing.la/'
 
 def ungzip(data,url):
@@ -51,6 +55,8 @@ class MovieInfoSpider():
             req = request.Request(step.get('href'),headers=header)
             res = request.urlopen(req)
             data = ungzip(res.read(),step.get('href'))
+            #print(data)
+            time.sleep(5)
             part1 = "\nlink: "+step.get('href')+step.get('title')+"\n[img]"+str(step.img.get('src'))+"[/img]"
             soup = BeautifulSoup(data,'html5lib')
             for x in soup.find_all('div',attrs={'id':'post_content'}):
