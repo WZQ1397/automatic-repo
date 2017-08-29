@@ -10,8 +10,11 @@
 {% set dst = {'RedHat': '/etc/yum.repo.d/CentOS-Base-163.repo',
               'Debian': '/etc/apt/apt.conf.d/Debian-Ubuntu-lts.list',}.get(grains.os_family) %}
               
-{% set epelsrc = '/epel.repo' %}
-{% set epeldst = '/etc/yum.repo.d/CentOS-epel.repo' %}
+{% set epel6src = '/epel-6.repo' %}
+{% set epel6dst = '/etc/yum.repo.d/CentOS-epel-6.repo' %}
+
+{% set epel7src = '/epel-7.repo' %}
+{% set epel7dst = '/etc/yum.repo.d/CentOS-epel-7.repo' %}
 
 repo-get:
   file.managed:
@@ -21,13 +24,20 @@ repo-get:
     - user: root
     - group: root
     - mode: 644
-    
+
 {% if grains['os_family'] == 'RedHat' %}
-epel-get:
-  file.managed:
-    - name: {{ epeldst }}
-    - source:
-      - salt://{{ epelsrc }}
+  {% if grains['osmajorrelease'] == '6' %}
+  epel-get:
+    file.managed:
+      - name: {{ epel6dst }}
+      - source:
+        - salt://{{ epel6src }}
+  {% else %}
+  epel-get:
+    file.managed:
+      - name: {{ epel7dst }}
+      - source:
+        - salt://{{ epel7src }}
 {% endif %}
 
 apt-get-update:
