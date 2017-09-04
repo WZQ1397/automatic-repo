@@ -1,50 +1,56 @@
-fio²âÊÔ¹¤¾ßÖ§³ÖÍ¬²½(pread/pwrite)ºÍÒì²½(libaio)FIOÊÇ²âÊÔIOPSµÄ·Ç³£ºÃµÄ¹¤¾ß£¬ÓÃÀ´¶ÔÓ²¼ş½øĞĞÑ¹Á¦²âÊÔºÍÑéÖ¤£¬Ö§³Ö13ÖÖ²»Í¬µÄI/OÒıÇæ£¬°üÀ¨:sync,mmap, libaio, posixaio, SG v3, splice, null, network, syslet, guasi, solarisaio µÈµÈ¡£ 
-fio ¹ÙÍøµØÖ·£ºhttp://freshmeat.net/projects/fio/ 
-Ò»£¬FIO°²×° 
+fioæµ‹è¯•å·¥å…·æ”¯æŒåŒæ­¥(pread/pwrite)å’Œå¼‚æ­¥(libaio)FIOæ˜¯æµ‹è¯•IOPSçš„éå¸¸å¥½çš„å·¥å…·ï¼Œç”¨æ¥å¯¹ç¡¬ä»¶è¿›è¡Œå‹åŠ›æµ‹è¯•å’ŒéªŒè¯ï¼Œæ”¯æŒ13ç§ä¸åŒçš„I/Oå¼•æ“ï¼ŒåŒ…æ‹¬:sync,mmap, libaio, posixaio, SG v3, splice, null, network, syslet, guasi, solarisaio ç­‰ç­‰ã€‚ 
+fio å®˜ç½‘åœ°å€ï¼šhttp://freshmeat.net/projects/fio/ 
+ä¸€ï¼ŒFIOå®‰è£… 
 wget http://brick.kernel.dk/snaps/fio-2.0.7.tar.gz 
 yum install libaio-devel -y 
 tar -zxvf fio-2.0.7.tar.gz 
 cd fio-2.0.7 
 make 
 make install 
-Èç¹û³öÏÖÏÂÃæµÄ´íÎó£º
+å¦‚æœå‡ºç°ä¸‹é¢çš„é”™è¯¯ï¼š
 CC gettime.o In file included from fio.h:23, from gettime.c:8: os/os.h:15:20: error: libaio.h: No such file or directory In file included from gettime.c:8: fio.h:119: error: field 'iocb' has incomplete type make: *** [gettime.o] Error 1
-¶ş£¬Ëæ»ú¶Á²âÊÔ£º 
-Ëæ»ú¶Á£º 
+äºŒï¼Œéšæœºè¯»æµ‹è¯•ï¼š 
+éšæœºè¯»ï¼š 
 fio -filename=/dev/sdb1 -direct=1 -iodepth 1 -thread -rw=randread -ioengine=psync -bs=16k -size=200G -numjobs=10 -runtime=1000 -group_reporting -name=mytest 
-Ë³Ğò¶Á£º 
+é¡ºåºè¯»ï¼š 
 fio -filename=/dev/sdb1 -direct=1 -iodepth 1 -thread -rw=read -ioengine=psync -bs=16k -size=200G -numjobs=30 -runtime=1000 -group_reporting -name=mytest 
-Ëæ»úĞ´£º 
+éšæœºå†™ï¼š 
 fio -filename=/data/test -direct=1 -iodepth 1 -thread -rw=randwrite -ioengine=psync -bs=4k -size=200G -numjobs=30 -runtime=1000 -group_reporting -name=mytest_4k_200G_randwrite 
-Ë³ĞòĞ´£º 
+é¡ºåºå†™ï¼š 
 fio -filename=/dev/sdb1 -direct=1 -iodepth 1 -thread -rw=write -ioengine=psync -bs=16k -size=200G -numjobs=30 -runtime=1000 -group_reporting -name=mytest 
-»ìºÏËæ»ú¶ÁĞ´£º 
+æ··åˆéšæœºè¯»å†™ï¼š 
 fio -filename=/dev/sdb1 -direct=1 -iodepth 1 -thread -rw=randrw -rwmixread=70 -ioengine=psync -bs=16k -size=200G -numjobs=30 -runtime=100 -group_reporting -name=mytest -ioscheduler=noop 
-Í¬²½i/o£¨Ë³ĞòĞ´£©²âÊÔ£º
+åŒæ­¥i/oï¼ˆé¡ºåºå†™ï¼‰æµ‹è¯•ï¼š
 fio -filename=/data/test -direct=1 -iodepth 1 -thread -rw=write -ioengine=psync -bs=4k -size=50G -numjobs=10 -runtime=1000 -group_reporting -name=mytest
-Òì²½i/o(Ë³ĞòĞ´)²âÊÔ£º
+å¼‚æ­¥i/o(é¡ºåºå†™)æµ‹è¯•ï¼š
 fio -filename=/data/test -direct=1 -iodepth 1 -thread -rw=write -ioengine=libaio -bs=4k -size=50G -numjobs=10 -runtime=1000 -group_reporting -name=mytest 
-ËµÃ÷£º 
-filename=/dev/sdb1 ²âÊÔÎÄ¼şÃû³Æ£¬Í¨³£Ñ¡ÔñĞèÒª²âÊÔµÄÅÌµÄdataÄ¿Â¼¡£ 
-direct=1 ²âÊÔ¹ı³ÌÈÆ¹ı»úÆ÷×Ô´øµÄbuffer¡£Ê¹²âÊÔ½á¹û¸üÕæÊµ¡£ 
-rw=randwrite ²âÊÔËæ»úĞ´µÄI/O 
-rw=randrw ²âÊÔËæ»úĞ´ºÍ¶ÁµÄI/O 
-bs=16k µ¥´ÎioµÄ¿éÎÄ¼ş´óĞ¡Îª16k 
-bsrange=512-2048 Í¬ÉÏ£¬Ìá¶¨Êı¾İ¿éµÄ´óĞ¡·¶Î§ 
-size=5g ±¾´ÎµÄ²âÊÔÎÄ¼ş´óĞ¡Îª5g£¬ÒÔÃ¿´Î4kµÄio½øĞĞ²âÊÔ¡£ 
-numjobs=30 ±¾´ÎµÄ²âÊÔÏß³ÌÎª30. 
-runtime=1000 ²âÊÔÊ±¼äÎª1000Ãë£¬Èç¹û²»Ğ´ÔòÒ»Ö±½«5gÎÄ¼ş·Ö4kÃ¿´ÎĞ´ÍêÎªÖ¹¡£ 
-ioengine=psync ioÒıÇæÊ¹ÓÃpync·½Ê½ 
-rwmixwrite=30 ÔÚ»ìºÏ¶ÁĞ´µÄÄ£Ê½ÏÂ£¬Ğ´Õ¼30% 
-group_reporting ¹ØÓÚÏÔÊ¾½á¹ûµÄ£¬»ã×ÜÃ¿¸ö½ø³ÌµÄĞÅÏ¢¡£ 
-lockmem=1g Ö»Ê¹ÓÃ1gÄÚ´æ½øĞĞ²âÊÔ¡£ 
-zero_buffers ÓÃ0³õÊ¼»¯ÏµÍ³buffer¡£ 
-nrfiles=8 Ã¿¸ö½ø³ÌÉú³ÉÎÄ¼şµÄÊıÁ¿¡£ 
-psync  Í¬²½i/o²âÊÔ
-libaio  Òì²½i/o²âÊÔ
-½á¹û×Ü½á£º
-ÀıÈç£º
-read : io£¨²âÊÔÁË1GµÄÊı¾İ£©=1024.0MB, bw£¨´ø¿í£©=139643KB/s, iops£¨Ã¿ÃëÖÓµÄIOÊı£©=136 , runt£¨×ÜÔËĞĞÊ±¼ä£©=  7509msec
+
+æµ‹è¯•å†™ååé‡ï¼š
+fio -direct=1 -iodepth=64 -rw=write -ioengine=libaio -bs=1024k -size=1G -numjobs=1 -runtime=1000 -group_reporting -filename=/dev/[device] -name=Write_PPS_Testing
+æµ‹è¯•è¯»ååé‡ï¼š
+fio -direct=1 -iodepth=64 -rw=read -ioengine=libaio -bs=1024k -size=1G -numjobs=1 -runtime=1000 -group_reporting -filename=/dev/[device] -name=Read_PPS_Testing
+
+è¯´æ˜ï¼š 
+filename=/dev/sdb1 æµ‹è¯•æ–‡ä»¶åç§°ï¼Œé€šå¸¸é€‰æ‹©éœ€è¦æµ‹è¯•çš„ç›˜çš„dataç›®å½•ã€‚ 
+direct=1 æµ‹è¯•è¿‡ç¨‹ç»•è¿‡æœºå™¨è‡ªå¸¦çš„bufferã€‚ä½¿æµ‹è¯•ç»“æœæ›´çœŸå®ã€‚ 
+rw=randwrite æµ‹è¯•éšæœºå†™çš„I/O 
+rw=randrw æµ‹è¯•éšæœºå†™å’Œè¯»çš„I/O 
+bs=16k å•æ¬¡ioçš„å—æ–‡ä»¶å¤§å°ä¸º16k 
+bsrange=512-2048 åŒä¸Šï¼Œæå®šæ•°æ®å—çš„å¤§å°èŒƒå›´ 
+size=5g æœ¬æ¬¡çš„æµ‹è¯•æ–‡ä»¶å¤§å°ä¸º5gï¼Œä»¥æ¯æ¬¡4kçš„ioè¿›è¡Œæµ‹è¯•ã€‚ 
+numjobs=30 æœ¬æ¬¡çš„æµ‹è¯•çº¿ç¨‹ä¸º30. 
+runtime=1000 æµ‹è¯•æ—¶é—´ä¸º1000ç§’ï¼Œå¦‚æœä¸å†™åˆ™ä¸€ç›´å°†5gæ–‡ä»¶åˆ†4kæ¯æ¬¡å†™å®Œä¸ºæ­¢ã€‚ 
+ioengine=psync ioå¼•æ“ä½¿ç”¨pyncæ–¹å¼ 
+rwmixwrite=30 åœ¨æ··åˆè¯»å†™çš„æ¨¡å¼ä¸‹ï¼Œå†™å 30% 
+group_reporting å…³äºæ˜¾ç¤ºç»“æœçš„ï¼Œæ±‡æ€»æ¯ä¸ªè¿›ç¨‹çš„ä¿¡æ¯ã€‚ 
+lockmem=1g åªä½¿ç”¨1gå†…å­˜è¿›è¡Œæµ‹è¯•ã€‚ 
+zero_buffers ç”¨0åˆå§‹åŒ–ç³»ç»Ÿbufferã€‚ 
+nrfiles=8 æ¯ä¸ªè¿›ç¨‹ç”Ÿæˆæ–‡ä»¶çš„æ•°é‡ã€‚ 
+psync  åŒæ­¥i/oæµ‹è¯•
+libaio  å¼‚æ­¥i/oæµ‹è¯•
+ç»“æœæ€»ç»“ï¼š
+ä¾‹å¦‚ï¼š
+read : ioï¼ˆæµ‹è¯•äº†1Gçš„æ•°æ®ï¼‰=1024.0MB, bwï¼ˆå¸¦å®½ï¼‰=139643KB/s, iopsï¼ˆæ¯ç§’é’Ÿçš„IOæ•°ï¼‰=136 , runtï¼ˆæ€»è¿è¡Œæ—¶é—´ï¼‰=  7509msec
 
 
 CEPH
