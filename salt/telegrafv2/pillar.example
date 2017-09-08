@@ -1,0 +1,19 @@
+telegraf:
+  version: 0.13.2
+  source_hash: 128ac6845f12b5001706a217823dca58
+  agent:
+    hostname: foobar
+  global_tags:
+    env: staging
+  inputs:
+    -
+      plugin_name: redis
+      servers:
+        - "tcp://localhost:6379"
+      tags:
+        az: us-east-1
+  outputs:
+    -
+      plugin_name: librato
+      api_user: foo@bar.com
+      api_token: secret

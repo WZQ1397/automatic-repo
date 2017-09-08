@@ -1,0 +1,22 @@
+telegraf:
+  version: 0.13.2
+  indent: 2
+  use_system_inputs: True
+  agent:
+    hostname: ""
+    interval: 10s
+    round_interval: "true"
+    metric_buffer_limit: 10000
+    flush_buffer_when_full: "true"
+    collection_jitter: 0s
+    flush_interval: 10s
+    flush_jitter: 0s
+    debug: "false"
+    quiet: "false"
+  outputs:
+    -
+      plugin_name: influxdb
+      urls:
+        - http://localhost:8086
+      database: telegraf
+      precision: s
