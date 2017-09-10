@@ -1,0 +1,17 @@
+<configuration>  
+    <property>  
+        <name>mapreduce.framework.name</name>  
+        <value>yarn</value>  
+    </property>  
+    <!-- give alias to HDFS cluster -->
+    <!-- need by cluster configuration
+    <property> 
+        <name>yarn.resourcemanager.hostname</name> 
+        <value>172.16.10.101</value> 
+    </property>
+    -->
+    <property>  
+        <name>yarn.nodemanager.aux-services</name>  
+        <value>mapreduce_shuffle</value>  
+    </property>  
+</configuration>
