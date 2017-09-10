@@ -1,0 +1,109 @@
+<configuration>    
+    <property>    
+        <name>dfs.replication</name>    
+        <value>3</value>    
+    </property> 
+    <property>
+        <name>dfs.webhdfs.enabled</name>
+        <value>true</value>
+    </property>
+    <property>    
+        <name>dfs.nameservices</name>    
+        <value>cluster1,cluster2</value>    
+    </property>
+    
+    <!-- give alias to HDFS cluster -->
+    <property>    
+        <name>dfs.namenodes.cluster1</name>    
+        <value>node1,node2</value>    
+    </property>
+    <property>    
+        <name>dfs.namenodes.cluster2</name>    
+        <value>node3,node4</value>    
+    </property>
+    
+    <!-- communication of cluster -->
+    <property>    
+        <name>dfs.namenodes.rpc-address.cluster1.node1</name>    
+        <value>172.16.10.101:9000</value>    
+    </property>  
+    <property>    
+        <name>dfs.namenodes.http-address.cluster1.node1</name>    
+        <value>172.16.10.101:50070</value>    
+    </property>  
+    <property>    
+        <name>dfs.namenodes.rpc-address.cluster1.node2</name>    
+        <value>172.16.10.102:9000</value>    
+    </property>  
+    <property>    
+        <name>dfs.namenodes.http-address.cluster1.node2</name>    
+        <value>172.16.10.102:50070</value>    
+    </property>
+    <property>    
+        <name>dfs.namenodes.rpc-address.cluster2.node3</name>    
+        <value>172.16.10.103:9000</value>    
+    </property>  
+    <property>    
+        <name>dfs.namenodes.http-address.cluster2.node3</name>    
+        <value>172.16.10.103:50070</value>    
+    </property>  
+    <property>    
+        <name>dfs.namenodes.rpc-address.cluster2.node4</name>    
+        <value>172.16.10.104:9000</value>    
+    </property>  
+    <property>    
+        <name>dfs.namenodes.http-address.cluster2.node4</name>    
+        <value>172.16.10.104:50070</value>    
+    </property>
+    
+    <!-- odd nums of journal -->    
+    <!-- cluster 1 -->    
+    <property> 
+        <name>dfs.namenode.shared.edits.dir</name> 
+        <value>qjournal://172.16.10.101:8485;172.16.10.102:8485;172.16.10.103:8485/cluster1</value> 
+    </property> 
+    <!-- cluster 1 -->    
+    <!-- cluster 2 -->    
+    <property> 
+        <name>dfs.namenode.shared.edits.dir</name> 
+        <value>qjournal://172.16.10.101:8485;172.16.10.102:8485;172.16.10.103:8485/cluster2</value> 
+    </property>
+    <!-- cluster 2 -->
+    <!-- which type of class is used to faillover  -->    
+    <!-- cluster 1 -->    
+    <property> 
+        <name>dfs.ha.automatic-failover.enabled.cluster1</name> 
+        <!-- zookeeper -> true : manual -> false --> 
+        <value>true</value> 
+    </property> 
+    <property> 
+        <name>dfs.client.failover.proxy.provider.cluster1</name> 
+        <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>    
+    </property>
+    <!-- cluster 1 -->
+    <!-- cluster 2 -->    
+    <property> 
+        <name>dfs.ha.automatic-failover.enabled.cluster2</name> 
+        <value>true</value> 
+    </property> 
+    <property> 
+        <name>dfs.client.failover.proxy.provider.cluster2</name> 
+        <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value> 
+    </property> 
+    <!-- cluster 2 -->   
+    
+    <property> 
+        <name>dfs.journalnode.edits.dir</name> 
+        <value>/usr/local/hadoop/tmp/journal</value> 
+    </property>
+    
+    <property> 
+        <name>dfs.ha.fencing.methods</name> 
+        <value>sshfence</value> 
+    </property>
+
+    <property> 
+        <name>dfs.ha.fencing.ssh.private-key-files</name> 
+        <value>/root/.ssh/id_rsa</value> 
+    </property>
+</configuration>
