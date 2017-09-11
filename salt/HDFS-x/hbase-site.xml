@@ -1,0 +1,31 @@
+<configuration>  
+  <property>  
+    <name>hbase.rootdir</name>  
+    <!-- <value>file:///DIRECTORY/hbase</value>  -->
+    <value>hdfs://172.16.10.101:49002/hbase</value>
+  </property> 
+  <property>  
+    <name>hbase.cluster.distributed</name>  
+    <value>true</value>  
+  </property>  
+  <property>
+    <name>dfs.datanode.max.xcievers</name>
+    <value>4096</value>
+  </property>
+  <property>
+    <name>hbase.zookeeper.property.clientPort</name>
+    <value>2222</value>
+    <description>Property fromZooKeeper's config zoo.cfg.The port at which the clients willconnect.
+    </description>
+  </property>
+  <property>
+    <name>hbase.zookeeper.quorum</name>
+    <value>172.16.10.101,172.16.10.102,172.16.10.103</value>
+  </property>
+  <property>
+    <name>hbase.zookeeper.property.dataDir</name>
+    <value>/hadoop/data/zookeeper</value>
+    <description>Property fromZooKeeper's config zoo.cfg.The directory where the snapshot isstored.
+    </description>
+  </property>
+</configuration>
