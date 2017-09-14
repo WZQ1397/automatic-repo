@@ -6,7 +6,7 @@ from datetime import date
 PATH = ''
 REC_DATE=str(date.today())
 
-#FIXME 8.24 503 pycharm is ok
+#FIXME 8.24 503 pycharm plus time is ok
 
 header = {'User-Agent':"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 "
                           "(KHTML, like Gecko) Chrome/51.0.2704.63 Safari/537.36"}
@@ -71,6 +71,6 @@ class MovieInfoSpider():
 
             COUNT += 1
             print(color('COLOR_GREEN')+"No:{:3d}.......OK".format(COUNT)+color('COLOR_NONE'))
-            time.sleep(0.5)
+            time.sleep(5)
 
 MovieInfoSpider().getcontent()
