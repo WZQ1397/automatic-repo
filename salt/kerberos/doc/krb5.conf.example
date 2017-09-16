@@ -1,0 +1,35 @@
+[kdc]
+profile = /etc/krb5kdc/kdc.conf
+
+[logging]
+default= FILE:/var/log/krb5libs.log
+kdc = FILE:/var/log/krb5kdc.log
+admin_server = FILE:/var/log/kadmind.log
+
+default_tgs_enctypes = des3-hmac-sha1
+default_tkt_enctypes = des3-hmac-sha1
+permitted_enctypes = des3-hmac-sha1
+
+[libdefaults]
+default_realm = LOCAL.DOMAIN
+forwardable = yes
+ccache_type = 4
+proxiable = true
+renew_lifetime = 1d
+clockskew = 1000000000
+#dns_lookup_kdc = true
+#dns_lookup_realm = true
+
+[realms]
+LOCAL.DOMAIN = {
+    kdc = localhost
+    admin_server = localhost
+    default_domain = localhost
+}
+[domain_realm]
+.local.domain = LOCAL.DOMAIN
+local.domain = LOCAL.DOMAIN
+
+[login]
+krb4_convert = true
+krb4_get_tickets = falsey
