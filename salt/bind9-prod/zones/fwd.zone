@@ -1,0 +1,21 @@
+;
+; BIND data file for local loopback interface
+;
+$TTL  3600
+
+@   IN  SOA  ns1.fwd.oweb.cn. tech.oweb.cn.(
+             2015011505     ; Serial
+                    600     ; Refresh
+                    600     ; Retry
+                 604800     ; Expire
+                     60)    ; Negative Cache TTL
+
+        NS  ns1.fwd.oweb.cn.
+        NS  ns2.fwd.oweb.cn.
+
+$ORIGIN fwd.oweb.cn.
+
+ns1     A   122.144.139.137
+ns2     A   222.73.173.95
+
+mx      A   222.73.173.107
