@@ -1,0 +1,54 @@
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+include "/etc/bind/named.conf.acl.out";
+
+view "outside"{
+
+    match-clients { 
+        outside;
+    };
+
+    include "/etc/bind/named.conf.default-zones";
+
+    zone "fwd.oweb.cn" IN{
+        type master;
+        file "{{zonedir}}/fwd.oweb.cn.outside.zone";
+    };
+
+    zone "tonyc.cn" IN{
+        type slave;
+        file "{{zonedir}}/tonyc.cn.outside.db";
+        masters {
+            58.215.64.22;
+            58.215.64.18;
+        };
+    };
+};
+
+view "inside"{
+    match-clients { 
+        any; 
+    };
+
+    include "/etc/bind/named.conf.default-zones";
+
+    zone "fwd.oweb.cn" IN{
+        type master;
+        file "{{zonedir}}/fwd.oweb.cn.zone";
+    };
+
+    zone "tonyc.cn" IN{
+        type slave;
+        file "{{zonedir}}/tonyc.cn.inside.db";
+        masters {
+            58.215.64.22;
+            58.215.64.18;
+        };
+    };
+};
