@@ -1,0 +1,24 @@
+<configuration>    
+    <property>    
+        <name>mapreduce.map.memory.mb</name>
+        <value>4096</value>
+    </property>    
+    <property>
+        <name>mapreduce.reduce.memory.mb</name>
+        <value>8192</value>     
+    </property>    
+    <property>    
+        <name>mapred.job.tracker</name>    
+        <value>172.31.1.25:9001</value>    
+    </property>
+    <!--
+    <property>    
+        <name>mapred.job.tracker.http.address</name>    
+        <value>0.0.0.0:50030</value>    
+    </property>
+    <property>    
+        <name>mapred.task.tracker.http.address</name>    
+        <value>0.0.0.0:50060</value>    
+    </property>  
+    -->
+</configuration>
