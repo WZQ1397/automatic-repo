@@ -1,0 +1,17 @@
+ALERT goroutines_gt_70
+  IF go_goroutines > 70
+  FOR 5s  
+  LABELS { status = "yellow" }
+  ANNOTATIONS {
+    summary = "goroutines 超过 70，当前值{{ $value }}",
+    description = "当前实例 {{ $labels.instance }}",
+  }
+
+ALERT goroutines_gt_90
+  IF go_goroutines > 90
+  FOR 5s  
+  LABELS { status = "red" }
+  ANNOTATIONS {
+    summary = "goroutines 超过 90，当前值{{ $value }}",
+    description = "当前实例 {{ $labels.instance }}",
+  }
