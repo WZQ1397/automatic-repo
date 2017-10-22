@@ -1,0 +1,19 @@
+global:
+  scrape_interval:     15s # By default, scrape targets every 15 seconds.
+
+  external_labels:
+    monitor: 'codelab-monitor'
+
+  rule_files:
+    - rules/mengyuan.rules
+
+scrape_configs:    
+  - job_name: 'node-exporter'
+    static_configs:
+  - targets: ['172.30.100.10:9100']
+    labels:
+      hostname: 'web1'
+  - targets: ['172.30.100.11:9100']
+    hostname: 'web2'
+  - targets: ['172.30.100.12:9100']
+    hostname: 'web3'
