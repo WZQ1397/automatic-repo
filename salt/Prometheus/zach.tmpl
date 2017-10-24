@@ -1,0 +1,8 @@
+{{ define "email.ZACH.html" }}
+<table>
+    <tr><td>WARNING</td><td>START TIME</td></tr>
+    {{ range $i, $alert := .Alerts }}
+        <tr><td>{{ index $alert.Labels "alertname" }}</td><td>{{ $alert.StartsAt }}</td></tr>
+    {{ end }}
+</table>
+{{ end }}
