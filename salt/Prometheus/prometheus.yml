@@ -5,8 +5,11 @@ global:
     monitor: 'codelab-monitor'
 
   rule_files:
-    - rules/mengyuan.rules
-
+    - rules/zach.rules
+    - rules/zach2.rules
+    
+  evaluation_interval: 30s
+  
 scrape_configs:    
   - job_name: 'node-exporter'
     static_configs:
