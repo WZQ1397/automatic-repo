@@ -56,7 +56,7 @@ class MovieInfoSpider():
             res = request.urlopen(req)
             data = ungzip(res.read(),step.get('href'))
             #print(data)
-            time.sleep(5)
+            time.sleep(15)
             part1 = "\nlink: "+step.get('href')+step.get('title')+"\n[img]"+str(step.img.get('src'))+"[/img]"
             soup = BeautifulSoup(data,'html5lib')
             for x in soup.find_all('div',attrs={'id':'post_content'}):
@@ -71,6 +71,6 @@ class MovieInfoSpider():
 
             COUNT += 1
             print(color('COLOR_GREEN')+"No:{:3d}.......OK".format(COUNT)+color('COLOR_NONE'))
-            time.sleep(5)
+            time.sleep(15)
 
 MovieInfoSpider().getcontent()
