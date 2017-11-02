@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -e
+
+RULE=${1:-/etc/ceph/.crush}
+
+TMPDIR=`mktemp -d`
+
+trap 'rm -rf "$TMPDIR"' EXIT
+
+crushtool --compile $RULE -o $TMPDIR/crushmap.new 
+ceph osd getcrushmap -o $TMPDIR/crushmap.cur 
+
+crushtool -d $TMPDIR/crushmap.new -o $TMPDIR/text.new
+crushtool -d $TMPDIR/crushmap.cur -o $TMPDIR/text.cur
+
+if ! diff  $TMPDIR/text.new $TMPDIR/text.cur; then
+    echo 'update crush map to' $RULE
+    ceph osd setcrushmap -i $TMPDIR/crushmap.new
+fi
