@@ -1,4 +1,4 @@
-CREATE DATABASE taokeeper;
+-- CREATE DATABASE taokeeper;
 USE taokeeper;
 
 -- ----------------------------
