@@ -1,4 +1,4 @@
-{{ %set HADOOP_HOME=/etc/hadoop/ %}}
+{{% set HADOOP_HOME=/etc/hadoop/ %}}
 {{ HADOOP_HOME }}/etc/hdfs-site.xml:
   file.managed:
     - source: salt://HADOOP/etc/hdfs-site.xml
