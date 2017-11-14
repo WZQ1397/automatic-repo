@@ -1,7 +1,5 @@
 include:
-  - taokeeper
-  - hdfs
-  - yarn
-  - hbase
-  - storm
-  - mapreduce
+  ## - single
+  - cluster
+  - kafka
+
