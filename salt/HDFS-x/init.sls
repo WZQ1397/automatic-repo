@@ -4,4 +4,5 @@ include:
   - kafka
   - taokeeper
   - zookeeper
+  - hbase
 
