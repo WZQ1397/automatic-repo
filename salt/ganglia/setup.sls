@@ -5,6 +5,7 @@
 {{ ganglia.confpath }}/{{ cnf }}:
   file.managed:
     - source: salt://ganglia/{{ cnf }}
+    - template: jinja
     - user: root
     - group: root
     - mode: '0755'
