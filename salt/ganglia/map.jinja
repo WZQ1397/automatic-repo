@@ -2,5 +2,19 @@ ganglia:
   web: ganglia.conf
   authpath: '/etc/httpd/auth.basic'
   name: zach
-  allowlst:['127.0.0.1','::1','192.168.0.0/16','172.16.0.0/12','10.0.0.0/8']
-  
+  allowlst: ['127.0.0.1','::1','192.168.0.0/16','172.16.0.0/12','10.0.0.0/8']
+  confpath: /etc/ganglia
+  conf:
+    daemonize: yes
+    setuid : yes    # set NO in WINDOWS
+    debug: 0
+    mute: no
+    deaf: no
+  cluster:
+    name: "zach-cluster1"
+    owner: "zach"
+    gmetadhost: 10.2.1.35
+    port: 8649
+    gzip: no
+    buf: #
+    
