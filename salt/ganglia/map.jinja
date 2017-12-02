@@ -1,0 +1,24 @@
+ganglia:
+  web: ganglia.conf
+  authpath: '/etc/httpd/auth.basic'
+  name: zach
+  allowlst: ['127.0.0.1','::1','192.168.0.0/16','172.16.0.0/12','10.0.0.0/8']
+  data_hostlst: "
+  data_source "my grid" 50 1.3.4.7:8655 grid.org:8651 grid-backup.org:8651
+  data_source "another source" 1.3.4.7:8655  1.3.4.8
+  "
+  confpath: /etc/ganglia
+  conf:
+    daemonize: yes
+    debug: 0
+    mute: no
+    deaf: no
+    rrd_rootdir: "/some/other/place"
+  cluster:
+    name: "zach-cluster1"
+    owner: "zach"
+    gmetadhost: 10.2.1.35
+    port: 8649
+    gzip: no
+    buf: #
+

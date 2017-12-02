@@ -8,6 +8,8 @@ nginx:
     - name: nginx-extras
   service:
     - running
+    - enable: True
+    - reload: True
     - require:
       - pkg: nginx-extras
     - watch:
