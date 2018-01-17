@@ -1,0 +1,69 @@
+#!/bin/bash
+#
+# mogilefsd - Startup script for the MogileFS tracker
+#
+# chkconfig: - 85 15
+# description: MogileFS tracker 
+# processname: mogilefsd
+# config: /etc/mogilefs/mogilefsd.conf 
+# pidfile: /var/run/mogilefsd/mogilefsd.pid
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# Path to the apachectl script, server binary, and short-form for messages.
+lockfile=${LOCKFILE-/var/lock/subsys/mogilefsd} 
+RETVAL=0
+
+prog=$(which mogilefsd)
+
+start() { 
+	ulimit -n 65535
+	echo -n $"Starting mogilefsd"
+	su - mogilefs -c "$prog -c /etc/mogilefs/mogilefsd.conf --daemon" 
+	RETVAL=$?
+	[ $RETVAL = 0 ] && success && touch ${lockfile} || failure
+	echo
+	return $RETVAL
+}
+
+stop() {
+	echo -n $"Stopping mogilefsd" 
+	netstat -nlp|grep "mogilefsd"|grep -v grep|awk '{print $7}'|awk -F"/" '{print $1}'|xargs kill -9 
+	RETVAL=$?
+	[ $RETVAL = 0 ] && success && rm -f ${lockfile} || failure
+	echo
+}
+
+reload() {
+	echo -n $"Reloading mogilefsd: " 
+	killall mogilefsd -HUP 
+	RETVAL=$?
+	[ $RETVAL = 0 ] && success || failure
+	echo
+}
+
+case "$1" in
+	start) 
+		start
+		;; 
+	stop)
+		stop
+		;; 
+	status) 
+		status mogilefsd 
+		RETVAL=$?
+		;;
+	restart)
+		stop
+		sleep 1
+		start
+		;;
+	reload)
+		reload
+		;; 
+	*) 
+		echo $"Usage: mogilefsd {start|stop|restart|reload|status}" 
+		exit 1
+esac
+exit $RETVAL
