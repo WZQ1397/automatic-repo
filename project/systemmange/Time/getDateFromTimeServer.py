@@ -16,7 +16,7 @@ except ImportError:
         import ntplib
 
 tz = time.strftime("%Z", time.localtime(time.time())).decode(encoding=sys.getfilesystemencoding()).encode('utf-8')
-print "µ±Ç°Ê±Çø ==> %s" % tz
+print "å½“å‰æ—¶åŒº ==> %s" % tz
 
 server = 'pool.ntp.org'  # time.nist.gov  time-nw.nist.gov
 
@@ -27,6 +27,6 @@ t = r.tx_time
 time_in_server = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(t))
 time_in_local = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))
 if r.offset > 15:
-    print "µ±Ç°ÏµÍ³Ê±¼ä => %s" % time_in_local
-    print "·şÎñÆ÷Ê±¼ä => %s" % time_in_server
+    print "å½“å‰ç³»ç»Ÿæ—¶é—´ => %s" % time_in_local
+    print "æœåŠ¡å™¨æ—¶é—´ => %s" % time_in_server
 
