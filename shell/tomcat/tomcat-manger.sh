@@ -23,6 +23,9 @@ case $_command in
    status)
       getProcessStatus
    ;;
+   unstall)
+      unstall
+   ;;
  *)
    commandError
  ;;
