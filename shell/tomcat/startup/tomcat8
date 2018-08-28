@@ -1,0 +1,59 @@
+#!/bin/sh
+#
+# /etc/init.d/tomcat8 -- startup script for the Tomcat 8 servlet engine
+#
+#
+### BEGIN INIT INFO
+# Provides:          tomcat8
+# Required-Start:    $local_fs $remote_fs $network
+# Required-Stop:     $local_fs $remote_fs $network
+# Should-Start:      $named
+# Should-Stop:       $named
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start Tomcat.
+# Description:       Start the Tomcat servlet engine.
+### END INIT INFO
+set -e
+
+if [ `id -u` -ne 0 ]; then
+    echo "You need root privileges to run this script"
+    exit 1
+fi
+
+# Make sure tomcat is started with system locale
+if [ -r /etc/default/locale ]; then
+    . /etc/default/locale
+    export LANG
+fi
+
+. /lib/lsb/init-functions
+
+if [ -r /etc/default/rcS ]; then
+    . /etc/default/rcS
+fi
+
+TOMCAT_HOME=/usr/local/tomcat8
+
+if [ ! -d /var/run/tomcat ]; then
+        mkdir /var/run/tomcat
+        chown tomcat:tomcat /var/run/tomcat
+fi
+
+case "$1" in
+start)
+    echo "Starting Tomcat"
+    /bin/su tomcat $TOMCAT_HOME/bin/startup.sh
+    ;;
+stop)
+    echo "Stopping Tomcat"
+
+    /bin/su tomcat $TOMCAT_HOME/bin/catalina.sh stop
+    ;;
+restart)
+    $0 stop
+    $0 start
+    ;;
+*)
+    echo "usage: $0 (start|stop|restart|help)"
+esac

@@ -1,0 +1,21 @@
+# Systemd unit file for tomcat /etc/systemd/system/tomcat8.service
+[Unit]
+Description=Apache Tomcat 8 Web Application Container
+After=syslog.target network.target
+
+[Service]
+Type=forking
+
+Environment=JAVA_HOME=/usr/lib/jvm/jdk8
+Environment=CATALINA_PID=/var/run/tomcat/tomcat8.pid
+Environment=CATALINA_HOME=/usr/local/tomcat8
+Environment=CATALINA_BASE=/usr/local/tomcat8
+
+ExecStart=/usr/local/tomcat8/bin/startup.sh
+ExecStop=/bin/kill -15 $MAINPID
+
+User=tomcat
+Group=tomcat
+
+[Install]
+WantedBy=multi-user.target
