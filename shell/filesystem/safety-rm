@@ -1,31 +1,33 @@
 #!/bin/bash
 #        Author: Zach.Wang
-#        Create: 2017-04-13 20:40:37
+#        Create: 2018-08-28 10:40:37
 # how to
 # cat safety-rm >> /etc/bashrc && source /etc/bashrc
-trash_path=’~/.trash’
+# cron.monthly: cleartrash && mkdir -pv `date +"%Y-%m"`
+trash_path=’/data/.trash’
+NOW=`date +"%Y-%m"`
+CUR_TRASH=$trash_path/$NOW
 
 if [ ! -d $trash_path ]; then
 mkdir -p $trash_path
 fi
 
 alias rm=trash
-alias rl=’ls ~/.trash’
+alias rl=’ls $trash_path’
 alias unrm=restorefile
-alias rmtrash=cleartrash
 
 restorefile()
 {
-  mv -i ~/.trash/$@ ./
+  mv -i $CUR_TRASH/$@ ./
 }
 
 trash()
 {
-  mv $@ ~/.trash/
+  mv $@ $CUR_TRASH/
 }
 
 cleartrash()
 {
-read -p “确定要清空回收站吗?[y/n]” confirm
-[ $confirm == ‘y’ ] || [ $confirm == ‘Y’ ] && /bin/rm -rf ~/.trash/*
+read -p “Do you want to empty the trash?[y/n]” confirm
+[ $confirm == ‘y’ ] || [ $confirm == ‘Y’ ] ls -ih > $trash_path/$NOW.log && /bin/rm -rf ~$CUR_TRASH/*
 }
