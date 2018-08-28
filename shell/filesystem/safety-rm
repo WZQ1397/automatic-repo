@@ -16,17 +16,29 @@ alias rm=trash
 alias rl=’ls $trash_path’
 alias unrm=restorefile
 
-restorefile()
+function RmHistory()
+{
+  if [[ $1 -eq killed ]];then
+    echo "`date +'%Y-%m-%d-%H:%M'`" "`pwd`" "==> x" >> $trash_path/TrashFile-`date +%Y`.log
+  fi
+  if [[ $1 -eq recover ]];then
+    echo "`date +'%Y-%m-%d-%H:%M'`" "`pwd`" "==> recover" >> $trash_path/TrashFile-`date +%Y`.log
+  fi
+}
+
+function restorefile()
 {
   mv -i $CUR_TRASH/$@ ./
+  RmHistory recover
 }
 
-trash()
+function trash()
 {
   mv $@ $CUR_TRASH/
+  RmHistory killed
 }
 
-cleartrash()
+function cleartrash()
 {
 read -p “Do you want to empty the trash?[y/n]” confirm
 [ $confirm == ‘y’ ] || [ $confirm == ‘Y’ ] ls -ih > $trash_path/$NOW.log && /bin/rm -rf ~$CUR_TRASH/*
