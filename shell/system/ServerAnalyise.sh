@@ -32,6 +32,10 @@ do
   sleep 1
   #jar
   ssh web@$Server_IP "ps -Ao cmd | grep '\-jar' | awk -F 'jar' '{print \$2}'" | grep -v awk >> $ServerAnalyise
+  sleep 1
+  #Port Check
+  echo "----------  Port Check  ------------"  >> $ServerAnalyise
+  ssh web@$Server_IP "netstat -tlunp | grep tcp" | awk '{print $4 "\t" $NF}' | awk -F \":\" '{print $NF}'  >> $ServerAnalyise
 
   echo "+++++++++++++++++++++++" >> $ServerAnalyise
 done
