@@ -1,4 +1,5 @@
-#!/bin/bash
+#/bin/bash
+# EDIT: Zach.Wang
 
 #set -x
 export PS4='+ [`basename ${BASH_SOURCE[0]}`:$LINENO ${FUNCNAME[0]} \D{%F %T} $$ ] '
@@ -125,11 +126,11 @@ _parse_options "${@}" || _usage
 if [ "x${g_LIST}" = "x1" ]; then
     ## list all index by order.
     _trace "List all index on the cluster: $g_CLUSTERIP..............."
-    curl -s "${g_CLUSTERIP}:9200/_cat/indices?v" | awk '{print $3}' | grep -vP "index|kibana|marvel" | sort
+    curl -s "${g_CLUSTERIP}:9200/_cat/indices?v" | awk '{print $3 " ==> " $9}' | grep -vP "index|kibana|marvel" | sort
     exit 0
 else
     ## list all index by order.
-    curl -s "${g_CLUSTERIP}:9200/_cat/indices?v" | awk '{print $3}' | grep -vP "index|kibana|marvel" | sort | head -"${g_NUM}" &> "$g_INDEX_FILE"
+    curl -s "${g_CLUSTERIP}:9200/_cat/indices?v" | awk '{print $3 " ==> " $9}' | grep -vP "index|kibana|marvel" | sort | head -"${g_NUM}" &> "$g_INDEX_FILE"
 fi
 
 ## batch manage index.
