@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# https://mp.weixin.qq.com/s/s1oirF4iJj6nSsMDAi_9TA
 # homolo mysql backup
 
 MYSQL_USER="root"
