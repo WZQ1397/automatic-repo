@@ -3,6 +3,7 @@
 # Usage: ./deploy-${WEBAPP_NAME}-${PORT}-${SITE}.sh $URL
 # ./deploy-kinesis-parent-10084-sit.sh http://192.168.8.197:10080/job/kinesis-parent-sit/ws/deploy-kinesis/target/kinesis-parent-1.0-SNAPSHOT.jar 
 
+#arr=()
 function InitVar()
 {
     PARTERN=`echo $0 | awk -F ".sh" '{print $1}'`
@@ -19,15 +20,15 @@ function InitVar()
         else
             print "";
     }}'`
-    arr=($SITE $PORT $WEBAPP_NAME)
-    echo ${arr[$1]}
+    #arr=($SITE $PORT $WEBAPP_NAME)
+    #echo ${arr[$1]}
 }
 
 InitVar $1
 
-SITE=InitVar 0
-WEBAPP_NAME=InitVar 2
-PORT=InitVar 1
+SITE=$SITE
+WEBAPP_NAME=$WEBAPP_NAME
+PORT=$PORT
 
 JAR_NAME=${WEBAPP_NAME}-${SITE}.jar
 BACK_UP_DIR=/data/backup
