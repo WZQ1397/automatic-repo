@@ -14,3 +14,27 @@ fi
 echo "+++++++++++++++++++++++" >> /tmp/zach_clean.log
 sleep 30
 > catalina.out
+
+function printLine() {
+        pri=`cat $1 | head -n$2 | tail -1f`
+        #字符串长度是否为0,不为0输出
+        if [ -n "${pri}" ]
+        then
+                echo ${pri}             
+        fi
+}
+
+file1=./priip
+file2=./pubip
+file3=./type
+num=`wc -l type | cut -d " " -f 1`
+
+i=1
+while (( i <= ${num} ))
+do
+        printLine ${file1} ${i}
+        printLine ${file2} ${i}
+        printLine ${file3} ${i}
+
+        let i++
+done
