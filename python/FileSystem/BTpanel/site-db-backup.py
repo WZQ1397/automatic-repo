@@ -8,7 +8,7 @@ import sys,os
 reload(sys)
 sys.setdefaultencoding('utf-8')
 #os.chdir('/www/server/panel');
-sys.path.append("class/")
+sys.path.append("btclass/")
 import public,db,time
 
 class backupTools:
