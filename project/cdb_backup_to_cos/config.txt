@@ -1,0 +1,40 @@
+# auth:kaliarch
+# func:将腾讯云cdb备份文件上传至cos制定的bucket内
+# python version:python3+
+# cos version:v5
+# https://console.cloud.tencent.com/cos5/bucket
+
+# 腾讯云公共信息配置段
+[common]
+# 腾讯云 secretid
+secret_id = AKIDMdjegcmoGYiolXbxxxxxxxxxxxxxxxxx
+# 腾讯云 secretkey
+secret_key = d5MRL4VoxyvlQvMchaUHhxxxxxxxxxxx
+
+
+# 腾讯云cos信息配置段
+[cosinfo]
+# cos所在地域
+cos_region = ap-chengdu
+
+# 腾讯云bucket名字(cos v5 bucket名称组成:bucket+appid)
+bucket_name = xuel-test-bucket-125396xxxx
+
+# 腾讯云cdb信息配置段
+[cdbinfo]
+# cdb实例id
+cdb_instanceid = cdb-rqa74z9e
+
+# cdb所在地域
+cdb_region = ap-shanghai
+
+# cdb 日志备份类型，coldbackup（冷备），binlog（二进制日志）和slowlog_day（慢查询日志）
+cdb_bak_type = coldbackup
+
+
+# 日志文件信息配置段
+[loginfo]
+#日志文件目录名称
+logdir_name = cdb_to_cos
+#日志文件名称
+logfile_name = cdbbak_to_cos.log

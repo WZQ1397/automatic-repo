@@ -1,0 +1,4 @@
+cos-python-sdk-v5==1.5.2
+requests==2.19.1
+tencentcloud-sdk-python==3.0.15
+urllib3==1.23
