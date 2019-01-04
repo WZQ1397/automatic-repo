@@ -11,6 +11,7 @@ then
 else
   echo $CLEAN_PATH "CLEAN failed!" date >> /tmp/zach_clean.log
 fi
+
 echo "+++++++++++++++++++++++" >> /tmp/zach_clean.log
 sleep 30
 > catalina.out
