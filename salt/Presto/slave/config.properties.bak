@@ -1,0 +1,15 @@
+coordinator=false
+http-server.http.port=8889
+query.max-memory=500GB
+query.max-memory-per-node=76GB
+discovery.uri=http://hadoopslave10:8888
+
+exchange.http-client.request-timeout=30m
+
+http-server.threads.max=1500
+task.max-worker-threads=64
+
+exchange.min-error-duration=30m
+exchange.max-error-duration=150m
+
+query.max-length=100000000
