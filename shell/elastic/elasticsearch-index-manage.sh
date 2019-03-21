@@ -142,7 +142,7 @@ while read -r index
 do
     if [ "x${g_DELETE}" = "x1" ]; then
         _trace "deleting index: $index ......"
-        curl -XDELETE "${g_CLUSTERIP}:9200/$index?pretty"
+        curl -XDELETE "${g_CLUSTERIP}:9200/`echo $index | awk '{print $1}'`"
     else
         _trace "$index"
     fi
