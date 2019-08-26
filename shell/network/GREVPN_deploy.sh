@@ -3,13 +3,17 @@ local=$1
 remote=$2
 public=$3
 subnetlist=$4
-
+node=$5
 function deploy(){
 modprobe ip_gre
 lsmod |grep ip_gre 
 ip tunnel add tun1 mode gre remote $public local $local
 ip link set tun1 up
-ip addr add 192.168.1.1 peer 192.168.1.2 dev tun1
+if [[ typeset -u node == "LEFT" ]];then
+	ip addr add 192.168.1.1 peer 192.168.1.2 dev tun1
+else
+	ip addr add 192.168.1.2 peer 192.168.1.1 dev tun1
+fi
 route add -net $subnetlist dev tun1
 echo 1 > /proc/sys/net/ipv4/ip_forward
 route -n
