@@ -1,6 +1,12 @@
 # author zach.wang
 # -*- coding:utf-8 -*-
-def help(ch):
+
+def highfunc(ch):
+    '''
+    This is a 高阶函数
+    :param ch: type str
+    :return:
+    '''
     def basic(choice):
         if choice == "a":
             basicuse()
@@ -11,7 +17,9 @@ def help(ch):
     def basicuse():
         print("aaa")
     basic(ch)
-help("x")
+highfunc("x")
+
+help(highfunc)
 
 
 def basicuse2(fun):
