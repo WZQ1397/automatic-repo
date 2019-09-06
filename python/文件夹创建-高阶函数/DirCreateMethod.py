@@ -1,13 +1,16 @@
 import datetime,os
 class BatchDirDeploy:
     def __init__(self,num:int,symbol="-"):
-        self.num=num
-        self.PRE_LIST=[]
-        self.SUF_LIST = []
-        self.symbol=symbol
+        '''
+         private property 外部无法直接访问
+        :param num:
+        :param symbol:
+        '''
 
-    def batchnum(self,level=2) -> int:
-        return self.num,level
+        self.__num=num
+        self.__PRE_LIST=[]
+        self.__SUF_LIST = []
+        self.__symbol=symbol
 
     def ChkName(self,name) -> str:
         '''
@@ -15,7 +18,7 @@ class BatchDirDeploy:
         :param name is must
         :return:
         '''
-        return self.symbol if len(name) else ""
+        return self.__symbol if len(name) else ""
 
     def prefix(self, PREFIX_NAME) -> list :
         '''
@@ -25,9 +28,9 @@ class BatchDirDeploy:
         '''
         if PREFIX_NAME[:1].islower():
            PREFIX_NAME = PREFIX_NAME.capitalize()
-        for ind in range(self.num):
-            self.PRE_LIST.append(PREFIX_NAME+self.ChkName(PREFIX_NAME)+str(ind))
-        return self.PRE_LIST
+        for ind in range(self.__num):
+            self.__PRE_LIST.append(PREFIX_NAME+self.ChkName(PREFIX_NAME)+str(ind))
+        return self.__PRE_LIST
 
     def suffix(self,SUFFIX_NAME) -> list:
         '''
@@ -35,21 +38,21 @@ class BatchDirDeploy:
         :param SUFFIX_NAME: default -> none
         :return:
         '''
-        if len(self.PRE_LIST):
+        if len(self.__PRE_LIST):
             for ind in range(self.num):
-                self.SUF_LIST.append(self.PRE_LIST[ind]+self.ChkName(SUFFIX_NAME)+SUFFIX_NAME)
+                self.__SUF_LIST.append(self.__PRE_LIST[ind]+self.ChkName(SUFFIX_NAME)+SUFFIX_NAME)
         else:
             for ind in range(self.num):
-                self.SUF_LIST.append(str(ind)+self.ChkName(SUFFIX_NAME)+SUFFIX_NAME)
-        return self.SUF_LIST
+                self.__SUF_LIST.append(str(ind)+self.ChkName(SUFFIX_NAME)+SUFFIX_NAME)
+        return self.__SUF_LIST
 
     def usedatetime(self,DATE_FORMAT=str(datetime.date.today())) -> list:
         LST=[]
 
-        if len(self.PRE_LIST):
+        if len(self.__PRE_LIST):
             for ind in range(self.num):
                 #print(DATE_FORMAT)
-                LST.append(self.SUF_LIST[ind]+"-"+DATE_FORMAT)
+                LST.append(self.__SUF_LIST[ind]+"-"+DATE_FORMAT)
         else:
             for ind in range(self.num):
                 LST.append(str(ind)+"-"+DATE_FORMAT)
