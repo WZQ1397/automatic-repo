@@ -14,7 +14,7 @@ cat <<'EOF'
 #  Author     : zach.wang                                 #
 ###########################################################
 Usage: $0 [OPTION]... LAST
-       -s must be the first choice
+       -s start time : must be the first choice
        must choose -d or -m
        -d create by days
        -m create by months
