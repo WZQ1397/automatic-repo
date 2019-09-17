@@ -1,7 +1,7 @@
-# author zach.wang
+# author zach.wang0
 # -*- coding:utf-8 -*-
 import sys,getopt
-from DirCreateMethod import BatchDirDeploy,CreateDir
+from DirCreateMethod import *
 arglst=""
 
 def bysuffix(name=""):
@@ -60,16 +60,23 @@ def deploy(func):
 try:
    opts, args = getopt.getopt(sys.argv[1:],"hn:p:s:d:a",["prefix=","suffix=","date="])
 except getopt.GetoptError:
-   sys.exit(2)
+    # raise getopt.GetoptError(str(opts) + 'which is not exists!')
+    sys.exit(2)
 for opt, arg in opts:
    if opt == '-n':
       num=arg
    elif opt in ("-p", "--prefix"):
       func ,funcarg = byprefix, arg
+      if not bool(IsVaildName(funcarg)):
+          raise AssertionError("Define "+ func.__name__ + " Name is invaild!")
    elif opt in ("-s", "--suffix"):
       func ,funcarg = bysuffix, arg
+      if not bool(IsVaildName(funcarg)):
+          raise AssertionError("Define " + func.__name__ + " Name is invaild!")
    elif opt in ("-d", "--date"):
       func ,funcarg = bydate, arg
+      if not bool(IsVaildDate(funcarg)):
+          raise AssertionError("Define Date format is invaild! must like XXXX-XX-XX")
       # print(arg)
    elif opt in ("-a", "--all"):
       func ,funcarg = full, arg
