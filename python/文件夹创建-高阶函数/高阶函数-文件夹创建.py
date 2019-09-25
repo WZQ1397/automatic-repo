@@ -85,7 +85,7 @@ for opt, arg in opts:
    else:
        print(opt,arg)
 
-fun = BatchDirDeploy(eval(num))
+fun = BatchDirDeploy(int(num))
 
 # 使用eval()实现字符串转函数对象
 # print(deploy(eval(sys.argv[2])))
