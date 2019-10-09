@@ -1,6 +1,6 @@
 from math import sqrt
 from sys import argv
-from ZachTree import Tree as tree
+from ZachTree import Tree as Ztree
 from Calculate import *
 class ZHelp(Exception):
     def __init__(self,ERRType=""):
@@ -24,14 +24,28 @@ class ZHelp(Exception):
 @TimeWatcher
 def exec(level,Type):
     width=level*int(sqrt(level))
+
     try:
-        if Type.lower() == "help":
+        # 这个是实例
+        CreateTree=Ztree(level, Type)
+
+        '''
+        CreateTree.Type="zach"  创建实例属性
+        Ztree.Type="zach"       创建类属性
+        '''
+        # TODO  CreateTree.chkvaild 静态方法调用
+        if Type.lower() == "help" or not CreateTree.chkvaild(Type):
             help(ZHelp("use").Usage)
             exit(0)
-        v=tree(level,Type).tree
-        print("nodes: {}".format(v[0]).center(width))
-        for level,num in v[1].items():
+        v=CreateTree.tree
+        '''
+        调用类，直接使用__str__方法返回值
+        '''
+        print(CreateTree)
+        for level,num in v.items():
             print(level,": ",num)
+        # TODO 手动删除对象 --> 调用类中的__del__方法清理垃圾
+        del v
     # 多个异常需要使用元祖
     except (AttributeError,ValueError) as e:
        ZHelp(e).Error
