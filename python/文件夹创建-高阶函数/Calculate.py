@@ -28,7 +28,8 @@ class Calc:
 
     @property
     def levelcounts(self):
-        return 2**(self.__level-1) if self.__Type == "binary" else self.level
+
+        return 2**(self.__level-1) if self.__Type == "binary" else self.__level
 
 class TimeWatcher:
     '''
