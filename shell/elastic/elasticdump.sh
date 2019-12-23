@@ -76,7 +76,7 @@ function dump()
     fi
     DST_CONTENT="$DST_URL$DST_PATH$DST_INDEX_NAME"
     echo "Backuping: $SRC_CONTENT --> $DST_CONTENT"
-    docker run --rm -ti -v $DST_PATH:$DST_PATH taskrabbit/elasticsearch-dump --input=$SRC_CONTENT --output=$ --type=data | gzip > $DST_CONTENT.gz
+    docker run --rm -ti -v $DST_PATH:$DST_PATH taskrabbit/elasticsearch-dump --input=$SRC_CONTENT --output=$ --limit=10000 | gzip > $DST_CONTENT.gz
   fi
 }
 
@@ -95,7 +95,7 @@ function recover()
 	DST_CONTENT="$DST_URL$DST_INDEX_NAME"
     echo "Recovering: $SRC_CONTENT --> $DST_CONTENT"
 	gzip -d $SRC_CONTENT.gz
-    docker run --rm -ti -v $SRC_PATH:$SRC_PATH taskrabbit/elasticsearch-dump --input=$SRC_CONTENT --output=$DST_CONTENT
+    docker run --rm -ti -v $SRC_PATH:$SRC_PATH taskrabbit/elasticsearch-dump --input=$SRC_CONTENT --output=$DST_CONTENT --limit=10000
   fi
 }
 
