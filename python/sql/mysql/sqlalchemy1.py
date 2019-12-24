@@ -72,6 +72,9 @@ print("\n",Session.query(User).filter(and_(User.name.ilike("y%"),User.id.notin_(
 print("\n",Session.query(User).filter(or_(~User.name.ilike("y%"),
                                           ~User.name.ilike("%7%"))).order_by(User.name.desc(),User.id.asc()).all())
 print("\n",Session.query(func.sum(User.id),User.name).group_by(User.name)[0:3])
+
+self.SQLSession.query(PatientDetail).order_by(PatientDetail.ID).all()
+
 #comperhensive
 print("\n",Session.query(User.name).
       filter(User.id.in_(Session.query(User.id).
