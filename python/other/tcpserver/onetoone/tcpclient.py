@@ -7,7 +7,8 @@ sk.connect(ip)
 skreply = sk.recv(1000)
 print(skreply.decode())
 count = 0
-while True:
+run = True
+while run:
     msg = input()
     count += 1
     recvtime = time.strftime("%Y-%m-%d %X")
@@ -15,5 +16,6 @@ while True:
     sk.sendall(title.encode())
     skreply = sk.recv(1024)
     print(skreply.decode())
-    if title == "bye":
-        sk.close()
+    run = False if msg == "bye" else True
+
+sk.close()
