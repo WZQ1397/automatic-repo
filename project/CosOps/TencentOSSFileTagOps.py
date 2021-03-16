@@ -6,37 +6,43 @@ class TencentOSSFileTagOps(TencentOSS):
     def __init__(self, secret_id, secret_key, region, token=None, scheme='https'):
         super(TencentOSSFileTagOps, self).__init__(secret_id, secret_key, region, token=token, scheme=scheme)
 
-    def getFileList(self, bucket, path='/'):
+    def getFileList(self, bucket, path='/',max_items=1000):
         if not self.checkBucketsExists(bucket):
             return f"Bucket: {bucket} is not exists!"
 
-        if path != '' and path.endswith('/'):
-            path = path[:-1]
         len_path = len(path)
+        if len_path>=2 and path.startswith('/'):
+            path = path[1:]
+        print(path)
         func = self._client.list_objects
-        file_list = func(Bucket=bucket, Prefix=path)['Contents'] \
-            if len_path else func(Bucket=bucket)['Contents']
+        # print(func(Bucket=bucket, Prefix=path, MaxKeys=max_items)['Contents'])
+        file_list = func(Bucket=bucket, Prefix=path,MaxKeys=max_items)['Contents']
+        # print(file_list)
         return self.showFiles(file_list, len_path)
 
     def showFiles(self, file_list, len_path):
         files = []
         directories = []
         for blob in file_list:
-            remote_file = blob['Key'][len_path + 1:] if len_path else blob['Key']
-            pos_slash = remote_file.find('/')
-            if pos_slash == -1 and remote_file != '':  # files
+            remote_file = blob['Key'][len_path-1:] if len_path else blob['Key']
+            pos_slash = remote_file[-1] == '/'
+            if pos_slash is False and remote_file != '':  # files
                 files.append(remote_file)
             else:  # directory
-                dir_name = remote_file[:pos_slash]
+                dir_name = remote_file
                 if dir_name == '':
                     continue
                 if dir_name not in directories:
-                    directories.append(remote_file[:pos_slash])
-        return ({"dirs": directories}, {"files": files})
+                    directories.append(remote_file)
+        return ({"emptydirs": directories}, {"files": files})
 
     def getFileMetaTags(self, bucket, file):
+        from qcloud_cos import CosServiceError
         tagDicts = {}
-        response = self._client.head_object(Bucket=bucket, Key=file)
+        try:
+            response = self._client.head_object(Bucket=bucket, Key=file)
+        except CosServiceError:
+            return tagDicts
         for k, v in response.items():
             if k.startswith('x-cos-meta'):
                 tagDicts[k] = v
@@ -64,6 +70,7 @@ class TencentOSSFileTransferOps(TencentOSS):
                 Metadata=metaData,
                 TrafficLimit=maxSpeed
             )
+            print(response["ETag"])
             
 
     def downloadFile(self, fileList, storagePath='/', maxSpeed='1048576'):
