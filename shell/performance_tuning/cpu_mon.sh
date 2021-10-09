@@ -20,10 +20,11 @@ done
 	cat /tmp/cpu_usage.$$ | \
 	awk '{process[$1]+=$2}END{for(i in process){printf("%-20s %s\n",i,process[i])}}' | sort -nrk 2 | head | tee -a /root/cpu_mon.log
 	top=`tail /root/cpu_mon.log | head -1 | awk '{print $NF}'`
-	if [[ $top -gt 10 ]];
+	if [[ $top -gt 90000 ]];
 	then
 	   echo "warning"
 	   topname=`tail /root/cpu_mon.log | head -1 | awk '{print $1}'`
-	   curl 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=44dbcb66-f788-4170-885c-f0cb52b46ec8' -H 'Content-Type: application/json' -d '{"msgtype": "text","text": {"content": "' $topname '" - CPU USAGE TOO HIGH!"},"mentioned_list":["@all"]}'
+	   host=`hostname`
+	   curl 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=44dbcb66-f788-4170-885c-f0cb52b46ec8' -H 'Content-Type: application/json' -d '{"msgtype": "text","text": {"content": "'$host': '$topname' - CPU USAGE TOO HIGH!"},"mentioned_list":["@all"]}'
 	fi
 	rm -f /tmp/cpu_usage.$$
