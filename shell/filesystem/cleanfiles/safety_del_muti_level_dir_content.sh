@@ -13,7 +13,8 @@ do
     then
       continue
     fi
-    list=(`ls $target_root/$cam/* | tail -$ind`)
+    #list=(`ls $target_root/$cam/* | tail -$ind`)
+    list=(`find $target_root/$cam/ | tail -$ind`)
     echo ${#list[@]}
     for x in ${list[@]};
     do
@@ -26,4 +27,5 @@ do
     done
   done
   rm -rvf  $tmp_dir/*
+  sleep 30
 done

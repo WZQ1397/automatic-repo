@@ -5,6 +5,7 @@ while true;
 do
   for cam in `seq 1 9`;
   do
-    ls -t $target_root/$cam/ | awk "NR>$reserve_file_nums{print $1}" | xargs rm -rvf {};
+     find $target_root/$cam/ | awk 'NR>100{print $1}' | xargs rm -rvf {};
   done
+  sleep 30
 done
