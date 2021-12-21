@@ -1,0 +1,95 @@
+#!/bin/bash
+#Author: Zach.wang
+# echo $*
+SCRIPT_CUR_PATH=`readlink -f $0 | xargs -i dirname {}`
+set -- $(getopt -o p:r:t:s:e: --long path:,reserve:,threshold:,start:,end:,help -- "$@")
+function stripQuota(){
+   DATA=$1
+   end_pos=$((${#DATA}-2))
+   echo ${DATA:1:end_pos}
+}
+
+
+function choice(){
+#while getopts "r:t:s:e:" opt	
+while true
+do
+    case $1 in
+        -r|--reserve)
+	RESERVE_TIME=$(stripQuota $2);
+	shift
+	;;
+        -t|--threshold)
+	STORAGE_THRESHOLD=$(stripQuota $2);
+	shift
+	;;
+        -s|--start)
+	START_CAM_ID=$(stripQuota $2);
+	shift
+	;;
+	-e|--end)
+	END_CAM_ID=$(stripQuota $2);
+	shift
+	;;
+        -p|--path)
+	BASE_CLEAN_PATH=$(stripQuota $2);
+	shift
+	;;
+	--)
+	shift
+	break
+	;;
+        ?)
+	echo "Usage: bash $0 [options] "
+	echo "EG: ./cleanCamRecordPicAndDBRecord -r 20 -t 80 -s 3 -e 6 -p /data/defect/staticv2/defect/"
+        exit 1;;
+    esac
+    shift
+done
+}
+
+choice $@
+
+#echo $RESERVE_TIME $STORAGE_THRESHOLD $START_CAM_ID $END_CAM_ID
+RESERVE_TIME=${RESERVE_TIME:-30}
+STORAGE_THRESHOLD=${STORAGE_THRESHOLD:-90}
+START_CAM_ID=${START_CAM_ID:-1}
+END_CAM_ID=${END_CAM_ID:-9}
+echo $RESERVE_TIME $STORAGE_THRESHOLD $START_CAM_ID $END_CAM_ID
+
+#BASE_CLEAN_PATH=$1
+BASE_CLEAN_PATH_ROOT=`echo $BASE_CLEAN_PATH | awk -F '/' '{print $2}'`
+
+TMP_PATH=/tmp/ng/camera
+for camid in `seq ${START_CAM_ID} ${END_CAM_ID}`;
+do
+  mkdir -pv $TMP_PATH/$camid
+done 
+
+function clean_data(){
+    for id in `seq ${START_CAM_ID} ${END_CAM_ID}`;
+    do
+        printf "======%03d======\nPic Nums: " ${id}
+        find $BASE_CLEAN_PATH/${id} -ctime +${RESERVE_TIME} | wc -l
+    done
+}
+function clean_sql_record(){
+  CONTAINER_NAME='zach-mz-mysql'
+  RUNNING_PATH='/tmp'
+  docker cp ${SCRIPT_CUR_PATH}/sqlrunner.sql $CONTAINER_NAME:$RUNNING_PATH
+  docker exec -it $CONTAINER_NAME /bin/bash -c "mysql -uroot -p123456 < $RUNNING_PATH/sqlrunner.sql"
+}
+
+clean_sql_record
+USAGE_OF_DISK=`df -h | grep -E "/$BASE_CLEAN_PATH_ROOT" | awk '{print $(NF-1)}' | sed 's/%//g'`
+clean_data
+for((; $USAGE_OF_DISK >= $STORAGE_THRESHOLD;));
+do
+    RESERVE_TIME=$(RESERVE_TIME-1)
+    # clean_data
+    echo ${RESERVE_TIME}
+    if [[ $RESERVE_TIME -le 7 ]];
+    then
+        break
+    fi
+done
