@@ -1,3 +1,6 @@
+
+DROP PROCEDURE SHOW_LAST_X_HISTORY_RECORD_BY_DAYS;
+DROP PROCEDURE DEL_HISTORY_RECORD_BY_DAYS;
 delimiter $$
 CREATE PROCEDURE SHOW_LAST_X_HISTORY_RECORD_BY_DAYS(IN NEED_DAYS INTEGER,IN LIMITS_RECORDS INTEGER)
 BEGIN
@@ -17,6 +20,10 @@ BEGIN
     FROM detect_record) AS detect_record2 
     WHERE defect_info.record_id=detect_record.id AND detect_record.id=detect_record2.id AND
     rec_timestamp < UNIX_TIMESTAMP(DATE_ADD(CURRENT_DATE(), Interval -NEED_DAYS DAY)) LIMIT LIMITS_RECORDS;
+	-- release space
+	optimize table detect_record;
+	optimize table defect_result;
+	optimize table defect_info;
 END$$
 delimiter ;
 
@@ -40,6 +47,11 @@ BEGIN
     FROM detect_record) AS detect_record2 
     WHERE defect_info.record_id=detect_record.id AND detect_record.id=detect_record2.id AND
     rec_timestamp < UNIX_TIMESTAMP(DATE_ADD(CURRENT_DATE(), Interval -NEED_DAYS DAY)));
+	
+	-- release space
+	optimize table detect_record;
+	optimize table defect_result;
+	optimize table defect_info;
 END$$
 delimiter ;
 
