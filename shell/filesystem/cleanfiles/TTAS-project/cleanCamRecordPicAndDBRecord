@@ -9,7 +9,6 @@ function stripQuota(){
    echo ${DATA:1:end_pos}
 }
 
-
 function choice(){
 #while getopts "r:t:s:e:" opt	
 while true
@@ -42,7 +41,14 @@ do
         ?)
 	echo "Usage: bash $0 [options] "
 	echo "EG: ./cleanCamRecordPicAndDBRecord -r 20 -t 80 -s 3 -e 6 -p /data/defect/staticv2/defect/"
-        exit 1;;
+	echo '''
+	-r|--reserve  				reserve time for pic and database record ,default 30
+	-t|--threshold				max storage percent can be reached for pic and database record ,default 90
+	-s|--start					start camera id ,default 1
+	-e|--end					end camera id ,default 9
+	-p|--path					which data path need to clean ,MUST HAVE
+	'''
+    exit 1;;
     esac
     shift
 done
