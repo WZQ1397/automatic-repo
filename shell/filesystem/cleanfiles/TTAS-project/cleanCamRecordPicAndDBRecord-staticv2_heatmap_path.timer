@@ -1,0 +1,11 @@
+[Unit]
+Description=cleanCamRecordPicAndDBRecord-staticv2_heatmap_path-Counter
+
+[Install]
+WantedBy=multi-user.target
+
+[Timer]
+OnBootSec=60
+# Time between running each consecutive time
+OnUnitActiveSec=10m
+Unit=cleanCamRecordPicAndDBRecord-staticv2_defect

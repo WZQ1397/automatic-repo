@@ -1,0 +1,12 @@
+[Unit]
+Description=cleanCamRecordPicAndDBRecord-staticv2_defect
+ConditionFileIsExecutable=/data2/save-data/tools/cleanCamRecordPicAndDBRecord
+After=network.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+#Type=forking
+ExecStart=/data2/save-data/tools/cleanCamRecordPicAndDBRecord -r 15 -t 85 -s 1 -e 9 -p /data/defect/staticv2/defect/
+TimeoutSec=0
