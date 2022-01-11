@@ -9,7 +9,7 @@ then
   fi
   echo "starting ..."
 else
-  echo "Parameter not enough, EG: $0 /data/imgs /data/ocr/999-jklaaa 6.6.6.6:18008"
+  echo "Parameter not enough, EG: $0 /data/imgs /data/ocr/999-jklaaa $targetsvc"
   exit -1
 fi
 port=`echo $targetsvc | cut -d ':' -f 2`
