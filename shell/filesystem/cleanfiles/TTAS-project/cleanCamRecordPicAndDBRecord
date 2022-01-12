@@ -9,6 +9,7 @@ function stripQuota(){
    echo ${DATA:1:end_pos}
 }
 
+
 function choice(){
 #while getopts "r:t:s:e:" opt	
 while true
@@ -41,14 +42,7 @@ do
         ?)
 	echo "Usage: bash $0 [options] "
 	echo "EG: ./cleanCamRecordPicAndDBRecord -r 20 -t 80 -s 3 -e 6 -p /data/defect/staticv2/defect/"
-	echo '''
-	-r|--reserve  				reserve time for pic and database record ,default 30
-	-t|--threshold				max storage percent can be reached for pic and database record ,default 90
-	-s|--start					start camera id ,default 1
-	-e|--end					end camera id ,default 9
-	-p|--path					which data path need to clean ,MUST HAVE
-	'''
-    exit 1;;
+        exit 1;;
     esac
     shift
 done
@@ -83,7 +77,7 @@ function clean_sql_record(){
   CONTAINER_NAME='zach-mz-mysql'
   RUNNING_PATH='/tmp'
   docker cp ${SCRIPT_CUR_PATH}/sqlrunner.sql $CONTAINER_NAME:$RUNNING_PATH
-  docker exec -it $CONTAINER_NAME /bin/bash -c "mysql -uroot -p123456 < $RUNNING_PATH/sqlrunner.sql"
+  docker exec -i $CONTAINER_NAME /bin/bash -c "mysql -uroot -pzachmzcctv < $RUNNING_PATH/sqlrunner.sql"
 }
 
 clean_sql_record
@@ -94,8 +88,9 @@ do
     RESERVE_TIME=$(RESERVE_TIME-1)
     # clean_data
     echo ${RESERVE_TIME}
-    if [[ $RESERVE_TIME -le 7 ]];
+    if [[ $RESERVE_TIME -le 15 ]];
     then
+	curl 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key={YOUR_TOKEN}' -H 'Content-Type: application/json' -d '{"msgtype": "text","text": {"content": "TTAS disk has reach 90% and I have clean all data before 15 days!"},"mentioned_list":["@all"]}'
         break
     fi
 done
