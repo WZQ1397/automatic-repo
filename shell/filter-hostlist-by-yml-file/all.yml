@@ -1,0 +1,2645 @@
+all:
+  children:
+    usw:
+      children:
+        uswp00:
+          children:
+            uswp00bpe:
+              children:
+                uswp00bpea:
+                  hosts:
+                    uswp00bpe001: null
+                uswp00bpeb:
+                  hosts:
+                    uswp00bpe002: null
+              vars:
+                services:
+                - not_defined
+            uswp00bpi:
+              children:
+                uswp00bpia:
+                  hosts:
+                    uswp00bpi001: null
+                    uswp00bpi003: null
+                uswp00bpib:
+                  hosts:
+                    uswp00bpi002: null
+              vars:
+                services:
+                - not_defined
+            uswp00bpx:
+              children:
+                uswp00bpxa:
+                  hosts:
+                    uswp00bpx001: null
+                    uswp00bpx003: null
+                uswp00bpxb:
+                  hosts:
+                    uswp00bpx002: null
+              vars:
+                services:
+                - not_defined
+            uswp00cbc:
+              children:
+                uswp00cbca:
+                  hosts:
+                    uswp00cbc001: null
+                    uswp00cbc003: null
+                uswp00cbcb:
+                  hosts:
+                    uswp00cbc002: null
+                    uswp00cbc004: null
+              vars:
+                services:
+                - couchbase
+            uswp00cps:
+              children:
+                uswp00cpsa:
+                  hosts:
+                    uswp00cps001: null
+                uswp00cpsb:
+                  hosts:
+                    uswp00cps002: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp00ggm:
+              children:
+                uswp00ggma:
+                  hosts:
+                    uswp00ggm001: null
+                    uswp00ggm003: null
+                    uswp00ggm101: null
+                uswp00ggmb:
+                  hosts:
+                    uswp00ggm002: null
+                    uswp00ggm004: null
+                    uswp00ggm102: null
+              vars:
+                services:
+                - not_defined
+            uswp00hkf:
+              children:
+                uswp00hkfa:
+                  hosts:
+                    uswp00hkf001: null
+                    uswp00hkf003: null
+                uswp00hkfb:
+                  hosts:
+                    uswp00hkf002: null
+              vars:
+                services:
+                - kafka
+            uswp00hub:
+              children:
+                uswp00huba:
+                  hosts:
+                    uswp00hub001: null
+                uswp00hubb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            uswp00hzk:
+              children:
+                uswp00hzka:
+                  hosts:
+                    uswp00hzk001: null
+                    uswp00hzk003: null
+                uswp00hzkb:
+                  hosts:
+                    uswp00hzk002: null
+              vars:
+                services:
+                - zookeeper
+            uswp00job:
+              children:
+                uswp00joba:
+                  hosts:
+                    uswp00job001: null
+                    uswp00job003: null
+                uswp00jobb:
+                  hosts:
+                    uswp00job002: null
+                    uswp00job004: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp00jod:
+              children:
+                uswp00joda:
+                  hosts:
+                    uswp00jod001: null
+                    uswp00jod003: null
+                uswp00jodb:
+                  hosts:
+                    uswp00jod002: null
+                    uswp00jod004: null
+              vars:
+                services:
+                - not_defined
+            uswp00jot:
+              children:
+                uswp00jota:
+                  hosts:
+                    uswp00jot001: null
+                    uswp00jot003: null
+                uswp00jotb:
+                  hosts:
+                    uswp00jot002: null
+                    uswp00jot004: null
+              vars:
+                services:
+                - tomcat
+            uswp00mgt:
+              children:
+                uswp00mgta:
+                  hosts:
+                    uswp00mgt001: null
+                uswp00mgtb:
+                  hosts:
+                    uswp00mgt002: null
+              vars:
+                services:
+                - httpd
+            uswp00mqb:
+              children:
+                uswp00mqba:
+                  hosts:
+                    uswp00mqb001: null
+                    uswp00mqb003: null
+                uswp00mqbb:
+                  hosts:
+                    uswp00mqb002: null
+                    uswp00mqb004: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp00mqm:
+              children:
+                uswp00mqma:
+                  hosts:
+                    uswp00mqm001: null
+                    uswp00mqm003: null
+                uswp00mqmb:
+                  hosts:
+                    uswp00mqm002: null
+              vars:
+                services:
+                - mqmbroker
+            uswp00ntp:
+              children:
+                uswp00ntpa:
+                  hosts:
+                    uswp00ntp001: null
+                uswp00ntpb:
+                  hosts:
+                    uswp00ntp002: null
+              vars:
+                services:
+                - not_defined
+        uswp01:
+          children:
+            uswp01aam:
+              children:
+                uswp01aama:
+                  hosts:
+                    uswp01aam001: null
+                    uswp01aam003: null
+                uswp01aamb:
+                  hosts:
+                    uswp01aam002: null
+                    uswp01aam004: null
+              vars:
+                services:
+                - docker
+            uswp01api:
+              children:
+                uswp01apia:
+                  hosts:
+                    uswp01api001: null
+                    uswp01api003: null
+                uswp01apib:
+                  hosts:
+                    uswp01api002: null
+                    uswp01api004: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp01apx:
+              children:
+                uswp01apxa:
+                  hosts:
+                    uswp01apx001: null
+                    uswp01apx003: null
+                uswp01apxb:
+                  hosts:
+                    uswp01apx002: null
+                    uswp01apx004: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp01bfn:
+              children:
+                uswp01bfna:
+                  hosts:
+                    uswp01bfn001: null
+                    uswp01bfn003: null
+                uswp01bfnb:
+                  hosts:
+                    uswp01bfn002: null
+                    uswp01bfn004: null
+              vars:
+                services:
+                - pm2
+            uswp01bfp:
+              children:
+                uswp01bfpa:
+                  hosts:
+                    uswp01bfp001: null
+                    uswp01bfp003: null
+                uswp01bfpb:
+                  hosts:
+                    uswp01bfp002: null
+                    uswp01bfp004: null
+              vars:
+                services:
+                - pm2
+            uswp01bfs:
+              children:
+                uswp01bfsa:
+                  hosts:
+                    uswp01bfs001: null
+                    uswp01bfs003: null
+                    uswp01bfs005: null
+                    uswp01bfs007: null
+                uswp01bfsb:
+                  hosts:
+                    uswp01bfs002: null
+                    uswp01bfs004: null
+                    uswp01bfs006: null
+                    uswp01bfs008: null
+              vars:
+                services:
+                - pm2
+            uswp01bfw:
+              children:
+                uswp01bfwa:
+                  hosts:
+                    uswp01bfw001: null
+                    uswp01bfw003: null
+                uswp01bfwb:
+                  hosts:
+                    uswp01bfw002: null
+                    uswp01bfw004: null
+              vars:
+                services:
+                - pm2
+            uswp01bfx:
+              children:
+                uswp01bfxa:
+                  hosts:
+                    uswp01bfx001: null
+                    uswp01bfx003: null
+                uswp01bfxb:
+                  hosts:
+                    uswp01bfx002: null
+                    uswp01bfx004: null
+              vars:
+                services:
+                - pm2
+            uswp01byx:
+              children:
+                uswp01byxa:
+                  hosts:
+                    uswp01byx001: null
+                    uswp01byx003: null
+                    uswp01byx005: null
+                uswp01byxb:
+                  hosts:
+                    uswp01byx002: null
+                    uswp01byx004: null
+                    uswp01byx006: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp01cab:
+              children:
+                uswp01caba:
+                  hosts:
+                    uswp01cab001: null
+                    uswp01cab003: null
+                uswp01cabb:
+                  hosts:
+                    uswp01cab002: null
+                    uswp01cab004: null
+              vars:
+                services:
+                - httpd
+                - tomcat
+            uswp01cat:
+              children:
+                uswp01cata:
+                  hosts:
+                    uswp01cat001: null
+                    uswp01cat003: null
+                    uswp01cat005: null
+                    uswp01cat007: null
+                    uswp01cat009: null
+                    uswp01cat011: null
+                uswp01catb:
+                  hosts:
+                    uswp01cat002: null
+                    uswp01cat004: null
+                    uswp01cat006: null
+                    uswp01cat008: null
+                    uswp01cat010: null
+                    uswp01cat012: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp01cbc:
+              children:
+                uswp01cbca:
+                  hosts:
+                    uswp01cbc001: null
+                    uswp01cbc003: null
+                uswp01cbcb:
+                  hosts:
+                    uswp01cbc002: null
+                    uswp01cbc004: null
+              vars:
+                services:
+                - couchbase
+            uswp01cfj:
+              children:
+                uswp01cfja:
+                  hosts:
+                    uswp01cfj001: null
+                uswp01cfjb:
+                  hosts:
+                    uswp01cfj002: null
+              vars:
+                services:
+                - coldfusion_httpd
+            uswp01cpl:
+              children:
+                uswp01cpla:
+                  hosts:
+                    uswp01cpl001: null
+                    uswp01cpl003: null
+                uswp01cplb:
+                  hosts:
+                    uswp01cpl002: null
+                    uswp01cpl004: null
+              vars:
+                services:
+                - bootapp
+            uswp01cps:
+              children:
+                uswp01cpsa:
+                  hosts:
+                    uswp01cps001: null
+                uswp01cpsb:
+                  hosts:
+                    uswp01cps002: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp01csa:
+              children:
+                uswp01csaa:
+                  hosts:
+                    uswp01csa001: null
+                    uswp01csa003: null
+                uswp01csab:
+                  hosts:
+                    uswp01csa002: null
+                    uswp01csa004: null
+              vars:
+                services:
+                - not_defined
+            uswp01csi:
+              children:
+                uswp01csia:
+                  hosts:
+                    uswp01csi001: null
+                    uswp01csi003: null
+                uswp01csib:
+                  hosts:
+                    uswp01csi002: null
+                    uswp01csi004: null
+              vars:
+                services:
+                - bootapp
+            uswp01dsc:
+              children:
+                uswp01dsca:
+                  hosts:
+                    uswp01dsc001: null
+                uswp01dscb:
+                  hosts:
+                    uswp01dsc002: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp01eis:
+              children:
+                uswp01eisa:
+                  hosts:
+                    uswp01eis001: null
+                    uswp01eis003: null
+                uswp01eisb:
+                  hosts:
+                    uswp01eis002: null
+                    uswp01eis004: null
+              vars:
+                services:
+                - not_defined
+            uswp01exp:
+              children:
+                uswp01expa:
+                  hosts:
+                    uswp01exp001: null
+                    uswp01exp003: null
+                uswp01expb:
+                  hosts:
+                    uswp01exp002: null
+                    uswp01exp004: null
+              vars:
+                services:
+                - not_defined
+            uswp01ian:
+              children:
+                uswp01iana:
+                  hosts:
+                    uswp01ian001: null
+                    uswp01ian003: null
+                    uswp01ian005: null
+                    uswp01ian007: null
+                uswp01ianb:
+                  hosts:
+                    uswp01ian002: null
+                    uswp01ian004: null
+                    uswp01ian006: null
+                    uswp01ian008: null
+              vars:
+                services:
+                - docker
+            uswp01ini:
+              children:
+                uswp01inia:
+                  hosts:
+                    uswp01ini001: null
+                    uswp01ini003: null
+                uswp01inib:
+                  hosts:
+                    uswp01ini002: null
+                    uswp01ini004: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp01itl:
+              children:
+                uswp01itla:
+                  hosts:
+                    uswp01itl001: null
+                    uswp01itl003: null
+                    uswp01itl005: null
+                uswp01itlb:
+                  hosts:
+                    uswp01itl002: null
+                    uswp01itl004: null
+                    uswp01itl006: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp01jsp:
+              children:
+                uswp01jspa:
+                  hosts:
+                    uswp01jsp001: null
+                    uswp01jsp003: null
+                uswp01jspb:
+                  hosts:
+                    uswp01jsp002: null
+                    uswp01jsp004: null
+              vars:
+                services:
+                - bootapp
+            uswp01kfc:
+              children:
+                uswp01kfca:
+                  hosts:
+                    uswp01kfc001: null
+                    uswp01kfc003: null
+                uswp01kfcb:
+                  hosts:
+                    uswp01kfc002: null
+                    uswp01kfc004: null
+              vars:
+                services:
+                - bootapp
+            uswp01kfk:
+              children:
+                uswp01kfka:
+                  hosts:
+                    uswp01kfk001: null
+                    uswp01kfk003: null
+                uswp01kfkb:
+                  hosts:
+                    uswp01kfk002: null
+              vars:
+                services:
+                - kafka
+            uswp01ler:
+              children:
+                uswp01lera:
+                  hosts:
+                    uswp01ler001: null
+                    uswp01ler003: null
+                uswp01lerb:
+                  hosts:
+                    uswp01ler002: null
+                    uswp01ler004: null
+              vars:
+                services:
+                - docker
+            uswp01lgi:
+              children:
+                uswp01lgia:
+                  hosts:
+                    uswp01lgi001: null
+                    uswp01lgi003: null
+                    uswp01lgi005: null
+                    uswp01lgi007: null
+                uswp01lgib:
+                  hosts:
+                    uswp01lgi002: null
+                    uswp01lgi004: null
+                    uswp01lgi006: null
+                    uswp01lgi008: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp01lgs:
+              children:
+                uswp01lgsa:
+                  hosts:
+                    uswp01lgs001: null
+                    uswp01lgs003: null
+                uswp01lgsb:
+                  hosts:
+                    uswp01lgs002: null
+                    uswp01lgs004: null
+              vars:
+                services:
+                - not_defined
+            uswp01mpb:
+              children:
+                uswp01mpba:
+                  hosts:
+                    uswp01mpb001: null
+                    uswp01mpb003: null
+                uswp01mpbb:
+                  hosts:
+                    uswp01mpb002: null
+                    uswp01mpb004: null
+              vars:
+                services:
+                - bootapp
+            uswp01mpd:
+              children:
+                uswp01mpda:
+                  hosts:
+                    uswp01mpd001: null
+                    uswp01mpd003: null
+                uswp01mpdb:
+                  hosts:
+                    uswp01mpd002: null
+                    uswp01mpd004: null
+              vars:
+                services:
+                - bootapp
+            uswp01mqm:
+              children:
+                uswp01mqma:
+                  hosts:
+                    uswp01mqm001: null
+                    uswp01mqm003: null
+                uswp01mqmb:
+                  hosts:
+                    uswp01mqm002: null
+                    uswp01mqm004: null
+              vars:
+                services:
+                - mqmbroker
+            uswp01myx:
+              children:
+                uswp01myxa:
+                  hosts:
+                    uswp01myx001: null
+                    uswp01myx003: null
+                    uswp01myx005: null
+                    uswp01myx007: null
+                    uswp01myx009: null
+                    uswp01myx011: null
+                    uswp01myx013: null
+                    uswp01myx015: null
+                uswp01myxb:
+                  hosts:
+                    uswp01myx002: null
+                    uswp01myx004: null
+                    uswp01myx006: null
+                    uswp01myx008: null
+                    uswp01myx010: null
+                    uswp01myx012: null
+                    uswp01myx014: null
+                    uswp01myx016: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp01nge:
+              children:
+                uswp01ngea:
+                  hosts:
+                    uswp01nge001: null
+                    uswp01nge003: null
+                uswp01ngeb:
+                  hosts:
+                    uswp01nge002: null
+                    uswp01nge004: null
+              vars:
+                services:
+                - openresty
+            uswp01ngi:
+              children:
+                uswp01ngia:
+                  hosts:
+                    uswp01ngi001: null
+                    uswp01ngi003: null
+                uswp01ngib:
+                  hosts:
+                    uswp01ngi002: null
+                    uswp01ngi004: null
+              vars:
+                services:
+                - openresty
+            uswp01pay:
+              children:
+                uswp01paya:
+                  hosts:
+                    uswp01pay001: null
+                    uswp01pay003: null
+                uswp01payb:
+                  hosts:
+                    uswp01pay002: null
+                    uswp01pay004: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp01pdf:
+              children:
+                uswp01pdfa:
+                  hosts:
+                    uswp01pdf001: null
+                    uswp01pdf003: null
+                    uswp01pdf005: null
+                uswp01pdfb:
+                  hosts:
+                    uswp01pdf002: null
+                    uswp01pdf004: null
+                    uswp01pdf006: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp01pds:
+              children:
+                uswp01pdsa:
+                  hosts:
+                    uswp01pds001: null
+                    uswp01pds003: null
+                uswp01pdsb:
+                  hosts:
+                    uswp01pds002: null
+                    uswp01pds004: null
+              vars:
+                services:
+                - httpd
+            uswp01pri:
+              children:
+                uswp01pria:
+                  hosts:
+                    uswp01pri001: null
+                    uswp01pri003: null
+                    uswp01pri005: null
+                    uswp01pri007: null
+                    uswp01pri009: null
+                    uswp01pri011: null
+                    uswp01pri013: null
+                    uswp01pri015: null
+                uswp01prib:
+                  hosts:
+                    uswp01pri002: null
+                    uswp01pri004: null
+                    uswp01pri006: null
+                    uswp01pri008: null
+                    uswp01pri010: null
+                    uswp01pri012: null
+                    uswp01pri014: null
+                    uswp01pri016: null
+              vars:
+                services:
+                - httpd
+                - tomcat
+            uswp01prt:
+              children:
+                uswp01prta:
+                  hosts:
+                    uswp01prt001: null
+                    uswp01prt003: null
+                uswp01prtb:
+                  hosts:
+                    uswp01prt002: null
+                    uswp01prt004: null
+              vars:
+                services:
+                - not_defined
+            uswp01psb:
+              children:
+                uswp01psba:
+                  hosts:
+                    uswp01psb001: null
+                    uswp01psb003: null
+                uswp01psbb:
+                  hosts:
+                    uswp01psb002: null
+                    uswp01psb004: null
+              vars:
+                services:
+                - bootapp
+            uswp01rec:
+              children:
+                uswp01reca:
+                  hosts:
+                    uswp01rec001: null
+                    uswp01rec003: null
+                uswp01recb:
+                  hosts:
+                    uswp01rec002: null
+                    uswp01rec004: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp01sct:
+              children:
+                uswp01scta:
+                  hosts:
+                    uswp01sct001: null
+                    uswp01sct003: null
+                uswp01sctb:
+                  hosts:
+                    uswp01sct002: null
+                    uswp01sct004: null
+              vars:
+                services:
+                - bootapp
+            uswp01sic:
+              children:
+                uswp01sica:
+                  hosts:
+                    uswp01sic001: null
+                    uswp01sic003: null
+                uswp01sicb:
+                  hosts:
+                    uswp01sic002: null
+                    uswp01sic004: null
+              vars:
+                services:
+                - not_defined
+            uswp01sim:
+              children:
+                uswp01sima:
+                  hosts:
+                    uswp01sim001: null
+                    uswp01sim003: null
+                uswp01simb:
+                  hosts:
+                    uswp01sim002: null
+                    uswp01sim004: null
+              vars:
+                services:
+                - not_defined
+            uswp01sip:
+              children:
+                uswp01sipa:
+                  hosts:
+                    uswp01sip001: null
+                    uswp01sip003: null
+                uswp01sipb:
+                  hosts:
+                    uswp01sip002: null
+                    uswp01sip004: null
+              vars:
+                services:
+                - not_defined
+            uswp01sla:
+              children:
+                uswp01slaa:
+                  hosts:
+                    uswp01sla001: null
+                    uswp01sla003: null
+                uswp01slab:
+                  hosts:
+                    uswp01sla002: null
+                    uswp01sla004: null
+              vars:
+                services:
+                - not_defined
+            uswp01slb:
+              children:
+                uswp01slba:
+                  hosts:
+                    uswp01slb001: null
+                uswp01slbb:
+                  hosts:
+                    uswp01slb002: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp01sli:
+              children:
+                uswp01slia:
+                  hosts:
+                    uswp01sli001: null
+                    uswp01sli003: null
+                uswp01slib:
+                  hosts:
+                    uswp01sli002: null
+                    uswp01sli004: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp01slo:
+              children:
+                uswp01sloa:
+                  hosts:
+                    uswp01slo001: null
+                    uswp01slo003: null
+                uswp01slob:
+                  hosts:
+                    uswp01slo002: null
+                    uswp01slo004: null
+              vars:
+                services:
+                - not_defined
+            uswp01slx:
+              children:
+                uswp01slxa:
+                  hosts:
+                    uswp01slx001: null
+                    uswp01slx003: null
+                    uswp01slx005: null
+                    uswp01slx007: null
+                uswp01slxb:
+                  hosts:
+                    uswp01slx002: null
+                    uswp01slx004: null
+                    uswp01slx006: null
+                    uswp01slx008: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp01snm:
+              children:
+                uswp01snma:
+                  hosts:
+                    uswp01snm001: null
+                    uswp01snm003: null
+                uswp01snmb:
+                  hosts:
+                    uswp01snm002: null
+                    uswp01snm004: null
+              vars:
+                services:
+                - not_defined
+            uswp01spa:
+              children:
+                uswp01spaa:
+                  hosts:
+                    uswp01spa001: null
+                    uswp01spa003: null
+                    uswp01spa005: null
+                uswp01spab:
+                  hosts:
+                    uswp01spa002: null
+                    uswp01spa004: null
+                    uswp01spa006: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp01squ:
+              children:
+                uswp01squa:
+                  hosts:
+                    uswp01squ001: null
+                    uswp01squ101: null
+                uswp01squb:
+                  hosts:
+                    uswp01squ002: null
+                    uswp01squ102: null
+              vars:
+                services:
+                - not_defined
+            uswp01src:
+              children:
+                uswp01srca:
+                  hosts:
+                    uswp01src001: null
+                    uswp01src003: null
+                uswp01srcb:
+                  hosts:
+                    uswp01src002: null
+                    uswp01src004: null
+              vars:
+                services:
+                - docker
+            uswp01srh:
+              children:
+                uswp01srha:
+                  hosts:
+                    uswp01srh001: null
+                    uswp01srh003: null
+                    uswp01srh005: null
+                    uswp01srh007: null
+                    uswp01srh009: null
+                    uswp01srh011: null
+                uswp01srhb:
+                  hosts:
+                    uswp01srh002: null
+                    uswp01srh004: null
+                    uswp01srh006: null
+                    uswp01srh008: null
+                    uswp01srh010: null
+                    uswp01srh012: null
+              vars:
+                services:
+                - httpd
+                - tomcat
+            uswp01stj:
+              children:
+                uswp01stja:
+                  hosts:
+                    uswp01stj001: null
+                    uswp01stj003: null
+                uswp01stjb:
+                  hosts:
+                    uswp01stj002: null
+                    uswp01stj004: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp01sts:
+              children:
+                uswp01stsa:
+                  hosts:
+                    uswp01sts001: null
+                    uswp01sts003: null
+                uswp01stsb:
+                  hosts:
+                    uswp01sts002: null
+                    uswp01sts004: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp01sws:
+              children:
+                uswp01swsa:
+                  hosts:
+                    uswp01sws001: null
+                    uswp01sws003: null
+                uswp01swsb:
+                  hosts:
+                    uswp01sws002: null
+                    uswp01sws004: null
+              vars:
+                services:
+                - httpd
+            uswp01tds:
+              children:
+                uswp01tdsa:
+                  hosts:
+                    uswp01tds001: null
+                    uswp01tds003: null
+                uswp01tdsb:
+                  hosts:
+                    uswp01tds002: null
+                    uswp01tds004: null
+              vars:
+                services:
+                - bootapp
+            uswp01ubs:
+              children:
+                uswp01ubsa:
+                  hosts:
+                    uswp01ubs001: null
+                    uswp01ubs003: null
+                uswp01ubsb:
+                  hosts:
+                    uswp01ubs002: null
+                    uswp01ubs004: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp01usb:
+              children:
+                uswp01usba:
+                  hosts:
+                    uswp01usb001: null
+                uswp01usbb:
+                  hosts:
+                    uswp01usb002: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp01usc:
+              children:
+                uswp01usca:
+                  hosts:
+                    uswp01usc001: null
+                    uswp01usc003: null
+                    uswp01usc005: null
+                    uswp01usc007: null
+                    uswp01usc009: null
+                    uswp01usc011: null
+                    uswp01usc013: null
+                    uswp01usc015: null
+                uswp01uscb:
+                  hosts:
+                    uswp01usc002: null
+                    uswp01usc004: null
+                    uswp01usc006: null
+                    uswp01usc008: null
+                    uswp01usc010: null
+                    uswp01usc012: null
+                    uswp01usc014: null
+                    uswp01usc016: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp01usi:
+              children:
+                uswp01usia:
+                  hosts:
+                    uswp01usi001: null
+                    uswp01usi003: null
+                    uswp01usi005: null
+                    uswp01usi007: null
+                uswp01usib:
+                  hosts:
+                    uswp01usi002: null
+                    uswp01usi004: null
+                    uswp01usi006: null
+                    uswp01usi008: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp01usk:
+              children:
+                uswp01uska:
+                  hosts:
+                    uswp01usk001: null
+                    uswp01usk003: null
+                uswp01uskb:
+                  hosts:
+                    uswp01usk002: null
+                    uswp01usk004: null
+              vars:
+                services:
+                - httpd
+                - tomcat
+            uswp01usl:
+              children:
+                uswp01usla:
+                  hosts:
+                    uswp01usl001: null
+                    uswp01usl003: null
+                    uswp01usl005: null
+                    uswp01usl007: null
+                    uswp01usl009: null
+                    uswp01usl011: null
+                    uswp01usl013: null
+                    uswp01usl015: null
+                uswp01uslb:
+                  hosts:
+                    uswp01usl002: null
+                    uswp01usl004: null
+                    uswp01usl006: null
+                    uswp01usl008: null
+                    uswp01usl010: null
+                    uswp01usl012: null
+                    uswp01usl014: null
+                    uswp01usl016: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp01uso:
+              children:
+                uswp01usoa:
+                  hosts:
+                    uswp01uso001: null
+                    uswp01uso003: null
+                uswp01usob:
+                  hosts:
+                    uswp01uso002: null
+                    uswp01uso004: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp01usp:
+              children:
+                uswp01uspa:
+                  hosts:
+                    uswp01usp001: null
+                    uswp01usp003: null
+                uswp01uspb:
+                  hosts:
+                    uswp01usp002: null
+                    uswp01usp004: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp01usr:
+              children:
+                uswp01usra:
+                  hosts:
+                    uswp01usr001: null
+                    uswp01usr003: null
+                    uswp01usr005: null
+                uswp01usrb:
+                  hosts:
+                    uswp01usr002: null
+                    uswp01usr004: null
+                    uswp01usr006: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp01uss:
+              children:
+                uswp01ussa:
+                  hosts:
+                    uswp01uss001: null
+                    uswp01uss003: null
+                uswp01ussb:
+                  hosts:
+                    uswp01uss002: null
+                    uswp01uss004: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp01ust:
+              children:
+                uswp01usta:
+                  hosts:
+                    uswp01ust005: null
+                    uswp01ust007: null
+                    uswp01ust009: null
+                    uswp01ust011: null
+                uswp01ustb:
+                  hosts:
+                    uswp01ust006: null
+                    uswp01ust008: null
+                    uswp01ust010: null
+                    uswp01ust012: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp01wbh:
+              children:
+                uswp01wbha:
+                  hosts:
+                    uswp01wbh001: null
+                    uswp01wbh003: null
+                uswp01wbhb:
+                  hosts:
+                    uswp01wbh002: null
+                    uswp01wbh004: null
+              vars:
+                services:
+                - bootapp
+            uswp01zkr:
+              children:
+                uswp01zkra:
+                  hosts:
+                    uswp01zkr001: null
+                    uswp01zkr003: null
+                    uswp01zkr005: null
+                uswp01zkrb:
+                  hosts:
+                    uswp01zkr002: null
+                    uswp01zkr004: null
+              vars:
+                services:
+                - zookeeper
+        uswp02:
+          children:
+            uswp02aam:
+              children:
+                uswp02aama:
+                  hosts:
+                    uswp02aam001: null
+                    uswp02aam003: null
+                uswp02aamb:
+                  hosts:
+                    uswp02aam002: null
+                    uswp02aam004: null
+              vars:
+                services:
+                - docker
+            uswp02api:
+              children:
+                uswp02apia:
+                  hosts:
+                    uswp02api001: null
+                    uswp02api003: null
+                uswp02apib:
+                  hosts:
+                    uswp02api002: null
+                    uswp02api004: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp02apx:
+              children:
+                uswp02apxa:
+                  hosts:
+                    uswp02apx001: null
+                    uswp02apx003: null
+                uswp02apxb:
+                  hosts:
+                    uswp02apx002: null
+                    uswp02apx004: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp02bfn:
+              children:
+                uswp02bfna:
+                  hosts:
+                    uswp02bfn001: null
+                    uswp02bfn003: null
+                uswp02bfnb:
+                  hosts:
+                    uswp02bfn002: null
+                    uswp02bfn004: null
+              vars:
+                services:
+                - pm2
+            uswp02bfp:
+              children:
+                uswp02bfpa:
+                  hosts:
+                    uswp02bfp001: null
+                    uswp02bfp003: null
+                uswp02bfpb:
+                  hosts:
+                    uswp02bfp002: null
+                    uswp02bfp004: null
+              vars:
+                services:
+                - pm2
+            uswp02bfs:
+              children:
+                uswp02bfsa:
+                  hosts:
+                    uswp02bfs001: null
+                    uswp02bfs003: null
+                    uswp02bfs005: null
+                    uswp02bfs007: null
+                uswp02bfsb:
+                  hosts:
+                    uswp02bfs002: null
+                    uswp02bfs004: null
+                    uswp02bfs006: null
+                    uswp02bfs008: null
+              vars:
+                services:
+                - pm2
+            uswp02bfw:
+              children:
+                uswp02bfwa:
+                  hosts:
+                    uswp02bfw001: null
+                    uswp02bfw003: null
+                uswp02bfwb:
+                  hosts:
+                    uswp02bfw002: null
+                    uswp02bfw004: null
+              vars:
+                services:
+                - pm2
+            uswp02bfx:
+              children:
+                uswp02bfxa:
+                  hosts:
+                    uswp02bfx001: null
+                    uswp02bfx003: null
+                uswp02bfxb:
+                  hosts:
+                    uswp02bfx002: null
+                    uswp02bfx004: null
+              vars:
+                services:
+                - pm2
+            uswp02byx:
+              children:
+                uswp02byxa:
+                  hosts:
+                    uswp02byx001: null
+                    uswp02byx003: null
+                    uswp02byx005: null
+                uswp02byxb:
+                  hosts:
+                    uswp02byx002: null
+                    uswp02byx004: null
+                    uswp02byx006: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp02cab:
+              children:
+                uswp02caba:
+                  hosts:
+                    uswp02cab001: null
+                    uswp02cab003: null
+                uswp02cabb:
+                  hosts:
+                    uswp02cab002: null
+                    uswp02cab004: null
+              vars:
+                services:
+                - httpd
+                - tomcat
+            uswp02cat:
+              children:
+                uswp02cata:
+                  hosts:
+                    uswp02cat001: null
+                    uswp02cat003: null
+                    uswp02cat005: null
+                    uswp02cat007: null
+                    uswp02cat009: null
+                    uswp02cat011: null
+                uswp02catb:
+                  hosts:
+                    uswp02cat002: null
+                    uswp02cat004: null
+                    uswp02cat006: null
+                    uswp02cat008: null
+                    uswp02cat010: null
+                    uswp02cat012: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp02cbc:
+              children:
+                uswp02cbca:
+                  hosts:
+                    uswp02cbc001: null
+                    uswp02cbc003: null
+                uswp02cbcb:
+                  hosts:
+                    uswp02cbc002: null
+                    uswp02cbc004: null
+              vars:
+                services:
+                - couchbase
+            uswp02cfj:
+              children:
+                uswp02cfja:
+                  hosts:
+                    uswp02cfj001: null
+                uswp02cfjb:
+                  hosts:
+                    uswp02cfj002: null
+              vars:
+                services:
+                - coldfusion_httpd
+            uswp02cpl:
+              children:
+                uswp02cpla:
+                  hosts:
+                    uswp02cpl001: null
+                    uswp02cpl003: null
+                uswp02cplb:
+                  hosts:
+                    uswp02cpl002: null
+                    uswp02cpl004: null
+              vars:
+                services:
+                - bootapp
+            uswp02cps:
+              children:
+                uswp02cpsa:
+                  hosts:
+                    uswp02cps001: null
+                uswp02cpsb:
+                  hosts:
+                    uswp02cps002: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp02csa:
+              children:
+                uswp02csaa:
+                  hosts:
+                    uswp02csa001: null
+                    uswp02csa003: null
+                uswp02csab:
+                  hosts:
+                    uswp02csa002: null
+                    uswp02csa004: null
+              vars:
+                services:
+                - not_defined
+            uswp02csi:
+              children:
+                uswp02csia:
+                  hosts:
+                    uswp02csi001: null
+                    uswp02csi003: null
+                uswp02csib:
+                  hosts:
+                    uswp02csi002: null
+                    uswp02csi004: null
+              vars:
+                services:
+                - bootapp
+            uswp02dsc:
+              children:
+                uswp02dsca:
+                  hosts:
+                    uswp02dsc001: null
+                uswp02dscb:
+                  hosts:
+                    uswp02dsc002: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp02eis:
+              children:
+                uswp02eisa:
+                  hosts:
+                    uswp02eis001: null
+                    uswp02eis003: null
+                uswp02eisb:
+                  hosts:
+                    uswp02eis002: null
+                    uswp02eis004: null
+              vars:
+                services:
+                - not_defined
+            uswp02exp:
+              children:
+                uswp02expa:
+                  hosts:
+                    uswp02exp001: null
+                    uswp02exp003: null
+                uswp02expb:
+                  hosts:
+                    uswp02exp002: null
+                    uswp02exp004: null
+              vars:
+                services:
+                - not_defined
+            uswp02ian:
+              children:
+                uswp02iana:
+                  hosts:
+                    uswp02ian001: null
+                    uswp02ian003: null
+                    uswp02ian005: null
+                    uswp02ian007: null
+                uswp02ianb:
+                  hosts:
+                    uswp02ian002: null
+                    uswp02ian004: null
+                    uswp02ian006: null
+                    uswp02ian008: null
+              vars:
+                services:
+                - docker
+            uswp02ini:
+              children:
+                uswp02inia:
+                  hosts:
+                    uswp02ini001: null
+                    uswp02ini003: null
+                uswp02inib:
+                  hosts:
+                    uswp02ini002: null
+                    uswp02ini004: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp02itl:
+              children:
+                uswp02itla:
+                  hosts:
+                    uswp02itl001: null
+                    uswp02itl003: null
+                    uswp02itl005: null
+                uswp02itlb:
+                  hosts:
+                    uswp02itl002: null
+                    uswp02itl004: null
+                    uswp02itl006: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp02jsp:
+              children:
+                uswp02jspa:
+                  hosts:
+                    uswp02jsp001: null
+                    uswp02jsp003: null
+                uswp02jspb:
+                  hosts:
+                    uswp02jsp002: null
+                    uswp02jsp004: null
+              vars:
+                services:
+                - bootapp
+            uswp02kfk:
+              children:
+                uswp02kfka:
+                  hosts:
+                    uswp02kfk001: null
+                    uswp02kfk003: null
+                uswp02kfkb:
+                  hosts:
+                    uswp02kfk002: null
+              vars:
+                services:
+                - kafka
+            uswp02ler:
+              children:
+                uswp02lera:
+                  hosts:
+                    uswp02ler001: null
+                    uswp02ler003: null
+                uswp02lerb:
+                  hosts:
+                    uswp02ler002: null
+                    uswp02ler004: null
+              vars:
+                services:
+                - docker
+            uswp02lgi:
+              children:
+                uswp02lgia:
+                  hosts:
+                    uswp02lgi001: null
+                    uswp02lgi003: null
+                    uswp02lgi005: null
+                    uswp02lgi007: null
+                uswp02lgib:
+                  hosts:
+                    uswp02lgi002: null
+                    uswp02lgi004: null
+                    uswp02lgi006: null
+                    uswp02lgi008: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp02lgs:
+              children:
+                uswp02lgsa:
+                  hosts:
+                    uswp02lgs001: null
+                    uswp02lgs003: null
+                uswp02lgsb:
+                  hosts:
+                    uswp02lgs002: null
+                    uswp02lgs004: null
+              vars:
+                services:
+                - not_defined
+            uswp02mpb:
+              children:
+                uswp02mpba:
+                  hosts:
+                    uswp02mpb001: null
+                    uswp02mpb003: null
+                uswp02mpbb:
+                  hosts:
+                    uswp02mpb002: null
+                    uswp02mpb004: null
+              vars:
+                services:
+                - bootapp
+            uswp02mpd:
+              children:
+                uswp02mpda:
+                  hosts:
+                    uswp02mpd001: null
+                    uswp02mpd003: null
+                uswp02mpdb:
+                  hosts:
+                    uswp02mpd002: null
+                    uswp02mpd004: null
+              vars:
+                services:
+                - bootapp
+            uswp02mqm:
+              children:
+                uswp02mqma:
+                  hosts:
+                    uswp02mqm001: null
+                    uswp02mqm003: null
+                uswp02mqmb:
+                  hosts:
+                    uswp02mqm002: null
+                    uswp02mqm004: null
+              vars:
+                services:
+                - mqmbroker
+            uswp02myx:
+              children:
+                uswp02myxa:
+                  hosts:
+                    uswp02myx001: null
+                    uswp02myx003: null
+                    uswp02myx005: null
+                    uswp02myx007: null
+                    uswp02myx009: null
+                    uswp02myx011: null
+                    uswp02myx013: null
+                    uswp02myx015: null
+                uswp02myxb:
+                  hosts:
+                    uswp02myx002: null
+                    uswp02myx004: null
+                    uswp02myx006: null
+                    uswp02myx008: null
+                    uswp02myx010: null
+                    uswp02myx012: null
+                    uswp02myx014: null
+                    uswp02myx016: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp02nge:
+              children:
+                uswp02ngea:
+                  hosts:
+                    uswp02nge001: null
+                    uswp02nge003: null
+                uswp02ngeb:
+                  hosts:
+                    uswp02nge002: null
+                    uswp02nge004: null
+              vars:
+                services:
+                - openresty
+            uswp02ngi:
+              children:
+                uswp02ngia:
+                  hosts:
+                    uswp02ngi001: null
+                    uswp02ngi003: null
+                uswp02ngib:
+                  hosts:
+                    uswp02ngi002: null
+                    uswp02ngi004: null
+              vars:
+                services:
+                - openresty
+            uswp02pay:
+              children:
+                uswp02paya:
+                  hosts:
+                    uswp02pay001: null
+                    uswp02pay003: null
+                uswp02payb:
+                  hosts:
+                    uswp02pay002: null
+                    uswp02pay004: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp02pdf:
+              children:
+                uswp02pdfa:
+                  hosts:
+                    uswp02pdf001: null
+                    uswp02pdf003: null
+                    uswp02pdf005: null
+                uswp02pdfb:
+                  hosts:
+                    uswp02pdf002: null
+                    uswp02pdf004: null
+                    uswp02pdf006: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp02pds:
+              children:
+                uswp02pdsa:
+                  hosts:
+                    uswp02pds001: null
+                    uswp02pds003: null
+                uswp02pdsb:
+                  hosts:
+                    uswp02pds002: null
+                    uswp02pds004: null
+              vars:
+                services:
+                - httpd
+            uswp02pri:
+              children:
+                uswp02pria:
+                  hosts:
+                    uswp02pri001: null
+                    uswp02pri003: null
+                    uswp02pri005: null
+                    uswp02pri007: null
+                    uswp02pri009: null
+                    uswp02pri011: null
+                    uswp02pri013: null
+                    uswp02pri015: null
+                uswp02prib:
+                  hosts:
+                    uswp02pri002: null
+                    uswp02pri004: null
+                    uswp02pri006: null
+                    uswp02pri008: null
+                    uswp02pri010: null
+                    uswp02pri012: null
+                    uswp02pri014: null
+                    uswp02pri016: null
+              vars:
+                services:
+                - httpd
+                - tomcat
+            uswp02prt:
+              children:
+                uswp02prta:
+                  hosts:
+                    uswp02prt001: null
+                    uswp02prt003: null
+                uswp02prtb:
+                  hosts:
+                    uswp02prt002: null
+                    uswp02prt004: null
+              vars:
+                services:
+                - not_defined
+            uswp02psb:
+              children:
+                uswp02psba:
+                  hosts:
+                    uswp02psb001: null
+                    uswp02psb003: null
+                uswp02psbb:
+                  hosts:
+                    uswp02psb002: null
+                    uswp02psb004: null
+              vars:
+                services:
+                - bootapp
+            uswp02rec:
+              children:
+                uswp02reca:
+                  hosts:
+                    uswp02rec001: null
+                    uswp02rec003: null
+                uswp02recb:
+                  hosts:
+                    uswp02rec002: null
+                    uswp02rec004: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp02sct:
+              children:
+                uswp02scta:
+                  hosts:
+                    uswp02sct001: null
+                    uswp02sct003: null
+                uswp02sctb:
+                  hosts:
+                    uswp02sct002: null
+                    uswp02sct004: null
+              vars:
+                services:
+                - bootapp
+            uswp02sic:
+              children:
+                uswp02sica:
+                  hosts:
+                    uswp02sic001: null
+                    uswp02sic003: null
+                uswp02sicb:
+                  hosts:
+                    uswp02sic002: null
+                    uswp02sic004: null
+              vars:
+                services:
+                - not_defined
+            uswp02sim:
+              children:
+                uswp02sima:
+                  hosts:
+                    uswp02sim001: null
+                    uswp02sim003: null
+                uswp02simb:
+                  hosts:
+                    uswp02sim002: null
+                    uswp02sim004: null
+              vars:
+                services:
+                - not_defined
+            uswp02sip:
+              children:
+                uswp02sipa:
+                  hosts:
+                    uswp02sip001: null
+                    uswp02sip003: null
+                uswp02sipb:
+                  hosts:
+                    uswp02sip002: null
+                    uswp02sip004: null
+              vars:
+                services:
+                - not_defined
+            uswp02sla:
+              children:
+                uswp02slaa:
+                  hosts:
+                    uswp02sla001: null
+                    uswp02sla003: null
+                uswp02slab:
+                  hosts:
+                    uswp02sla002: null
+                    uswp02sla004: null
+              vars:
+                services:
+                - not_defined
+            uswp02slb:
+              children:
+                uswp02slba:
+                  hosts:
+                    uswp02slb001: null
+                uswp02slbb:
+                  hosts:
+                    uswp02slb002: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp02sli:
+              children:
+                uswp02slia:
+                  hosts:
+                    uswp02sli001: null
+                    uswp02sli003: null
+                uswp02slib:
+                  hosts:
+                    uswp02sli002: null
+                    uswp02sli004: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp02slo:
+              children:
+                uswp02sloa:
+                  hosts:
+                    uswp02slo001: null
+                    uswp02slo003: null
+                uswp02slob:
+                  hosts:
+                    uswp02slo002: null
+                    uswp02slo004: null
+              vars:
+                services:
+                - not_defined
+            uswp02slx:
+              children:
+                uswp02slxa:
+                  hosts:
+                    uswp02slx001: null
+                    uswp02slx003: null
+                    uswp02slx005: null
+                    uswp02slx007: null
+                uswp02slxb:
+                  hosts:
+                    uswp02slx002: null
+                    uswp02slx004: null
+                    uswp02slx006: null
+                    uswp02slx008: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp02snm:
+              children:
+                uswp02snma:
+                  hosts:
+                    uswp02snm001: null
+                    uswp02snm003: null
+                uswp02snmb:
+                  hosts:
+                    uswp02snm002: null
+                    uswp02snm004: null
+              vars:
+                services:
+                - not_defined
+            uswp02spa:
+              children:
+                uswp02spaa:
+                  hosts:
+                    uswp02spa001: null
+                    uswp02spa003: null
+                    uswp02spa005: null
+                uswp02spab:
+                  hosts:
+                    uswp02spa002: null
+                    uswp02spa004: null
+                    uswp02spa006: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp02squ:
+              children:
+                uswp02squa:
+                  hosts:
+                    uswp02squ001: null
+                    uswp02squ101: null
+                uswp02squb:
+                  hosts:
+                    uswp02squ002: null
+                    uswp02squ102: null
+              vars:
+                services:
+                - not_defined
+            uswp02src:
+              children:
+                uswp02srca:
+                  hosts:
+                    uswp02src001: null
+                    uswp02src003: null
+                uswp02srcb:
+                  hosts:
+                    uswp02src002: null
+                    uswp02src004: null
+              vars:
+                services:
+                - docker
+            uswp02srh:
+              children:
+                uswp02srha:
+                  hosts:
+                    uswp02srh001: null
+                    uswp02srh003: null
+                    uswp02srh005: null
+                    uswp02srh007: null
+                    uswp02srh009: null
+                    uswp02srh011: null
+                uswp02srhb:
+                  hosts:
+                    uswp02srh002: null
+                    uswp02srh004: null
+                    uswp02srh006: null
+                    uswp02srh008: null
+                    uswp02srh010: null
+                    uswp02srh012: null
+              vars:
+                services:
+                - httpd
+                - tomcat
+            uswp02stj:
+              children:
+                uswp02stja:
+                  hosts:
+                    uswp02stj001: null
+                    uswp02stj003: null
+                uswp02stjb:
+                  hosts:
+                    uswp02stj002: null
+                    uswp02stj004: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp02sts:
+              children:
+                uswp02stsa:
+                  hosts:
+                    uswp02sts001: null
+                    uswp02sts003: null
+                uswp02stsb:
+                  hosts:
+                    uswp02sts002: null
+                    uswp02sts004: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp02sws:
+              children:
+                uswp02swsa:
+                  hosts:
+                    uswp02sws001: null
+                    uswp02sws003: null
+                uswp02swsb:
+                  hosts:
+                    uswp02sws002: null
+                    uswp02sws004: null
+              vars:
+                services:
+                - httpd
+            uswp02tds:
+              children:
+                uswp02tdsa:
+                  hosts:
+                    uswp02tds001: null
+                    uswp02tds003: null
+                uswp02tdsb:
+                  hosts:
+                    uswp02tds002: null
+                    uswp02tds004: null
+              vars:
+                services:
+                - bootapp
+            uswp02ubs:
+              children:
+                uswp02ubsa:
+                  hosts:
+                    uswp02ubs001: null
+                    uswp02ubs003: null
+                uswp02ubsb:
+                  hosts:
+                    uswp02ubs002: null
+                    uswp02ubs004: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp02usb:
+              children:
+                uswp02usba:
+                  hosts:
+                    uswp02usb001: null
+                uswp02usbb:
+                  hosts:
+                    uswp02usb002: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp02usc:
+              children:
+                uswp02usca:
+                  hosts:
+                    uswp02usc001: null
+                    uswp02usc003: null
+                    uswp02usc005: null
+                    uswp02usc007: null
+                    uswp02usc009: null
+                    uswp02usc011: null
+                    uswp02usc013: null
+                    uswp02usc015: null
+                uswp02uscb:
+                  hosts:
+                    uswp02usc002: null
+                    uswp02usc004: null
+                    uswp02usc006: null
+                    uswp02usc008: null
+                    uswp02usc010: null
+                    uswp02usc012: null
+                    uswp02usc014: null
+                    uswp02usc016: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp02usi:
+              children:
+                uswp02usia:
+                  hosts:
+                    uswp02usi001: null
+                    uswp02usi003: null
+                    uswp02usi005: null
+                    uswp02usi007: null
+                uswp02usib:
+                  hosts:
+                    uswp02usi002: null
+                    uswp02usi004: null
+                    uswp02usi006: null
+                    uswp02usi008: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp02usk:
+              children:
+                uswp02uska:
+                  hosts:
+                    uswp02usk001: null
+                    uswp02usk003: null
+                uswp02uskb:
+                  hosts:
+                    uswp02usk002: null
+                    uswp02usk004: null
+              vars:
+                services:
+                - httpd
+                - tomcat
+            uswp02usl:
+              children:
+                uswp02usla:
+                  hosts:
+                    uswp02usl001: null
+                    uswp02usl003: null
+                    uswp02usl005: null
+                    uswp02usl007: null
+                    uswp02usl009: null
+                    uswp02usl011: null
+                    uswp02usl013: null
+                    uswp02usl015: null
+                uswp02uslb:
+                  hosts:
+                    uswp02usl002: null
+                    uswp02usl004: null
+                    uswp02usl006: null
+                    uswp02usl008: null
+                    uswp02usl010: null
+                    uswp02usl012: null
+                    uswp02usl014: null
+                    uswp02usl016: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp02uso:
+              children:
+                uswp02usoa:
+                  hosts:
+                    uswp02uso001: null
+                    uswp02uso003: null
+                uswp02usob:
+                  hosts:
+                    uswp02uso002: null
+                    uswp02uso004: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp02usp:
+              children:
+                uswp02uspa:
+                  hosts:
+                    uswp02usp001: null
+                    uswp02usp003: null
+                uswp02uspb:
+                  hosts:
+                    uswp02usp002: null
+                    uswp02usp004: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp02usr:
+              children:
+                uswp02usra:
+                  hosts:
+                    uswp02usr001: null
+                    uswp02usr003: null
+                    uswp02usr005: null
+                uswp02usrb:
+                  hosts:
+                    uswp02usr002: null
+                    uswp02usr004: null
+                    uswp02usr006: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp02uss:
+              children:
+                uswp02ussa:
+                  hosts:
+                    uswp02uss001: null
+                    uswp02uss003: null
+                uswp02ussb:
+                  hosts:
+                    uswp02uss002: null
+                    uswp02uss004: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp02ust:
+              children:
+                uswp02usta:
+                  hosts:
+                    uswp02ust005: null
+                    uswp02ust007: null
+                    uswp02ust009: null
+                    uswp02ust011: null
+                uswp02ustb:
+                  hosts:
+                    uswp02ust006: null
+                    uswp02ust008: null
+                    uswp02ust010: null
+                    uswp02ust012: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            uswp02wbh:
+              children:
+                uswp02wbha:
+                  hosts:
+                    uswp02wbh001: null
+                    uswp02wbh003: null
+                uswp02wbhb:
+                  hosts:
+                    uswp02wbh002: null
+                    uswp02wbh004: null
+              vars:
+                services:
+                - bootapp
+            uswp02zkr:
+              children:
+                uswp02zkra:
+                  hosts:
+                    uswp02zkr001: null
+                    uswp02zkr003: null
+                    uswp02zkr005: null
+                uswp02zkrb:
+                  hosts:
+                    uswp02zkr002: null
+                    uswp02zkr004: null
+              vars:
+                services:
+                - zookeeper
+        usws00:
+          children:
+            usws00awx:
+              children:
+                usws00awxa:
+                  hosts:
+                    usws00awx001: null
+                    usws00awx003: null
+                usws00awxb:
+                  hosts:
+                    usws00awx002: null
+                    usws00awx004: null
+              vars:
+                services:
+                - not_defined
+            usws00bas:
+              children:
+                usws00basa:
+                  hosts:
+                    usws00bas001: null
+                usws00basb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usws00cdh:
+              children:
+                usws00cdha:
+                  hosts:
+                    usws00cdh101: null
+                usws00cdhb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usws00cdt:
+              children:
+                usws00cdta:
+                  hosts:
+                    usws00cdt101: null
+                usws00cdtb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usws00clm:
+              children:
+                usws00clma:
+                  hosts:
+                    usws00clm001: null
+                usws00clmb:
+                  hosts:
+                    usws00clm002: null
+              vars:
+                services:
+                - httpd
+            usws00cob:
+              children:
+                usws00coba:
+                  hosts:
+                    usws00cob001: null
+                usws00cobb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+            usws00con:
+              children:
+                usws00cona:
+                  hosts:
+                    usws00con001: null
+                usws00conb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usws00dmc:
+              children:
+                usws00dmca:
+                  hosts:
+                    usws00dmc001: null
+                usws00dmcb:
+                  hosts: {}
+              vars:
+                services:
+                - splunkes
+            usws00drp:
+              children:
+                usws00drpa:
+                  hosts:
+                    usws00drp001: null
+                usws00drpb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usws00egl:
+              children:
+                usws00egla:
+                  hosts:
+                    usws00egl001: null
+                usws00eglb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usws00gua:
+              children:
+                usws00guaa:
+                  hosts:
+                    usws00gua001: null
+                usws00guab:
+                  hosts:
+                    usws00gua002: null
+              vars:
+                services:
+                - guacamole
+            usws00ihf:
+              children:
+                usws00ihfa:
+                  hosts:
+                    usws00ihf001: null
+                usws00ihfb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usws00jem:
+              children:
+                usws00jema:
+                  hosts:
+                    usws00jem001: null
+                    usws00jem101: null
+                usws00jemb:
+                  hosts:
+                    usws00jem102: null
+              vars:
+                services:
+                - httpd
+            usws00jes:
+              children:
+                usws00jesa:
+                  hosts:
+                    usws00jes001: null
+                    usws00jes101: null
+                    usws00jes103: null
+                    usws00jes105: null
+                usws00jesb:
+                  hosts:
+                    usws00jes002: null
+                    usws00jes102: null
+                    usws00jes104: null
+              vars:
+                services:
+                - docker
+            usws00jir:
+              children:
+                usws00jira:
+                  hosts:
+                    usws00jir001: null
+                usws00jirb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+            usws00jmp:
+              children:
+                usws00jmpa:
+                  hosts:
+                    usws00jmp001: null
+                usws00jmpb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usws00mgs:
+              children:
+                usws00mgsa:
+                  hosts:
+                    usws00mgs001: null
+                usws00mgsb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - tomcat
+            usws00mgt:
+              children:
+                usws00mgta:
+                  hosts:
+                    usws00mgt001: null
+                usws00mgtb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+            usws00mgu:
+              children:
+                usws00mgua:
+                  hosts:
+                    usws00mgu003: null
+                usws00mgub:
+                  hosts:
+                    usws00mgu002: null
+              vars:
+                services:
+                - httpd
+            usws00min:
+              children:
+                usws00mina:
+                  hosts:
+                    usws00min001: null
+                usws00minb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usws00mxi:
+              children:
+                usws00mxia:
+                  hosts:
+                    usws00mxi001: null
+                usws00mxib:
+                  hosts: {}
+              vars:
+                services:
+                - postfix
+            usws00nbk:
+              children:
+                usws00nbka:
+                  hosts:
+                    usws00nbk001: null
+                usws00nbkb:
+                  hosts:
+                    usws00nbk002: null
+              vars:
+                services:
+                - not_defined
+            usws00ntp:
+              children:
+                usws00ntpa:
+                  hosts:
+                    usws00ntp001: null
+                usws00ntpb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usws00nxu:
+              children:
+                usws00nxua:
+                  hosts:
+                    usws00nxu001: null
+                usws00nxub:
+                  hosts:
+                    usws00nxu002: null
+              vars:
+                services:
+                - nexus
+            usws00pdb:
+              children:
+                usws00pdba:
+                  hosts: {}
+                usws00pdbb:
+                  hosts:
+                    usws00pdb002: null
+              vars:
+                services:
+                - puppet
+            usws00pup:
+              children:
+                usws00pupa:
+                  hosts:
+                    usws00pup001: null
+                usws00pupb:
+                  hosts: {}
+              vars:
+                services:
+                - puppet
+            usws00qui:
+              children:
+                usws00quia:
+                  hosts:
+                    usws00qui001: null
+                usws00quib:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+            usws00rel:
+              children:
+                usws00rela:
+                  hosts:
+                    usws00rel001: null
+                usws00relb:
+                  hosts:
+                    usws00rel002: null
+              vars:
+                services:
+                - not_defined
+            usws00rss:
+              children:
+                usws00rssa:
+                  hosts:
+                    usws00rss001: null
+                usws00rssb:
+                  hosts:
+                    usws00rss002: null
+              vars:
+                services:
+                - not_defined

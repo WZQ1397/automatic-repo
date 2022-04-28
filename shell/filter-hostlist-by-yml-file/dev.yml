@@ -1,0 +1,2104 @@
+all:
+  children:
+    use:
+      children:
+        usee01:
+          children:
+            usee01aam:
+              children:
+                usee01aama:
+                  hosts:
+                    usee01aam001: null
+                usee01aamb:
+                  hosts: {}
+              vars:
+                services:
+                - docker
+            usee01api:
+              children:
+                usee01apia:
+                  hosts:
+                    usee01api001: null
+                usee01apib:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee01apx:
+              children:
+                usee01apxa:
+                  hosts:
+                    usee01apx001: null
+                usee01apxb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee01bfn:
+              children:
+                usee01bfna:
+                  hosts:
+                    usee01bfn001: null
+                    usee01bfn003: null
+                usee01bfnb:
+                  hosts: {}
+              vars:
+                services:
+                - pm2
+            usee01bfp:
+              children:
+                usee01bfpa:
+                  hosts:
+                    usee01bfp001: null
+                usee01bfpb:
+                  hosts: {}
+              vars:
+                services:
+                - pm2
+            usee01bfs:
+              children:
+                usee01bfsa:
+                  hosts:
+                    usee01bfs001: null
+                usee01bfsb:
+                  hosts: {}
+              vars:
+                services:
+                - pm2
+            usee01bfw:
+              children:
+                usee01bfwa:
+                  hosts:
+                    usee01bfw001: null
+                usee01bfwb:
+                  hosts: {}
+              vars:
+                services:
+                - pm2
+            usee01bfx:
+              children:
+                usee01bfxa:
+                  hosts:
+                    usee01bfx001: null
+                usee01bfxb:
+                  hosts: {}
+              vars:
+                services:
+                - pm2
+            usee01bpe:
+              children:
+                usee01bpea:
+                  hosts:
+                    usee01bpe001: null
+                usee01bpeb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee01bpi:
+              children:
+                usee01bpia:
+                  hosts:
+                    usee01bpi001: null
+                usee01bpib:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee01bpx:
+              children:
+                usee01bpxa:
+                  hosts:
+                    usee01bpx001: null
+                usee01bpxb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee01byx:
+              children:
+                usee01byxa:
+                  hosts:
+                    usee01byx001: null
+                usee01byxb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee01cab:
+              children:
+                usee01caba:
+                  hosts:
+                    usee01cab001: null
+                usee01cabb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - tomcat
+            usee01cat:
+              children:
+                usee01cata:
+                  hosts:
+                    usee01cat001: null
+                usee01catb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee01cbc:
+              children:
+                usee01cbca:
+                  hosts:
+                    usee01cbc001: null
+                    usee01cbc003: null
+                usee01cbcb:
+                  hosts:
+                    usee01cbc002: null
+                    usee01cbc004: null
+              vars:
+                services:
+                - couchbase
+            usee01cfj:
+              children:
+                usee01cfja:
+                  hosts:
+                    usee01cfj001: null
+                usee01cfjb:
+                  hosts: {}
+              vars:
+                services:
+                - coldfusion_httpd
+            usee01cpl:
+              children:
+                usee01cpla:
+                  hosts:
+                    usee01cpl001: null
+                usee01cplb:
+                  hosts: {}
+              vars:
+                services:
+                - bootapp
+            usee01cps:
+              children:
+                usee01cpsa:
+                  hosts:
+                    usee01cps001: null
+                usee01cpsb:
+                  hosts:
+                    usee01cps002: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee01csa:
+              children:
+                usee01csaa:
+                  hosts:
+                    usee01csa001: null
+                usee01csab:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee01csi:
+              children:
+                usee01csia:
+                  hosts:
+                    usee01csi001: null
+                usee01csib:
+                  hosts: {}
+              vars:
+                services:
+                - bootapp
+            usee01dsc:
+              children:
+                usee01dsca:
+                  hosts:
+                    usee01dsc001: null
+                usee01dscb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee01eis:
+              children:
+                usee01eisa:
+                  hosts:
+                    usee01eis001: null
+                usee01eisb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee01exp:
+              children:
+                usee01expa:
+                  hosts:
+                    usee01exp001: null
+                usee01expb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee01fin:
+              children:
+                usee01fina:
+                  hosts:
+                    usee01fin001: null
+                usee01finb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee01ggm:
+              children:
+                usee01ggma:
+                  hosts:
+                    usee01ggm001: null
+                usee01ggmb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee01gpc:
+              children:
+                usee01gpca:
+                  hosts:
+                    usee01gpc001: null
+                usee01gpcb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee01hkf:
+              children:
+                usee01hkfa:
+                  hosts:
+                    usee01hkf001: null
+                    usee01hkf003: null
+                usee01hkfb:
+                  hosts:
+                    usee01hkf002: null
+              vars:
+                services:
+                - kafka
+            usee01hub:
+              children:
+                usee01huba:
+                  hosts:
+                    usee01hub001: null
+                usee01hubb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee01hzk:
+              children:
+                usee01hzka:
+                  hosts:
+                    usee01hzk001: null
+                    usee01hzk003: null
+                usee01hzkb:
+                  hosts:
+                    usee01hzk002: null
+              vars:
+                services:
+                - zookeeper
+            usee01ian:
+              children:
+                usee01iana:
+                  hosts:
+                    usee01ian001: null
+                usee01ianb:
+                  hosts:
+                    usee01ian002: null
+              vars:
+                services:
+                - docker
+            usee01ifn:
+              children:
+                usee01ifna:
+                  hosts:
+                    usee01ifn001: null
+                usee01ifnb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee01ini:
+              children:
+                usee01inia:
+                  hosts:
+                    usee01ini001: null
+                usee01inib:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee01itl:
+              children:
+                usee01itla:
+                  hosts:
+                    usee01itl001: null
+                usee01itlb:
+                  hosts:
+                    usee01itl002: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee01jff:
+              children:
+                usee01jffa:
+                  hosts:
+                    usee01jff001: null
+                usee01jffb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee01job:
+              children:
+                usee01joba:
+                  hosts:
+                    usee01job001: null
+                usee01jobb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee01jod:
+              children:
+                usee01joda:
+                  hosts:
+                    usee01jod001: null
+                usee01jodb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee01jot:
+              children:
+                usee01jota:
+                  hosts:
+                    usee01jot001: null
+                usee01jotb:
+                  hosts: {}
+              vars:
+                services:
+                - tomcat
+            usee01jsp:
+              children:
+                usee01jspa:
+                  hosts:
+                    usee01jsp001: null
+                usee01jspb:
+                  hosts: {}
+              vars:
+                services:
+                - bootapp
+            usee01kfk:
+              children:
+                usee01kfka:
+                  hosts:
+                    usee01kfk001: null
+                    usee01kfk003: null
+                usee01kfkb:
+                  hosts:
+                    usee01kfk002: null
+              vars:
+                services:
+                - kafka
+            usee01ler:
+              children:
+                usee01lera:
+                  hosts:
+                    usee01ler001: null
+                usee01lerb:
+                  hosts: {}
+              vars:
+                services:
+                - docker
+            usee01lgi:
+              children:
+                usee01lgia:
+                  hosts:
+                    usee01lgi001: null
+                usee01lgib:
+                  hosts:
+                    usee01lgi002: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee01lgs:
+              children:
+                usee01lgsa:
+                  hosts:
+                    usee01lgs001: null
+                usee01lgsb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee01mpb:
+              children:
+                usee01mpba:
+                  hosts:
+                    usee01mpb001: null
+                usee01mpbb:
+                  hosts: {}
+              vars:
+                services:
+                - bootapp
+            usee01mpd:
+              children:
+                usee01mpda:
+                  hosts:
+                    usee01mpd001: null
+                usee01mpdb:
+                  hosts: {}
+              vars:
+                services:
+                - bootapp
+            usee01mqb:
+              children:
+                usee01mqba:
+                  hosts:
+                    usee01mqb001: null
+                usee01mqbb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee01mqm:
+              children:
+                usee01mqma:
+                  hosts:
+                    usee01mqm001: null
+                usee01mqmb:
+                  hosts:
+                    usee01mqm002: null
+              vars:
+                services:
+                - mqmbroker
+            usee01myx:
+              children:
+                usee01myxa:
+                  hosts:
+                    usee01myx001: null
+                usee01myxb:
+                  hosts:
+                    usee01myx002: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee01nge:
+              children:
+                usee01ngea:
+                  hosts:
+                    usee01nge001: null
+                usee01ngeb:
+                  hosts: {}
+              vars:
+                services:
+                - openresty
+                - nginxprom
+            usee01ngi:
+              children:
+                usee01ngia:
+                  hosts:
+                    usee01ngi001: null
+                usee01ngib:
+                  hosts: {}
+              vars:
+                services:
+                - openresty
+                - nginxprom
+            usee01pay:
+              children:
+                usee01paya:
+                  hosts:
+                    usee01pay001: null
+                usee01payb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee01pdf:
+              children:
+                usee01pdfa:
+                  hosts:
+                    usee01pdf001: null
+                usee01pdfb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee01pri:
+              children:
+                usee01pria:
+                  hosts:
+                    usee01pri001: null
+                usee01prib:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - tomcat
+            usee01prt:
+              children:
+                usee01prta:
+                  hosts:
+                    usee01prt001: null
+                usee01prtb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee01psb:
+              children:
+                usee01psba:
+                  hosts:
+                    usee01psb001: null
+                usee01psbb:
+                  hosts: {}
+              vars:
+                services:
+                - bootapp
+            usee01rec:
+              children:
+                usee01reca:
+                  hosts:
+                    usee01rec001: null
+                usee01recb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee01sct:
+              children:
+                usee01scta:
+                  hosts:
+                    usee01sct001: null
+                usee01sctb:
+                  hosts: {}
+              vars:
+                services:
+                - bootapp
+            usee01sic:
+              children:
+                usee01sica:
+                  hosts:
+                    usee01sic001: null
+                usee01sicb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee01sim:
+              children:
+                usee01sima:
+                  hosts:
+                    usee01sim001: null
+                usee01simb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee01sip:
+              children:
+                usee01sipa:
+                  hosts:
+                    usee01sip001: null
+                usee01sipb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee01sla:
+              children:
+                usee01slaa:
+                  hosts:
+                    usee01sla001: null
+                usee01slab:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee01slb:
+              children:
+                usee01slba:
+                  hosts:
+                    usee01slb001: null
+                usee01slbb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee01sli:
+              children:
+                usee01slia:
+                  hosts:
+                    usee01sli001: null
+                usee01slib:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee01slo:
+              children:
+                usee01sloa:
+                  hosts:
+                    usee01slo001: null
+                usee01slob:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee01slx:
+              children:
+                usee01slxa:
+                  hosts:
+                    usee01slx001: null
+                usee01slxb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee01snm:
+              children:
+                usee01snma:
+                  hosts:
+                    usee01snm001: null
+                usee01snmb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee01spa:
+              children:
+                usee01spaa:
+                  hosts:
+                    usee01spa001: null
+                usee01spab:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee01squ:
+              children:
+                usee01squa:
+                  hosts:
+                    usee01squ001: null
+                usee01squb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee01src:
+              children:
+                usee01srca:
+                  hosts:
+                    usee01src001: null
+                usee01srcb:
+                  hosts: {}
+              vars:
+                services:
+                - docker
+            usee01srh:
+              children:
+                usee01srha:
+                  hosts:
+                    usee01srh001: null
+                usee01srhb:
+                  hosts:
+                    usee01srh002: null
+              vars:
+                services:
+                - httpd
+                - tomcat
+            usee01stj:
+              children:
+                usee01stja:
+                  hosts:
+                    usee01stj001: null
+                usee01stjb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee01sts:
+              children:
+                usee01stsa:
+                  hosts:
+                    usee01sts001: null
+                usee01stsb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee01sws:
+              children:
+                usee01swsa:
+                  hosts:
+                    usee01sws001: null
+                usee01swsb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+            usee01tds:
+              children:
+                usee01tdsa:
+                  hosts:
+                    usee01tds001: null
+                usee01tdsb:
+                  hosts: {}
+              vars:
+                services:
+                - bootapp
+            usee01ubs:
+              children:
+                usee01ubsa:
+                  hosts:
+                    usee01ubs001: null
+                    usee01ubs003: null
+                usee01ubsb:
+                  hosts:
+                    usee01ubs002: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee01usb:
+              children:
+                usee01usba:
+                  hosts:
+                    usee01usb001: null
+                usee01usbb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee01usc:
+              children:
+                usee01usca:
+                  hosts:
+                    usee01usc001: null
+                    usee01usc003: null
+                usee01uscb:
+                  hosts:
+                    usee01usc002: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee01usi:
+              children:
+                usee01usia:
+                  hosts:
+                    usee01usi001: null
+                usee01usib:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee01usk:
+              children:
+                usee01uska:
+                  hosts:
+                    usee01usk001: null
+                    usee01usk003: null
+                usee01uskb:
+                  hosts:
+                    usee01usk002: null
+              vars:
+                services:
+                - httpd
+                - tomcat
+            usee01usl:
+              children:
+                usee01usla:
+                  hosts:
+                    usee01usl001: null
+                    usee01usl003: null
+                usee01uslb:
+                  hosts:
+                    usee01usl002: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee01uso:
+              children:
+                usee01usoa:
+                  hosts:
+                    usee01uso001: null
+                    usee01uso003: null
+                usee01usob:
+                  hosts:
+                    usee01uso002: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee01usp:
+              children:
+                usee01uspa:
+                  hosts:
+                    usee01usp003: null
+                usee01uspb:
+                  hosts:
+                    usee01usp002: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee01usr:
+              children:
+                usee01usra:
+                  hosts:
+                    usee01usr001: null
+                usee01usrb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee01uss:
+              children:
+                usee01ussa:
+                  hosts:
+                    usee01uss001: null
+                    usee01uss003: null
+                usee01ussb:
+                  hosts:
+                    usee01uss002: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee01ust:
+              children:
+                usee01usta:
+                  hosts:
+                    usee01ust001: null
+                    usee01ust003: null
+                usee01ustb:
+                  hosts:
+                    usee01ust002: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee01uxp:
+              children:
+                usee01uxpa:
+                  hosts:
+                    usee01uxp001: null
+                usee01uxpb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee01wbh:
+              children:
+                usee01wbha:
+                  hosts:
+                    usee01wbh001: null
+                usee01wbhb:
+                  hosts: {}
+              vars:
+                services:
+                - bootapp
+            usee01zkr:
+              children:
+                usee01zkra:
+                  hosts:
+                    usee01zkr001: null
+                    usee01zkr003: null
+                usee01zkrb:
+                  hosts:
+                    usee01zkr002: null
+              vars:
+                services:
+                - zookeeper
+        usee02:
+          children:
+            usee02aam:
+              children:
+                usee02aama:
+                  hosts:
+                    usee02aam001: null
+                usee02aamb:
+                  hosts: {}
+              vars:
+                services:
+                - docker
+            usee02api:
+              children:
+                usee02apia:
+                  hosts:
+                    usee02api001: null
+                usee02apib:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee02apx:
+              children:
+                usee02apxa:
+                  hosts:
+                    usee02apx001: null
+                usee02apxb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee02bfn:
+              children:
+                usee02bfna:
+                  hosts:
+                    usee02bfn001: null
+                usee02bfnb:
+                  hosts: {}
+              vars:
+                services:
+                - pm2
+            usee02bfp:
+              children:
+                usee02bfpa:
+                  hosts:
+                    usee02bfp001: null
+                usee02bfpb:
+                  hosts: {}
+              vars:
+                services:
+                - pm2
+            usee02bfs:
+              children:
+                usee02bfsa:
+                  hosts:
+                    usee02bfs001: null
+                usee02bfsb:
+                  hosts: {}
+              vars:
+                services:
+                - pm2
+            usee02bfw:
+              children:
+                usee02bfwa:
+                  hosts:
+                    usee02bfw001: null
+                usee02bfwb:
+                  hosts: {}
+              vars:
+                services:
+                - pm2
+            usee02bfx:
+              children:
+                usee02bfxa:
+                  hosts:
+                    usee02bfx001: null
+                usee02bfxb:
+                  hosts: {}
+              vars:
+                services:
+                - pm2
+            usee02bpe:
+              children:
+                usee02bpea:
+                  hosts:
+                    usee02bpe001: null
+                usee02bpeb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee02bpi:
+              children:
+                usee02bpia:
+                  hosts:
+                    usee02bpi001: null
+                usee02bpib:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee02bpx:
+              children:
+                usee02bpxa:
+                  hosts:
+                    usee02bpx001: null
+                usee02bpxb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee02byx:
+              children:
+                usee02byxa:
+                  hosts:
+                    usee02byx001: null
+                usee02byxb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee02cab:
+              children:
+                usee02caba:
+                  hosts:
+                    usee02cab001: null
+                usee02cabb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - tomcat
+            usee02cat:
+              children:
+                usee02cata:
+                  hosts:
+                    usee02cat001: null
+                usee02catb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee02cbc:
+              children:
+                usee02cbca:
+                  hosts:
+                    usee02cbc001: null
+                    usee02cbc003: null
+                usee02cbcb:
+                  hosts:
+                    usee02cbc002: null
+              vars:
+                services:
+                - couchbase
+            usee02cfj:
+              children:
+                usee02cfja:
+                  hosts:
+                    usee02cfj001: null
+                usee02cfjb:
+                  hosts: {}
+              vars:
+                services:
+                - coldfusion_httpd
+            usee02cpl:
+              children:
+                usee02cpla:
+                  hosts:
+                    usee02cpl001: null
+                usee02cplb:
+                  hosts: {}
+              vars:
+                services:
+                - bootapp
+            usee02cps:
+              children:
+                usee02cpsa:
+                  hosts:
+                    usee02cps001: null
+                usee02cpsb:
+                  hosts:
+                    usee02cps002: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee02csa:
+              children:
+                usee02csaa:
+                  hosts:
+                    usee02csa001: null
+                usee02csab:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee02csi:
+              children:
+                usee02csia:
+                  hosts:
+                    usee02csi001: null
+                usee02csib:
+                  hosts: {}
+              vars:
+                services:
+                - bootapp
+            usee02dsc:
+              children:
+                usee02dsca:
+                  hosts:
+                    usee02dsc001: null
+                usee02dscb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee02eis:
+              children:
+                usee02eisa:
+                  hosts:
+                    usee02eis001: null
+                usee02eisb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee02exp:
+              children:
+                usee02expa:
+                  hosts:
+                    usee02exp001: null
+                usee02expb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee02ggm:
+              children:
+                usee02ggma:
+                  hosts:
+                    usee02ggm001: null
+                usee02ggmb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee02hkf:
+              children:
+                usee02hkfa:
+                  hosts:
+                    usee02hkf001: null
+                    usee02hkf003: null
+                usee02hkfb:
+                  hosts:
+                    usee02hkf002: null
+              vars:
+                services:
+                - kafka
+            usee02hub:
+              children:
+                usee02huba:
+                  hosts:
+                    usee02hub001: null
+                usee02hubb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee02hzk:
+              children:
+                usee02hzka:
+                  hosts:
+                    usee02hzk001: null
+                    usee02hzk003: null
+                usee02hzkb:
+                  hosts:
+                    usee02hzk002: null
+              vars:
+                services:
+                - zookeeper
+            usee02ian:
+              children:
+                usee02iana:
+                  hosts:
+                    usee02ian001: null
+                usee02ianb:
+                  hosts:
+                    usee02ian002: null
+              vars:
+                services:
+                - docker
+            usee02ini:
+              children:
+                usee02inia:
+                  hosts:
+                    usee02ini001: null
+                usee02inib:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee02itl:
+              children:
+                usee02itla:
+                  hosts:
+                    usee02itl001: null
+                usee02itlb:
+                  hosts:
+                    usee02itl002: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee02jff:
+              children:
+                usee02jffa:
+                  hosts:
+                    usee02jff001: null
+                usee02jffb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee02job:
+              children:
+                usee02joba:
+                  hosts:
+                    usee02job001: null
+                usee02jobb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee02jod:
+              children:
+                usee02joda:
+                  hosts:
+                    usee02jod001: null
+                usee02jodb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee02jot:
+              children:
+                usee02jota:
+                  hosts:
+                    usee02jot001: null
+                usee02jotb:
+                  hosts: {}
+              vars:
+                services:
+                - tomcat
+            usee02jsp:
+              children:
+                usee02jspa:
+                  hosts:
+                    usee02jsp001: null
+                usee02jspb:
+                  hosts: {}
+              vars:
+                services:
+                - bootapp
+            usee02kfk:
+              children:
+                usee02kfka:
+                  hosts:
+                    usee02kfk001: null
+                    usee02kfk003: null
+                usee02kfkb:
+                  hosts:
+                    usee02kfk002: null
+              vars:
+                services:
+                - kafka
+            usee02ler:
+              children:
+                usee02lera:
+                  hosts:
+                    usee02ler001: null
+                usee02lerb:
+                  hosts: {}
+              vars:
+                services:
+                - docker
+            usee02lgi:
+              children:
+                usee02lgia:
+                  hosts:
+                    usee02lgi001: null
+                usee02lgib:
+                  hosts:
+                    usee02lgi002: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee02lgs:
+              children:
+                usee02lgsa:
+                  hosts:
+                    usee02lgs001: null
+                usee02lgsb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee02mpb:
+              children:
+                usee02mpba:
+                  hosts:
+                    usee02mpb001: null
+                usee02mpbb:
+                  hosts: {}
+              vars:
+                services:
+                - bootapp
+            usee02mpd:
+              children:
+                usee02mpda:
+                  hosts:
+                    usee02mpd001: null
+                usee02mpdb:
+                  hosts: {}
+              vars:
+                services:
+                - bootapp
+            usee02mqb:
+              children:
+                usee02mqba:
+                  hosts:
+                    usee02mqb001: null
+                usee02mqbb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee02mqm:
+              children:
+                usee02mqma:
+                  hosts:
+                    usee02mqm001: null
+                usee02mqmb:
+                  hosts:
+                    usee02mqm002: null
+              vars:
+                services:
+                - mqmbroker
+            usee02myx:
+              children:
+                usee02myxa:
+                  hosts:
+                    usee02myx001: null
+                usee02myxb:
+                  hosts:
+                    usee02myx002: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee02nge:
+              children:
+                usee02ngea:
+                  hosts:
+                    usee02nge001: null
+                usee02ngeb:
+                  hosts: {}
+              vars:
+                services:
+                - openresty
+                - nginxprom
+            usee02ngi:
+              children:
+                usee02ngia:
+                  hosts:
+                    usee02ngi001: null
+                usee02ngib:
+                  hosts: {}
+              vars:
+                services:
+                - openresty
+                - nginxprom
+            usee02pay:
+              children:
+                usee02paya:
+                  hosts:
+                    usee02pay001: null
+                usee02payb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee02pdf:
+              children:
+                usee02pdfa:
+                  hosts:
+                    usee02pdf001: null
+                usee02pdfb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee02pds:
+              children:
+                usee02pdsa:
+                  hosts:
+                    usee02pds001: null
+                usee02pdsb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+            usee02pri:
+              children:
+                usee02pria:
+                  hosts:
+                    usee02pri001: null
+                usee02prib:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - tomcat
+            usee02prt:
+              children:
+                usee02prta:
+                  hosts:
+                    usee02prt001: null
+                usee02prtb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee02psb:
+              children:
+                usee02psba:
+                  hosts:
+                    usee02psb001: null
+                usee02psbb:
+                  hosts: {}
+              vars:
+                services:
+                - bootapp
+            usee02rec:
+              children:
+                usee02reca:
+                  hosts:
+                    usee02rec001: null
+                usee02recb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee02sct:
+              children:
+                usee02scta:
+                  hosts:
+                    usee02sct001: null
+                usee02sctb:
+                  hosts: {}
+              vars:
+                services:
+                - bootapp
+            usee02sic:
+              children:
+                usee02sica:
+                  hosts:
+                    usee02sic001: null
+                usee02sicb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee02sim:
+              children:
+                usee02sima:
+                  hosts:
+                    usee02sim001: null
+                usee02simb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee02sip:
+              children:
+                usee02sipa:
+                  hosts:
+                    usee02sip001: null
+                usee02sipb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee02sla:
+              children:
+                usee02slaa:
+                  hosts:
+                    usee02sla001: null
+                usee02slab:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee02slb:
+              children:
+                usee02slba:
+                  hosts:
+                    usee02slb001: null
+                usee02slbb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee02sli:
+              children:
+                usee02slia:
+                  hosts:
+                    usee02sli001: null
+                usee02slib:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee02slo:
+              children:
+                usee02sloa:
+                  hosts:
+                    usee02slo001: null
+                usee02slob:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee02slx:
+              children:
+                usee02slxa:
+                  hosts:
+                    usee02slx001: null
+                usee02slxb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee02snm:
+              children:
+                usee02snma:
+                  hosts:
+                    usee02snm001: null
+                usee02snmb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee02spa:
+              children:
+                usee02spaa:
+                  hosts:
+                    usee02spa001: null
+                usee02spab:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee02squ:
+              children:
+                usee02squa:
+                  hosts:
+                    usee02squ001: null
+                usee02squb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee02src:
+              children:
+                usee02srca:
+                  hosts:
+                    usee02src001: null
+                usee02srcb:
+                  hosts: {}
+              vars:
+                services:
+                - docker
+            usee02srh:
+              children:
+                usee02srha:
+                  hosts:
+                    usee02srh001: null
+                usee02srhb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - tomcat
+            usee02stj:
+              children:
+                usee02stja:
+                  hosts:
+                    usee02stj001: null
+                usee02stjb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee02sts:
+              children:
+                usee02stsa:
+                  hosts:
+                    usee02sts001: null
+                usee02stsb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee02sws:
+              children:
+                usee02swsa:
+                  hosts:
+                    usee02sws001: null
+                usee02swsb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+            usee02tds:
+              children:
+                usee02tdsa:
+                  hosts:
+                    usee02tds001: null
+                usee02tdsb:
+                  hosts: {}
+              vars:
+                services:
+                - bootapp
+            usee02ubs:
+              children:
+                usee02ubsa:
+                  hosts:
+                    usee02ubs001: null
+                    usee02ubs003: null
+                usee02ubsb:
+                  hosts:
+                    usee02ubs002: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee02usb:
+              children:
+                usee02usba:
+                  hosts:
+                    usee02usb001: null
+                usee02usbb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee02usc:
+              children:
+                usee02usca:
+                  hosts:
+                    usee02usc001: null
+                    usee02usc003: null
+                usee02uscb:
+                  hosts:
+                    usee02usc002: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee02usi:
+              children:
+                usee02usia:
+                  hosts:
+                    usee02usi001: null
+                usee02usib:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee02usk:
+              children:
+                usee02uska:
+                  hosts:
+                    usee02usk001: null
+                    usee02usk003: null
+                usee02uskb:
+                  hosts:
+                    usee02usk002: null
+              vars:
+                services:
+                - httpd
+                - tomcat
+            usee02usl:
+              children:
+                usee02usla:
+                  hosts:
+                    usee02usl001: null
+                    usee02usl003: null
+                usee02uslb:
+                  hosts:
+                    usee02usl002: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee02uso:
+              children:
+                usee02usoa:
+                  hosts:
+                    usee02uso001: null
+                    usee02uso003: null
+                usee02usob:
+                  hosts:
+                    usee02uso002: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee02usp:
+              children:
+                usee02uspa:
+                  hosts:
+                    usee02usp001: null
+                    usee02usp003: null
+                usee02uspb:
+                  hosts:
+                    usee02usp002: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee02usr:
+              children:
+                usee02usra:
+                  hosts:
+                    usee02usr001: null
+                usee02usrb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee02uss:
+              children:
+                usee02ussa:
+                  hosts:
+                    usee02uss001: null
+                    usee02uss003: null
+                usee02ussb:
+                  hosts:
+                    usee02uss002: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee02ust:
+              children:
+                usee02usta:
+                  hosts:
+                    usee02ust001: null
+                    usee02ust003: null
+                usee02ustb:
+                  hosts:
+                    usee02ust002: null
+              vars:
+                services:
+                - httpd
+                - jboss
+            usee02uxp:
+              children:
+                usee02uxpa:
+                  hosts:
+                    usee02uxp001: null
+                usee02uxpb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            usee02wbh:
+              children:
+                usee02wbha:
+                  hosts:
+                    usee02wbh001: null
+                usee02wbhb:
+                  hosts: {}
+              vars:
+                services:
+                - bootapp
+            usee02zkr:
+              children:
+                usee02zkra:
+                  hosts:
+                    usee02zkr001: null
+                    usee02zkr003: null
+                usee02zkrb:
+                  hosts:
+                    usee02zkr002: null
+              vars:
+                services:
+                - zookeeper
+        uses01:
+          children:
+            uses01awx:
+              children:
+                uses01awxa:
+                  hosts:
+                    uses01awx001: null
+                uses01awxb:
+                  hosts:
+                    uses01awx002: null
+              vars:
+                services:
+                - not_defined
+            uses01cdh:
+              children:
+                uses01cdha:
+                  hosts:
+                    uses01cdh101: null
+                uses01cdhb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            uses01cdt:
+              children:
+                uses01cdta:
+                  hosts:
+                    uses01cdt101: null
+                uses01cdtb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            uses01cob:
+              children:
+                uses01coba:
+                  hosts:
+                    uses01cob001: null
+                uses01cobb:
+                  hosts:
+                    uses01cob002: null
+              vars:
+                services:
+                - httpd
+            uses01con:
+              children:
+                uses01cona:
+                  hosts:
+                    uses01con001: null
+                uses01conb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            uses01dvo:
+              children:
+                uses01dvoa:
+                  hosts:
+                    uses01dvo015: null
+                uses01dvob:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            uses01egl:
+              children:
+                uses01egla:
+                  hosts:
+                    uses01egl001: null
+                uses01eglb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            uses01fud:
+              children:
+                uses01fuda:
+                  hosts:
+                    uses01fud001: null
+                uses01fudb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            uses01jem:
+              children:
+                uses01jema:
+                  hosts:
+                    uses01jem001: null
+                    uses01jem101: null
+                uses01jemb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+            uses01jes:
+              children:
+                uses01jesa:
+                  hosts:
+                    uses01jes001: null
+                    uses01jes003: null
+                    uses01jes005: null
+                uses01jesb:
+                  hosts:
+                    uses01jes002: null
+                    uses01jes004: null
+              vars:
+                services:
+                - docker
+            uses01jir:
+              children:
+                uses01jira:
+                  hosts:
+                    uses01jir001: null
+                uses01jirb:
+                  hosts: {}
+              vars:
+                services:
+                - httpd
+            uses01map:
+              children:
+                uses01mapa:
+                  hosts:
+                    uses01map001: null
+                uses01mapb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            uses01mgt:
+              children:
+                uses01mgta:
+                  hosts:
+                    uses01mgt001: null
+                uses01mgtb:
+                  hosts:
+                    uses01mgt002: null
+              vars:
+                services:
+                - httpd
+            uses01min:
+              children:
+                uses01mina:
+                  hosts:
+                    uses01min001: null
+                uses01minb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            uses01mxi:
+              children:
+                uses01mxia:
+                  hosts:
+                    uses01mxi001: null
+                uses01mxib:
+                  hosts:
+                    uses01mxi002: null
+              vars:
+                services:
+                - postfix
+            uses01niq:
+              children:
+                uses01niqa:
+                  hosts:
+                    uses01niq001: null
+                uses01niqb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            uses01pdb:
+              children:
+                uses01pdba:
+                  hosts:
+                    uses01pdb001: null
+                uses01pdbb:
+                  hosts:
+                    uses01pdb002: null
+              vars:
+                services:
+                - puppet
+            uses01prm:
+              children:
+                uses01prma:
+                  hosts:
+                    uses01prm001: null
+                uses01prmb:
+                  hosts: {}
+              vars:
+                services:
+                - bootapp
+            uses01pup:
+              children:
+                uses01pupa:
+                  hosts:
+                    uses01pup001: null
+                    uses01pup099: null
+                uses01pupb:
+                  hosts:
+                    uses01pup002: null
+                    uses01pup200: null
+              vars:
+                services:
+                - puppet
+            uses01rep:
+              children:
+                uses01repa:
+                  hosts:
+                    uses01rep001: null
+                uses01repb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            uses01sre:
+              children:
+                uses01srea:
+                  hosts:
+                    uses01sre001: null
+                uses01sreb:
+                  hosts: {}
+              vars:
+                services:
+                - not_defined
+            uses01tlk:
+              children:
+                uses01tlka:
+                  hosts: {}
+                uses01tlkb:
+                  hosts:
+                    uses01tlk002: null
+              vars:
+                services:
+                - not_defined
