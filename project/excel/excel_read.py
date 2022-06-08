@@ -1,7 +1,4 @@
 # -*- conding:utf-8 -*-
-__author__ = 'mayi'
-# How to read from an Excel using xlrd module
-import xlrd
 xls_file = "name.xls"
 book = xlrd.open_workbook(xls_file)
 sheet1 = book.sheet_by_index(0)
@@ -15,8 +12,11 @@ sheet1 = book.sheet_by_index(0)
 # 总行数
 nrows = sheet1.nrows
 #总列数
+
 ncols = sheet1.ncols
 # 遍历打印表中的内容
+
+
 for i in range(nrows):
     for j in range(ncols):
         cell_value = sheet1.cell_value(i, j)
